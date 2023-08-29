@@ -2294,7 +2294,7 @@ UIS.InputBegan:Connect(function(input)
 end)
             end
         })
-JogadorTab:AddButton({
+CarroTab:AddButton({
 	Name = "Comprar Fusca Cda - Sem ter Money",
 	Callback = function()
         local args = {
