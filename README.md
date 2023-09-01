@@ -1,10 +1,10 @@
 -----------------Pedroxz Menu V2--------------
-    --Loader
+    --Carregador do script V2
     local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
     
-    --Config Geral
-    local Window = OrionLib:MakeWindow({Name = "😈 Pedroxz Menu V2 😈", HidePremium = false, SaveConfig = true, IntroEnabled = false})
-    local Window = OrionLib:MakeWindow({Name = "😈 Pedroxz Menu V2 😈", HidePremium = false, SaveConfig = true, IntroEnabled = false})
+    --Config do Script
+    local Window = OrionLib:MakeWindow({Name = "👾 Pedroxz Menu V2 Beta 👾", HidePremium = false, SaveConfig = true, IntroEnabled = false})
+    local Window = OrionLib:MakeWindow({Name = "👾 Pedroxz Menu V2 Beta 👾", HidePremium = false, SaveConfig = true, IntroEnabled = false})
     local Player = game.Players.LocalPlayer
 
     OrionLib:MakeNotification({
@@ -14,7 +14,7 @@
         Time = 5
     })
 
-    --Valor funcional
+    --Valores _G. Para desativar ou desativar ou parte da key/texto
     _G.Aimbot = true
     _G.Loop = true
     _G.Key = "HypePHX"
@@ -70,7 +70,7 @@
         PremiumOnly = false      
     })    
     KeyTab:AddTextbox({
-        Name = "Key Menu Troll",
+        Name = "Key Menu Troll (Beta)",
         Default = "Coloque a key aqui!",
         TextDisappear = true,
         Callback = function(Value)
@@ -140,7 +140,7 @@
         PremiumOnly = false                        
     })    
     local AdmTab = Window:MakeTab({
-        Name = "Adm",
+        Name = "Staff",
         Icon = "rbxassetid://4483345998",
         PremiumOnly = false    
     })    
@@ -351,6 +351,9 @@ CarroTab:AddButton({
         })
   	end    
 })
+local Section = CarroTab:AddSection({
+	Name = "Puxador"
+})
 CarroTab:AddButton({
 	Name = "Puxar Fusca - Cidade Alta",
 	Callback = function()
@@ -440,6 +443,9 @@ CarroTab:AddButton({
                 :lock()
             })        
   	end    
+})
+local Section = CarroTab:AddSection({
+	Name = "Option Veiculo"
 })
 CarroTab:AddButton({
 	Name = "God Mode Veiculo",
@@ -641,7 +647,7 @@ CarroTab:AddButton({
   	end    
 })
 local Section = ArmaTab:AddSection({
-	Name = "Ativar/Desativar"
+	Name = "Premium"
 })
 ArmaTab:AddButton({
     Name = "Rapid Fire",
@@ -711,7 +717,7 @@ ArmaTab:AddButton({
   	end    
 })
 local Section = PlayersTab:AddSection({
-	Name = "Exclusivo"
+	Name = "ACS Hub"
     })
     PlayersTab:AddButton({
         Name = "Parvus Hub",
@@ -728,6 +734,9 @@ loadstring(game:HttpGet(Source .. "Loader.lua"),"Loader")(Branch,NotificationTim
             loadstring(game:HttpGet("https://raw.githubusercontent.com/StoneDev47/KLB-HUB---ACS/main/mainhub", true))()
           end
     })
+local Section = PlayersTab:AddSection({
+	Name = "Crashers"
+})
     PlayersTab:AddButton({
         Name = "Crash Server 1",
         Callback = function()
@@ -800,7 +809,7 @@ end
         Name = "Troll"
     })
     TrollTab:AddButton({
-        Name = "Chat Spamer GUI (Risco ban na conta!!)",
+        Name = "Chat Spamer GUI",
         Callback = function()
             wait(1)
  
@@ -965,7 +974,7 @@ end)
           end 
         })
     TrollTab:AddButton({
-        Name = "Lag server (Funcionando em algums rp/eb)",
+        Name = "Lag server Modulos",
         Callback = function()
             loadstring(game:HttpGet(("https://raw.githubusercontent.com/GameLeaks2/RobloxScripts/main/CrashServer"),true))()
           end   
@@ -1007,7 +1016,7 @@ plrTab:AddButton({
       end   
     })
     TrollTab:AddButton({
-        Name = "Hub Com Op Trolls - Funcionando em algums eb/rp",
+        Name = "Hub Com Op Trolls",
         Callback = function()
             loadstring(game:HttpGet("https://raw.githubusercontent.com/Arthurkla/teste/main/ViethinScript2", true))()
           end   
@@ -1019,7 +1028,7 @@ plrTab:AddButton({
           end   
         })
     TrollTab:AddButton({
-        Name = "Crashar server (Ilha bela RP) - Risco",
+        Name = "Crashar server - Risco",
         Callback = function()
             loadstring(game:HttpGet('https://bifao.tech/scripts/ilhabela.lol'))()
           end   
@@ -1037,7 +1046,9 @@ TrollTab:AddButton({
 		end
   	end    
 })
-
+local Section = PlayersTab:AddSection({
+	Name = "Cheat"
+})
     PlayersTab:AddButton({
         Name = "Filter Console",
         Callback = function()
@@ -1114,7 +1125,7 @@ local Section = TrollTab:AddSection({
 	Name = "Pedroxz Menu Exclusive Options Troll"
 })
     TrollTab:AddButton({
-        Name = "Puxar geral - Risco",
+        Name = "Puxar Geral Bypass",
         Callback = function()
             loadstring(game:HttpGet(("https://raw.githubusercontent.com/GameLeaks2/RobloxScripts/main/BRING%20ALL%20-%20EB'S"),true))()
           end  
@@ -1501,7 +1512,7 @@ v2:ApplyToTab(v9["UI Settings"]);
           end 
         })
     TrollTab:AddButton({
-        Name = "Tacar som - Risco",
+        Name = "Colocar Som Mapa - Id",
         Callback = function()
             --// AC6_Sound and Lights_FE, AC6_Sound faz voce colocar som no jogo, Lights_FE faz voce pintar o mapa e mudar a transparencia da part
 local lib =  loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Consistt/Ui/main/UnLeaked"))()
@@ -1568,7 +1579,7 @@ end)
           end  
         })
     TrollTab:AddButton({
-        Name = "Spamar mensagem (Celular) Roleplay brasil Season 1",
+        Name = "Spamar mensagem (Risco) Roleplay brasil Season 1",
         Callback = function()
             local remotao = game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EnviarMenssagem")
 local players = game:GetService("Players"):GetPlayers() -- vc pode mudar aq se quiser so pra 1 player em especifico
@@ -1593,7 +1604,7 @@ end
           end  
         })
     TrollTab:AddButton({
-        Name = "Matar geral - Português Troca de Tiros RJ (Arma)",
+        Name = "Matar geral - Português Troca de Tiros RJ",
         Callback = function()
             local player = game.Players.LocalPlayer
 
@@ -1902,7 +1913,7 @@ coroutine.wrap(LHMZZV_fake_script)()
           end           
         })       
     TrollTab:AddButton({
-        Name = "Btools - Clique apagar",
+        Name = "Btools - Risco Detect Adonis Admin",
         Callback = function()
             -- Made by ILoveCats9030
 -- Version: 1.3
@@ -1996,7 +2007,7 @@ local Section = HubTab:AddSection({
           end                 
         })
     HubTab:AddButton({
-        Name = "Explode (HUB) - Risco kick",
+        Name = "Explode Hub - Risco kick",
         Callback = function()
             _G.AutoEquip = true --se vc for usar arma de gamepass deixa isso como false
             loadstring(game:HttpGet(("https://raw.githubusercontent.com/GameLeaks2/RobloxScripts/main/KILL%20ALL"),true))()
@@ -5223,6 +5234,12 @@ local Section = PlayersTab:AddSection({
 game:GetService("ReplicatedStorage").Remotes.Dispositivo:FireServer("Discreto") game.Players.LocalPlayer.Character:BreakJoints()
           end    
 })
+    PlayersTab:AddButton({
+        Name = "Admin Showcase",
+        Callback = function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/fatesc/fates-admin/main/main.lua"))()
+          end    
+})
 PlayersTab:AddButton({
 	Name = "+18 Troll",
 	Callback = function()
@@ -5277,13 +5294,16 @@ game.StarterGui:SetCore("SendNotification", {
           end        
     })
 PlayersTab:AddButton({
-	Name = "Puxar Dinheiro 3 (Click)",
+	Name = "Puxar Dinheiro 3 Possui Bypass",
 	Callback = function()
       		local Player = game.Players.LocalPlayer
 local Dinheiro = Player.leaderstats.Dinheiro
 
 Dinheiro.Value = 99999999
   	end    
+})
+local Section = MenusTab:AddSection({
+	Name = "Melhores"
 })
     MenusTab:AddButton({
         Name = "Infinite yield",
@@ -5307,7 +5327,10 @@ Dinheiro.Value = 99999999
         Name = "Pedroxz Hub Troll",
         Callback = function()
             loadstring(game:HttpGet"https://raw.githubusercontent.com/Pedroxz63/HubTrollPedroxz63/main/README.md")()
-          end     
+          end  
+    })
+    local Section = MenusTab:AddSection({
+        Name = "Full Troll"
     })
     MenusTab:AddButton({
         Name = "Full troll Hub - RP do @weeyssom (se brincar funciona em outros)",
@@ -5803,19 +5826,24 @@ MenusTab:AddButton({
           end      
 })
     AdmTab:AddButton({
-        Name = "Puxar Adonis ADMIN (beta)",
+        Name = "Puxar Adonis Staff (beta) - Metodo",
         Callback = function()
-            loadstring(game:HttpGetAsync("https://pastebin.com/raw/dsasdasd"))()
+            wait(0.2)
+game.StarterGui:SetCore("SendNotification", {
+Title = "Como puxar adonis?"; 
+Text = "Peca a algum admin que nao seja mod, fala que perdeu a patente e admin ou outra coisa, que ai ele vai dar";
+Duration = 5; 
+})
           end    
     })
     AdmTab:AddButton({
-        Name = "logs ADM - Tem Bypass Pode usar Tranquilo",
+        Name = "logs Staff - Tem Bypass Pode usar Tranquilo",
         Callback = function()
             loadstring(game:HttpGet("https://pastebin.com/raw/stggPUBM", true))()
           end       
         })
 local Section = BypassTab:AddSection({
-	Name = "Painel Anti detecter - Nem faz tanto Milagre"
+	Name = "Painel Anti detecter - Nem faz tanto Milagre Avisando"
 })
     BypassTab:AddButton({
         Name = "Bypass Stopper V1",
