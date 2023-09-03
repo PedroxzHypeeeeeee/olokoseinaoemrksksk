@@ -17,7 +17,7 @@
     --Valores _G. Para desativar ou desativar ou parte da key/texto
     _G.Aimbot = true
     _G.Loop = true
-    _G.Key = "HypePHX"
+    _G.Key = "phxtroll"
     _G.KeyInput = "string"
 
     --Funcao do Serial Killer loop by pedroxz
@@ -355,7 +355,7 @@ local Section = CarroTab:AddSection({
 	Name = "Puxador"
 })
 CarroTab:AddButton({
-	Name = "Puxar Fusca - Cidade Alta",
+	Name = "Puxar Fucas - Cidade Alta",
 	Callback = function()
         local args = {
             [1] = "spawner",
@@ -1996,7 +1996,20 @@ end)
         Callback = function(Value)
             game.Players.LocalPlayer.Character.Humanoid.JumpPower = Value               
             end
-        })        
+        })       
+TrollTab:AddButton({
+	Name = "Drop Money Lag - Vida No Para",
+	Callback = function()
+        local args = {
+            [1] = game:GetService("Players").LocalPlayer.PlayerGui["DropDinheiro by AliGameDeveloper"].Main.Frame.Drop,
+            [2] = 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.5,
+            [3] = game:GetService("Players").LocalPlayer.Character
+        }
+        
+        game:GetService("ReplicatedStorage").DropMoney:FireServer(unpack(args))
+        wait(000000.5)
+  	end    
+}) 
 local Section = HubTab:AddSection({
 	Name = "Hub Trolls"
 })
@@ -2013,6 +2026,9 @@ local Section = HubTab:AddSection({
             loadstring(game:HttpGet(("https://raw.githubusercontent.com/GameLeaks2/RobloxScripts/main/KILL%20ALL"),true))()
           end        
         })
+local Section = HubTab:AddSection({
+	Name = "Outros"
+})
     HubTab:AddButton({
         Name = "Regime militar - Simulador militar (Gun)",
         Callback = function()
@@ -2085,13 +2101,8 @@ JogadorTab:AddButton({
         JogadorTab:AddButton({
             Name = "Auto JJs",
             Callback = function()
-                local Options = {
-                    Keybind = '0', --> Keybind para mostrar/esconder a UI, mais informações sobre KeyCode: https://create.roblox.com/docs/reference/engine/enums/KeyCode
-                    Language = 'pt-br', --> Alterar a linguagem dos textos, disponívels: pt-br, en-us
-                    Rainbow = true, --> Deixar a UI mais colorida (true/false)
-                };
-                loadstring(game:HttpGet('https://raw.githubusercontent.com/Zv-yz/AutoJJs/main/Main.lua'))(Options);
-                
+                _G.Jump = true 
+    loadstring(game:HttpGet(("https://raw.githubusercontent.com/GameLeaks2/RobloxScripts/main/AUTO-JJS%20ALL%20EB.lua"),true))()
               end  
             }) 
 JogadorTab:AddButton({
@@ -2410,7 +2421,7 @@ local Section = JogadorTab:AddSection({
 	Name = "Geral"
 })
     JogadorTab:AddButton({
-        Name = "Control Click TP - Bypass",
+        Name = "Controll TP - Bypass",
         Callback = function()
             local UIS = game:GetService("UserInputService")
  
@@ -2483,7 +2494,7 @@ JogadorTab:AddButton({
   	end    
 })
 CarroTab:AddButton({
-	Name = "Comprar Fusca Cda - Sem ter Money",
+	Name = "Deletar Carro Proximo",
 	Callback = function()
         local args = {
             [1] = "dealership",
@@ -2495,7 +2506,7 @@ CarroTab:AddButton({
   	end    
 })
     JogadorTab:AddButton({
-        Name = "Trigger - Gerar logs",
+        Name = "Trigger",
         Callback = function()
             --[[
     SimpleSpy v2.2 SOURCE
@@ -4690,18 +4701,13 @@ JogadorTab:AddButton({
   	end    
 })
 JogadorTab:AddButton({
-	Name = "Anti Afk Eb Do Tevez",
+	Name = "Anti Afk",
 	Callback = function()
-        local args = {
-            [1] = false
-        }
-        
-        game:GetService("ReplicatedStorage").Remotes.AFK:FireServer(unpack(args))
-        wait(000000.5)
+        loadstring(game:HttpGet(('https://raw.githubusercontent.com/Proxylol/OtherScripts/main/AntiAfk.lua'),true))()
   	end    
 })
 JogadorTab:AddButton({
-	Name = "Fource Reset Eb Do Tevez",
+	Name = "Fource Reset",
 	Callback = function()
         game:GetService("ReplicatedStorage").Remotes.Menu:FireServer()
         wait(000000.5)
@@ -5331,7 +5337,27 @@ PlayersTab:AddButton({
 PlayersTab:AddButton({
 	Name = "Staffs Proximo - Esp",
 	Callback = function()
-      	print("button pressed")
+      	print("Ativado com sucesso!")
+  	end    
+})
+PlayersTab:AddButton({
+	Name = "Sentar Na Cadeira Proxima",
+	Callback = function()
+        local Player = game:GetService("Players").LocalPlayer
+        local Character = Player.Character
+        Character["Right Arm"].Size = Vector3.new(8,5,5)
+        Character["Left Arm"].Size = Vector3.new(8,5,5)
+        Character["Right Arm"].Transparency = 1
+        Character["Left Arm"].Transparency = 1
+        Character["Right Leg"].Size = Vector3.new(63.539, 2, 46.212)
+        Character["Left Leg"].Size = Vector3.new(63.539, 2, 46.212)
+        Character["Right Leg"].Transparency = 1
+        Character["Left Leg"].Transparency = 1
+        Character["Torso"].Size = Vector3.new(5,5,5)
+        Character["Torso"].Transparency = 1
+        Character.HumanoidRootPart.Size = Vector3.new(63.539, 2, 46.212)
+        Character.HumanoidRootPart.Size = Vector3.new(63.539, 2, 46.212)
+        Character.HumanoidRootPart.Transparency = 0.9
   	end    
 })
 local Section = PlayersTab:AddSection({
@@ -5405,7 +5431,7 @@ local Section = MenusTab:AddSection({
         Name = "Full Troll"
     })
     MenusTab:AddButton({
-        Name = "Full troll Hub - RP do @weeyssom (se brincar funciona em outros)",
+        Name = "Full troll Hub - RP do @weeyssom",
         Callback = function()
             --Instances
 local plr = game.Players.LocalPlayer
@@ -5480,7 +5506,7 @@ Titulo.Parent = frame
 Titulo.Position = UDim2.new(0.164, 0,0.029, 0)
 Titulo.BackgroundTransparency = 1
 Titulo.Size = UDim2.new(0, 200,0, 50)
-Titulo.Text = "Menu"
+Titulo.Text = "Pedroxz Troll"
 Titulo.TextScaled = true
 Titulo.Font = Enum.Font.FredokaOne
 Titulo.TextColor3 = Color3.new(1, 1, 1)
@@ -5617,7 +5643,7 @@ TextBox.PlaceholderColor3 = Color3.new(1, 1, 1)
 TextBox.Font = Enum.Font.FredokaOne
 TextBox.Text = ""
 TextBox.TextScaled = true
-TextBox.PlaceholderText = "Mata Player"
+TextBox.PlaceholderText = "Matar Player"
 
 
 -- TextButton
@@ -5908,8 +5934,11 @@ Duration = 5;
 })
           end    
     })
+local Section = AdmTab:AddSection({
+	Name = "Outros"
+})
     AdmTab:AddButton({
-        Name = "logs Staff - Tem Bypass Pode usar Tranquilo",
+        Name = "logs Staff - Possui Bypass",
         Callback = function()
             loadstring(game:HttpGet("https://pastebin.com/raw/stggPUBM", true))()
           end       
