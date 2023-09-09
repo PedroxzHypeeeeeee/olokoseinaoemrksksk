@@ -16,7 +16,7 @@
     --Valores _G. Para desativar ou desativar ou parte da key/texto
     _G.Aimbot = true
     _G.Loop = true
-    _G.Key = "phxtroll63"
+    _G.Key = "hubtrollphx"
     _G.KeyInput = "string"
 
     --Funcao do Serial Killer loop by pedroxz
@@ -64,8 +64,8 @@
 
     --Scripts Section e botao
     local KeyTab = Window:MakeTab({
-        Name = "Hub Pedroxz",
-        Icon = "rbxassetid://4483345998",
+        Name = "Key Hub",
+        Icon = "rbxassetid://7733965118",
         PremiumOnly = false      
     })   
 local Section = KeyTab:AddSection({
@@ -919,12 +919,12 @@ end
 })
     local JogadorTab = Window:MakeTab({
         Name = "Jogador",
-        Icon = "rbxassetid://4483345998",
+        Icon = "rbxassetid://13687632207",
         PremiumOnly = false      
     })
     local PlayersTab = Window:MakeTab({
         Name = "Players",
-        Icon = "rbxassetid://4483345998",
+        Icon = "rbxassetid://7743876054",
         PremiumOnly = false  
     })
     local ArmaTab = Window:MakeTab({
