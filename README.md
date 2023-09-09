@@ -1,9 +1,8 @@
 ---------------------------------Pedroxz Menu---------------------------------
     --Carregador do script V2
-    local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+    local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/pedroxzytbhypee/SourcePedrox8/main/README.md')))()
     
     --Config do Script
-    local Window = OrionLib:MakeWindow({Name = "👾 Pedroxz Menu V2 Beta 👾", HidePremium = false, SaveConfig = true, IntroEnabled = false})
     local Window = OrionLib:MakeWindow({Name = "👾 Pedroxz Menu V2 Beta 👾", HidePremium = false, SaveConfig = true, IntroEnabled = false})
     local Player = game.Players.LocalPlayer
 
@@ -17,7 +16,7 @@
     --Valores _G. Para desativar ou desativar ou parte da key/texto
     _G.Aimbot = true
     _G.Loop = true
-    _G.Key = "phxtroll"
+    _G.Key = "phxtroll63"
     _G.KeyInput = "string"
 
     --Funcao do Serial Killer loop by pedroxz
@@ -65,10 +64,13 @@
 
     --Scripts Section e botao
     local KeyTab = Window:MakeTab({
-        Name = "Hub Troll Key",
+        Name = "Hub Pedroxz",
         Icon = "rbxassetid://4483345998",
         PremiumOnly = false      
-    })    
+    })   
+local Section = KeyTab:AddSection({
+	Name = "Key Hub"
+}) 
     KeyTab:AddTextbox({
         Name = "Key Menu Troll (Beta)",
         Default = "Coloque a key aqui!",
@@ -1057,6 +1059,44 @@ ConfigTab:AddBind({
 		print("press")
 	end    
 })
+ConfigTab:AddButton({
+	Name = "Rejoin",
+	Callback = function()
+        local PLR_SERVICE = game:GetService('Players')
+        local TELEPORT_SERVICE = game:GetService('TeleportService')
+        if #PLR_SERVICE:GetPlayers() <= 1 then
+            PLR_SERVICE.LocalPlayer:Kick('\nRejoining...')
+            wait()
+            TELEPORT_SERVICE:Teleport(game.PlaceId, PLR_SERVICE.LocalPlayer)
+        else
+            TELEPORT_SERVICE:TeleportToPlaceInstance(game.PlaceId, game.JobId, PLR_SERVICE.LocalPlayer)
+        end
+  	end    
+})
+ConfigTab:AddButton({
+	Name = "Auto Rejoin",
+	Callback = function()
+        local PLR_SERVICE = game:GetService('Players')
+        local TELEPORT_SERVICE = game:GetService('TeleportService')
+        local CORE_SERVICE = game:GetService('CoreGui')
+        local DIR = CORE_SERVICE:FindFirstChild('RobloxPromptGui'):FindFirstChild('promptOverlay')
+        DIR.DescendantAdded:Connect(function(Err)
+            if Err.Name == 'ErrorTitle' then
+                Err:GetPropertyChangedSignal('Text'):Connect(function()
+                    if Err.Text:sub(0, 12) == 'Disconnected' then
+                        if #PLR_SERVICE:GetPlayers() <= 1 then
+                            PLR_SERVICE.LocalPlayer:Kick('\nRejoining...')
+                            wait()
+                            TELEPORT_SERVICE:Teleport(game.PlaceId, PLR_SERVICE.LocalPlayer)
+                        else
+                            TELEPORT_SERVICE:TeleportToPlaceInstance(game.PlaceId, game.JobId, PLR_SERVICE.LocalPlayer)
+                        end
+                    end
+                end)
+            end
+        end)
+  	end    
+})
 ConfigTab:AddColorpicker({
 	Name = "Colorpicker",
 	Default = Color3.fromRGB(255, 0, 0),
@@ -1851,6 +1891,338 @@ plrTab:AddButton({
         loadstring(game:HttpGet('https://raw.githubusercontent.com/arandomuser0/scriptroblox/main/autofarmeb.lua'))()
       end   
     })
+plrTab:AddButton({
+	Name = "Auto Farm Guarulhos RP",
+	Callback = function()
+        local Players = game:GetService("Players")
+        local virtualInput = game:GetService("VirtualInputManager")
+        local seats = workspace.RouboEmpresarial.Seats
+        local player = Players.LocalPlayer
+        local UserInputService = game:GetService("UserInputService")
+        local inset = game:GetService("GuiService"):GetGuiInset()
+        
+        -- MOhit
+        
+        
+        function length(t)
+            local l = 0
+        
+            for i, v in next, t do
+                l += 1
+            end
+        
+            return l
+        end
+        
+        local bl = {}
+        function getSeat(n)
+            if n then
+                bl[n] = true
+                task.delay(1.5, function()
+                    bl[n] = nil
+                end)
+            end
+        
+            local closest, dist = nil, 9e9
+            for _, v in ipairs(seats:GetChildren()) do
+                if v:FindFirstChild("Seat") and v.Seat.Occupant == nil and not bl[v.Seat] then
+                    local d = player:DistanceFromCharacter(v.Seat.Position)
+                    if d < dist then
+                        dist = d
+                        closest = v
+                    end
+                end
+            end
+            return closest
+        end
+        
+        local character = player.Character
+        local seat: Seat = getSeat().Seat
+        local humanoid = character.Humanoid
+        local cf = character.HumanoidRootPart.CFrame
+        local info = player:FindFirstChild("Information") or player:FindFirstChild("Informações")
+        local bancoValue = info.Banco
+        local carteiraValue = info.Carteira
+        local depositRemote = game.ReplicatedStorage.Remotes.Transferencia
+        
+        local screenGui = Instance.new("ScreenGui", player.PlayerGui)
+        screenGui.Name = math.random()
+        
+        local bancoMoney = Instance.new("TextLabel", screenGui)
+        bancoMoney.Name = math.random()
+        bancoMoney.Position = UDim2.fromScale(.5, 1)
+        bancoMoney.Size = UDim2.fromOffset(300, 55)
+        bancoMoney.TextScaled = true
+        bancoMoney.BackgroundTransparency = .7
+        bancoMoney.TextColor3 = Color3.fromRGB(238, 238, 238)
+        bancoMoney.AnchorPoint = Vector2.new(.5, 1)
+        
+        local avgMoney = Instance.new("TextLabel", screenGui)
+        avgMoney.Name = math.random()
+        avgMoney.Position = UDim2.new(.5, 0, 1, -55)
+        avgMoney.Size = UDim2.fromOffset(200, 55)
+        avgMoney.TextScaled = true
+        avgMoney.BackgroundTransparency = .7
+        avgMoney.TextColor3 = Color3.fromRGB(238, 238, 238)
+        avgMoney.AnchorPoint = Vector2.new(.5, 1)
+        avgMoney.Text = "-"
+        
+        local versionLabel = Instance.new("TextLabel", screenGui)
+        versionLabel.Name = math.random()
+        versionLabel.Position = UDim2.new(.5, 0, 0, -inset.Y)
+        versionLabel.Size = UDim2.fromOffset(300, 20)
+        versionLabel.TextScaled = true
+        versionLabel.BackgroundTransparency = .7
+        versionLabel.TextColor3 = Color3.fromRGB(238, 238, 238)
+        versionLabel.AnchorPoint = Vector2.new(.5, 0)
+        versionLabel.Text = "V3.2.0.0G4.J2..K2.L1.DD2.112SK"
+        
+        function generatePuzzle()
+            avgMoney.Text = "sitting on seat"
+        
+            repeat task.wait() 
+                seat:Sit(humanoid)
+            until seat.Occupant == humanoid
+            seat = getSeat(seat).Seat
+            
+            avgMoney.Text = "waiting for puzzle"
+            
+            if not player.PlayerGui:FindFirstChild("Puzzle") then
+                player.PlayerGui:WaitForChild("Puzzle")
+            end
+        
+            for _, v in ipairs(getFarms()) do
+                v.Name = "Puzzle_"
+            end
+        
+            avgMoney.Text = "exiting puzzle area"
+        
+            humanoid.Sit = false
+        
+            character:PivotTo(cf)
+        end
+        
+        function getFarms()
+            local farms = {}
+        
+            for i, v in ipairs(player.PlayerGui:GetChildren()) do
+                if v.Name == "Puzzle_" or v.Name == "Puzzle" then
+                    table.insert(farms, v)
+                end
+            end
+        
+            return farms
+        end
+        
+        -- if player.PlayerGui:FindFirstChild("Puzzle_") then
+        --     print("Deleting")
+        --     for i, v in ipairs(getFarms()) do
+        --         v:Destroy()
+        --     end
+        -- end
+        
+        -- 15 = 0.3ms
+        for i = 1, 36 do
+            local numFarms = #getFarms()
+            bancoMoney.Text = "generating #".. i .."\ngenerated:".. tostring(numFarms)
+            generatePuzzle()
+        end
+        character:PivotTo(cf)
+        
+        task.wait(1)
+        
+        local ctrl = false
+        local active = true
+        local input1 = UserInputService.InputBegan:Connect(function(input, gameProcessedEvent)
+            if gameProcessedEvent then return end
+        
+            if input.KeyCode == Enum.KeyCode.LeftControl then
+                ctrl = true
+        
+            elseif input.KeyCode == Enum.KeyCode.L and ctrl then
+                active = not active
+        
+                if not active then
+                    depositRemote:InvokeServer("Depositar", nil, carteiraValue.Value)
+                end
+                print("active:", active)
+        
+            elseif input.KeyCode == Enum.KeyCode.F and ctrl then
+                if player.PlayerGui:FindFirstChild("Puzzle_") then
+                    print("Deleting")
+                    for i, v in ipairs(getFarms()) do
+                        v:Destroy()
+                    end
+                end
+            end
+        end)
+        
+        local input2 = UserInputService.InputEnded:Connect(function(input, gameProcessedEvent)
+            if gameProcessedEvent then return end
+        
+            if input.KeyCode == Enum.KeyCode.LeftControl then
+                ctrl = false
+            end
+        end)
+        
+        local x = 0
+        local y = 0
+        local dead = false
+        
+        function setupPuzzle(puzzle)
+            if not puzzle then
+                print("Puzzle not found")
+                return
+            end
+        
+            local frame = puzzle.Frame
+            local start: TextButton = frame.Start
+            local green = Color3.fromRGB(49, 213, 0)
+            local red = Color3.fromRGB(198, 6, 6)
+        
+            frame.Draggable = true
+            frame.Active = true
+            frame.Size = UDim2.fromOffset(35, 35)
+            frame.Title.Text = x / 35
+        
+            frame.Position = UDim2.fromOffset(x + frame.AbsoluteSize.X, inset.Y + frame.AbsoluteSize.Y + y)
+            x += frame.AbsoluteSize.X
+        
+            if (x / 35) % 30 == 0 then
+                x = 0
+                y += frame.AbsoluteSize.Y
+            end
+        
+            for i, v in next, frame:GetChildren() do
+                if v.Name == "Button" then
+                    v.Size = UDim2.fromScale(1, 1)
+                    v.Position = UDim2.new()
+                    v.AnchorPoint = Vector2.new()
+        
+                    v.MouseButton1Click:Connect(function()
+                        v.Active = false
+                        v.Selectable = false
+                    end)
+                end
+            end
+        
+            start.MouseButton1Click:Connect(function()
+                start.Visible = false
+            end)
+        
+            while task.wait() do
+                if not puzzle or not puzzle.Parent then
+                    dead = true
+                    active = false
+                    input1:Disconnect()
+                    input2:Disconnect()
+                    if screenGui then
+                        screenGui:Destroy()
+                    end
+                    break
+                end
+        
+                local activeColor = active and Color3.fromRGB(155, 248, 112) or Color3.fromRGB(255, 110, 110)
+                bancoMoney.BackgroundColor3 = activeColor
+                avgMoney.BackgroundColor3 = activeColor
+        
+                if not active then
+                    continue
+                end
+                
+                local found = false
+        
+                for i, v in ipairs(frame:GetChildren()) do
+                    if v.Name == "Button" then
+                        v.Text = i
+                        v.Visible = v.BackgroundColor3 ~= green and v.BackgroundColor3 == red
+                    end
+        
+                    if (v == start or v.Name == "Button") and v.Visible then
+                        found = true
+                    end
+                end
+        
+                if not found then
+                    start.Visible = true
+                end 
+            end
+        end
+        
+        local SendMouseButtonEvent = virtualInput.SendMouseButtonEvent
+        local clock = os.clock
+        
+        function doPuzzle(puzzle)
+            if not puzzle then
+                return
+            end
+        
+            local start = puzzle.Frame.Start
+            local pos = (start.AbsolutePosition + start.AbsoluteSize/2) + inset
+            
+            SendMouseButtonEvent(virtualInput, pos.X, pos.Y, 0, true, game, 0)
+            SendMouseButtonEvent(virtualInput, pos.X, pos.Y, 0, false, game, 0)
+            --WaitForInputEventsProcessed(virtualInput)
+            task.wait()
+        end
+        
+        
+        for _, puzzle in ipairs(getFarms()) do
+            task.spawn(setupPuzzle, puzzle)
+        end
+        
+        local took = 0
+        
+        task.spawn(function()
+            while task.wait() do
+                if dead then
+                    active = false
+                    break
+                end
+        
+                if not active then
+                    continue
+                end
+        
+                local t1 = clock()
+                for _, puzzle in ipairs(getFarms()) do
+                    doPuzzle(puzzle)
+                end
+                took = clock() - t1
+            end
+        end)
+        
+        function updateMoneyGui()
+            local str1 = "guatherium: ".. tostring(bancoValue.Value + carteiraValue.Value)
+            local str2 = "\nfarms: ".. #getFarms()
+            bancoMoney.Text = str1 .. str2 .. "\ntook: ".. string.format("%.3f", tostring(took)) .."ms"
+        end
+        
+        bancoValue.Changed:Connect(updateMoneyGui)
+        carteiraValue.Changed:Connect(updateMoneyGui)
+        
+        local peak = 0
+        
+        while task.wait(1) do
+            if dead or not screenGui or not screenGui.Parent then
+                dead = true
+                print("disconnected")
+                break
+            end
+        
+            local m1 = bancoValue.Value + carteiraValue.Value
+            task.wait(1)
+            local m2 = bancoValue.Value + carteiraValue.Value
+            local delta = m2 - m1
+        
+            if delta > peak then
+                peak = delta
+            end
+        
+            avgMoney.Text = "average/s: ".. delta .."\naverage/min: ".. delta * 60 .."\npeak: ".. peak
+        end
+  	end    
+})
     TrollTab:AddButton({
         Name = "Hub Com Op Trolls",
         Callback = function()
@@ -1970,6 +2342,63 @@ local Section = TrollTab:AddSection({
         Name = "Puxar Geral Bypass",
         Callback = function()
             loadstring(game:HttpGet(("https://raw.githubusercontent.com/GameLeaks2/RobloxScripts/main/BRING%20ALL%20-%20EB'S"),true))()
+          end  
+})
+    TrollTab:AddButton({
+        Name = "Kill All Foguete PVP - Loop",
+        Callback = function()
+            local player = game.Players.LocalPlayer
+local event = game.ReplicatedStorage.WeaponsSystem.Network.WeaponHit
+local tool = player.Character and player.Character:FindFirstChildOfClass("Tool")
+
+if not tool then
+    for i, v in pairs(player.Backpack:GetChildren()) do
+        if v:IsA("Tool") and v:FindFirstChild("Configuration") then
+            tool = v
+            break
+        end
+    end
+end
+
+local function damage(hum, head, thr)
+    pcall(event.FireServer, event, tool, {
+        ["p"] = Vector3.new(),
+        ["pid"] = 1,
+        ["part"] = head,
+        ["d"] = 10,
+        ["maxDist"] = 10.5,
+        ["h"] = hum,
+        ["m"] = Enum.Material.Plastic,
+        ["n"] = Vector3.new(),
+        ["t"] = 0.5,
+        ["sid"] = 1
+    })
+
+    coroutine.resume(thr, hum.Parent)
+end
+
+local function executeScript()
+    for i, v in pairs(game.Players:GetPlayers()) do
+        local character = v.Character
+        local head = character and character:FindFirstChild("Head")
+        local hum = character and character:FindFirstChild("Humanoid")
+
+        if v.Team == game.Teams.lobby then
+            continue
+        end
+
+        if head and hum and hum.Health > 0 and v ~= player then
+            for i = 1, hum.Health / tool.Configuration.HitDamage.Value + 1 do
+                task.spawn(damage, hum, head, coroutine.running())
+            end
+        end
+    end
+end
+
+while true do
+    wait(1) 
+    executeScript()
+end
           end  
         })
     PlayersTab:AddButton({
@@ -2353,6 +2782,27 @@ v3:BuildConfigSection(v9["UI Settings"]);
 v2:ApplyToTab(v9["UI Settings"]);
           end 
         })
+TrollTab:AddButton({
+	Name = "Spawn Car Loop Lag - Elite do Sul [RP]",
+	Callback = function()
+        local function executeScript()
+            for i, v in pairs(game.Players:GetPlayers()) do
+                local character = v.Character
+                local head = character and character:FindFirstChild("Head")
+                local hum = character and character:FindFirstChild("Humanoid")
+            end
+        local args = {
+            [1] = "MB 1938S"
+        }
+        
+        game:GetService("ReplicatedStorage").SpawnCar:FireServer(unpack(args))
+        end
+        while true do
+            wait(1) 
+            executeScript()
+        end
+  	end    
+})
     TrollTab:AddButton({
         Name = "Colocar Som Mapa - Id",
         Callback = function()
@@ -2532,6 +2982,30 @@ local Section = RoleplayTab:AddSection({
 		end
         end   
     }) 
+    RoleplayTab:AddButton({
+        Name = "Lag Server - Acs 1.7.5",
+        Callback = function()
+            L = 20
+
+local event = game.ReplicatedStorage.ACS_Engine.Eventos.Hit
+local base = workspace:FindFirstChildOfClass("Part")
+local data
+
+for i,v in game:GetDescendants() do
+    if v:IsA("Tool") and v:FindFirstChild("ACS_Modulo") then
+        data = require(v.ACS_Modulo.ACS_Setup); break
+    end
+end
+
+shared.loop = not shared.loop
+while shared.loop do
+    for i = 1, L do
+        event:FireServer(base.Position, base, Vector3.new(), Enum.Material.Neon, data)
+    end
+    task.wait()
+end
+        end   
+    }) 
 RoleplayTab:AddButton({
 	Name = "Explodir Geral - Acs 1.7.5",
 	Callback = function()
@@ -2662,7 +3136,7 @@ Duration = 15; -- how long the notification should in secounds
 end      
 })
     AdmTab:AddButton({
-        Name = "Voar (Ingual ADM) - Risco",
+        Name = "Voar ADM",
         Callback = function()
             -- Made By zack;#6969
 
@@ -2954,7 +3428,13 @@ local Section = HubTab:AddSection({
         Name = "Executor server-sided - Regime militar (Gun)",
         Callback = function()
             loadstring(game:HttpGet'https://raw.githubusercontent.com/KazuinExilado/scripts/main/regimemilitar.lua')()
-          end                   
+          end     
+        })
+    HubTab:AddButton({
+        Name = "Hub ACS",
+        Callback = function()
+            local a=Instance.new("ScreenGui")local b=Instance.new("Frame")local c=Instance.new("UICorner")local d=Instance.new("Frame")local e=Instance.new("UICorner")local f=Instance.new("TextLabel")local g=Instance.new("ScrollingFrame")local h=Instance.new("Frame")local i=Instance.new("TextButton")local j=Instance.new("UICorner")local k=Instance.new("UIStroke")local l=Instance.new("UIListLayout")local m=Instance.new("TextButton")local n=Instance.new("UICorner")local o=Instance.new("UIStroke")local p=Instance.new("TextButton")local q=Instance.new("UICorner")local r=Instance.new("UIStroke")local s=Instance.new("TextButton")local t=Instance.new("UICorner")local u=Instance.new("UIStroke")local v=Instance.new("Frame")local w=Instance.new("UICorner")local x=Instance.new("UIListLayout")local y=Instance.new("TextButton")local z=Instance.new("TextButton")local A=Instance.new("TextButton")local B=Instance.new("ScrollingFrame")local C=Instance.new("Frame")local D=Instance.new("UIListLayout")local E=Instance.new("TextButton")local F=Instance.new("UICorner")local G=Instance.new("ImageButton")local H=Instance.new("UICorner")local I=Instance.new("ImageLabel")local J=Instance.new("UIStroke")local K=Instance.new("TextLabel")local L=Instance.new("TextButton")local M=Instance.new("ScrollingFrame")local N=Instance.new("Frame")local O=Instance.new("TextButton")local P=Instance.new("UICorner")local Q=Instance.new("UIStroke")local R=Instance.new("UIListLayout")local S=Instance.new("TextButton")local T=Instance.new("UICorner")local U=Instance.new("UIStroke")local V=Instance.new("TextBox")local W=Instance.new("UICorner")local X=Instance.new("UIStroke")local Y=Instance.new("TextButton")local Z=Instance.new("UICorner")local _=Instance.new("UIStroke")local a0=Instance.new("TextBox")local a1=Instance.new("UICorner")local a2=Instance.new("UIStroke")local a3=Instance.new("TextButton")local a4=Instance.new("UICorner")local a5=Instance.new("UIStroke")local a6=Instance.new("UIStroke")a.Name="Nytrogen_SPIdk"a.Parent=game:GetService("CoreGui")or gethui()a.ZIndexBehavior=Enum.ZIndexBehavior.Sibling;a.ResetOnSpawn=false;b.Parent=a;b.BackgroundColor3=Color3.fromRGB(34,34,34)b.BorderColor3=Color3.fromRGB(0,0,0)b.BorderSizePixel=0;b.ClipsDescendants=true;b.Position=UDim2.new(0,150,0,142)b.Size=UDim2.new(0,517,0,315)c.CornerRadius=UDim.new(0,15)c.Parent=b;d.Parent=b;d.BackgroundColor3=Color3.fromRGB(44,44,44)d.BackgroundTransparency=1.000;d.BorderColor3=Color3.fromRGB(0,0,0)d.BorderSizePixel=0;d.Size=UDim2.new(0,517,0,36)e.Parent=d;f.Name="Title"f.Parent=d;f.BackgroundColor3=Color3.fromRGB(255,255,255)f.BackgroundTransparency=1.000;f.BorderColor3=Color3.fromRGB(0,0,0)f.BorderSizePixel=0;f.Position=UDim2.new(0.00193435408,0,0,0)f.Size=UDim2.new(0,543,0,36)f.Font=Enum.Font.Gotham;f.Text="menu acs por viktor"f.TextColor3=Color3.fromRGB(255,255,255)f.TextSize=17.000;f.TextWrapped=true;g.Name="HunterFrame"g.Parent=b;g.Active=true;g.BackgroundColor3=Color3.fromRGB(34,34,34)g.BorderColor3=Color3.fromRGB(0,0,0)g.BorderSizePixel=0;g.Position=UDim2.new(0.214700252,0,0.139682546,0)g.Size=UDim2.new(0,405,0,263)g.ScrollBarImageTransparency=1.000;h.Parent=g;h.BackgroundColor3=Color3.fromRGB(255,255,255)h.BackgroundTransparency=1.000;h.BorderColor3=Color3.fromRGB(0,0,0)h.BorderSizePixel=0;h.Position=UDim2.new(0.0219999999,0,0.0199999996,0)h.Size=UDim2.new(0,387,0,34)i.Parent=h;i.BackgroundColor3=Color3.fromRGB(48,48,48)i.BorderColor3=Color3.fromRGB(0,0,0)i.BorderSizePixel=0;i.Position=UDim2.new(-2.36570372e-07,0,0,0)i.Size=UDim2.new(0,378,0,33)i.Font=Enum.Font.Gotham;i.LineHeight=1.030;i.Text="Obter todas as armas"i.TextColor3=Color3.fromRGB(255,255,255)i.TextSize=14.000;j.Parent=i;k.ApplyStrokeMode=Enum.ApplyStrokeMode.Border;k.Color=Color3.fromRGB(79,79,79)k.Parent=i;l.Parent=h;l.SortOrder=Enum.SortOrder.LayoutOrder;l.Padding=UDim.new(0,5)m.Parent=h;m.BackgroundColor3=Color3.fromRGB(48,48,48)m.BorderColor3=Color3.fromRGB(0,0,0)m.BorderSizePixel=0;m.Position=UDim2.new(-2.36570372e-07,0,0,0)m.Size=UDim2.new(0,378,0,33)m.Font=Enum.Font.Gotham;m.LineHeight=1.030;m.Text="Crash Server"m.TextColor3=Color3.fromRGB(255,255,255)m.TextSize=14.000;n.Parent=m;o.ApplyStrokeMode=Enum.ApplyStrokeMode.Border;o.Color=Color3.fromRGB(79,79,79)o.Parent=m;p.Parent=h;p.BackgroundColor3=Color3.fromRGB(48,48,48)p.BorderColor3=Color3.fromRGB(0,0,0)p.BorderSizePixel=0;p.Position=UDim2.new(-2.36570372e-07,0,0,0)p.Size=UDim2.new(0,378,0,33)p.Font=Enum.Font.Gotham;p.LineHeight=1.030;p.Text="Supress Server"p.TextColor3=Color3.fromRGB(255,255,255)p.TextSize=14.000;q.Parent=p;r.ApplyStrokeMode=Enum.ApplyStrokeMode.Border;r.Color=Color3.fromRGB(79,79,79)r.Parent=p;s.Parent=h;s.BackgroundColor3=Color3.fromRGB(48,48,48)s.BorderColor3=Color3.fromRGB(0,0,0)s.BorderSizePixel=0;s.Position=UDim2.new(-2.36570372e-07,0,0,0)s.Size=UDim2.new(0,378,0,33)s.Font=Enum.Font.Gotham;s.LineHeight=1.030;s.Text="Sem cooldown de pulo"s.TextColor3=Color3.fromRGB(255,255,255)s.TextSize=14.000;t.Parent=s;u.ApplyStrokeMode=Enum.ApplyStrokeMode.Border;u.Color=Color3.fromRGB(79,79,79)u.Parent=s;v.Parent=b;v.BackgroundColor3=Color3.fromRGB(36,36,36)v.BorderColor3=Color3.fromRGB(0,0,0)v.BorderSizePixel=0;v.Position=UDim2.new(0,0,0.114285715,0)v.Size=UDim2.new(0,111,0,279)w.Parent=v;x.Parent=v;x.SortOrder=Enum.SortOrder.LayoutOrder;x.Padding=UDim.new(0,6)y.Parent=v;y.BackgroundColor3=Color3.fromRGB(255,255,255)y.BackgroundTransparency=1.000;y.BorderColor3=Color3.fromRGB(0,0,0)y.BorderSizePixel=0;y.Position=UDim2.new(0,0,0.0553505532,0)y.Size=UDim2.new(0,111,0,29)y.Font=Enum.Font.Gotham;y.Text="ACS 2.0.1"y.TextColor3=Color3.fromRGB(255,255,255)y.TextSize=14.000;z.Parent=v;z.BackgroundColor3=Color3.fromRGB(255,255,255)z.BackgroundTransparency=1.000;z.BorderColor3=Color3.fromRGB(0,0,0)z.BorderSizePixel=0;z.Position=UDim2.new(0,0,0.0553505532,0)z.Size=UDim2.new(0,111,0,29)z.Font=Enum.Font.Gotham;z.Text="Local Player"z.TextColor3=Color3.fromRGB(255,255,255)z.TextSize=14.000;A.Parent=v;A.BackgroundColor3=Color3.fromRGB(255,255,255)A.BackgroundTransparency=1.000;A.BorderColor3=Color3.fromRGB(0,0,0)A.BorderSizePixel=0;A.Position=UDim2.new(0,0,0.0553505532,0)A.Size=UDim2.new(0,111,0,29)A.Font=Enum.Font.Gotham;A.Text="Visuals"A.TextColor3=Color3.fromRGB(255,255,255)A.TextSize=14.000;B.Name="VisualsFrame"B.Parent=b;B.Active=true;B.BackgroundColor3=Color3.fromRGB(34,34,34)B.BorderColor3=Color3.fromRGB(0,0,0)B.BorderSizePixel=0;B.Position=UDim2.new(0.214700252,0,0.139682546,0)B.Size=UDim2.new(0,405,0,271)B.Visible=false;C.Parent=B;C.BackgroundColor3=Color3.fromRGB(255,255,255)C.BackgroundTransparency=1.000;C.BorderColor3=Color3.fromRGB(0,0,0)C.BorderSizePixel=0;C.Position=UDim2.new(0.0219999999,0,0.0199999996,0)C.Size=UDim2.new(0,387,0,34)D.Parent=C;D.SortOrder=Enum.SortOrder.LayoutOrder;D.Padding=UDim.new(0,5)E.Name="Toggle"E.Parent=C;E.BackgroundColor3=Color3.fromRGB(48,48,48)E.BorderColor3=Color3.fromRGB(0,0,0)E.BorderSizePixel=0;E.Position=UDim2.new(0,0,5.58823538,0)E.Size=UDim2.new(0,379,0,38)E.Font=Enum.Font.Gotham;E.Text=""E.TextColor3=Color3.fromRGB(255,255,255)E.TextSize=14.000;F.Parent=E;G.Parent=E;G.BackgroundColor3=Color3.fromRGB(72,72,72)G.BorderColor3=Color3.fromRGB(0,0,0)G.BorderSizePixel=0;G.Position=UDim2.new(0.910000026,0,0.119999997,0)G.Size=UDim2.new(0,30,0,30)G.AutoButtonColor=false;H.CornerRadius=UDim.new(0,6)H.Parent=G;I.Name="Frame"I.Parent=G;I.AnchorPoint=Vector2.new(0.5,0.5)I.BackgroundColor3=Color3.fromRGB(255,255,255)I.BackgroundTransparency=1.000;I.BorderColor3=Color3.fromRGB(0,0,0)I.BorderSizePixel=0;I.Position=UDim2.new(0.519999981,0,0.519999981,0)I.Image="http://www.roblox.com/asset/?id=6031094667"I.ImageTransparency=1.000;J.ApplyStrokeMode=Enum.ApplyStrokeMode.Border;J.Color=Color3.fromRGB(75,75,75)J.Parent=E;K.Parent=E;K.BackgroundColor3=Color3.fromRGB(255,255,255)K.BackgroundTransparency=1.000;K.BorderColor3=Color3.fromRGB(0,0,0)K.BorderSizePixel=0;K.Size=UDim2.new(0,116,0,38)K.Font=Enum.Font.Gotham;K.Text="Enable ESP"K.TextColor3=Color3.fromRGB(255,255,255)K.TextSize=15.000;K.TextWrapped=true;L.Parent=b;L.BackgroundColor3=Color3.fromRGB(255,255,255)L.BackgroundTransparency=1.000;L.BorderColor3=Color3.fromRGB(0,0,0)L.BorderSizePixel=0;L.Position=UDim2.new(0.924564779,0,0.0285714287,0)L.Size=UDim2.new(0,29,0,27)L.Font=Enum.Font.Unknown;L.Text="X"L.TextColor3=Color3.fromRGB(243,0,0)L.TextScaled=true;L.TextSize=14.000;L.TextWrapped=true;M.Name="LocalPlayerFrame"M.Parent=b;M.Active=true;M.BackgroundColor3=Color3.fromRGB(34,34,34)M.BorderColor3=Color3.fromRGB(0,0,0)M.BorderSizePixel=0;M.Position=UDim2.new(0.214700252,0,0.139682546,0)M.Size=UDim2.new(0,405,0,263)M.Visible=false;M.ScrollBarImageTransparency=1.000;N.Parent=M;N.BackgroundColor3=Color3.fromRGB(255,255,255)N.BackgroundTransparency=1.000;N.BorderColor3=Color3.fromRGB(0,0,0)N.BorderSizePixel=0;N.Position=UDim2.new(0.0219999999,0,0.0199999996,0)N.Size=UDim2.new(0,387,0,34)O.Parent=N;O.BackgroundColor3=Color3.fromRGB(48,48,48)O.BorderColor3=Color3.fromRGB(0,0,0)O.BorderSizePixel=0;O.Position=UDim2.new(-2.36570372e-07,0,0,0)O.Size=UDim2.new(0,378,0,33)O.Font=Enum.Font.Gotham;O.Text="Reset Character"O.TextColor3=Color3.fromRGB(255,255,255)O.TextSize=14.000;P.Parent=O;Q.ApplyStrokeMode=Enum.ApplyStrokeMode.Border;Q.Color=Color3.fromRGB(79,79,79)Q.Parent=O;R.Parent=N;R.SortOrder=Enum.SortOrder.LayoutOrder;R.Padding=UDim.new(0,5)S.Parent=N;S.BackgroundColor3=Color3.fromRGB(48,48,48)S.BorderColor3=Color3.fromRGB(0,0,0)S.BorderSizePixel=0;S.Position=UDim2.new(-2.36570372e-07,0,0,0)S.Size=UDim2.new(0,378,0,33)S.Font=Enum.Font.Gotham;S.Text="God Mode"S.TextColor3=Color3.fromRGB(255,255,255)S.TextSize=14.000;T.Parent=S;U.ApplyStrokeMode=Enum.ApplyStrokeMode.Border;U.Color=Color3.fromRGB(79,79,79)U.Parent=S;V.Parent=N;V.BackgroundColor3=Color3.fromRGB(40,40,40)V.BorderColor3=Color3.fromRGB(0,0,0)V.BorderSizePixel=0;V.Position=UDim2.new(0,0,2.2352941,0)V.Size=UDim2.new(0,200,0,33)V.Font=Enum.Font.Gotham;V.PlaceholderText="Walkspeed"V.Text=""V.TextColor3=Color3.fromRGB(255,255,255)V.TextSize=16.000;W.Parent=V;X.ApplyStrokeMode=Enum.ApplyStrokeMode.Border;X.Color=Color3.fromRGB(79,79,79)X.Parent=V;Y.Parent=V;Y.BackgroundColor3=Color3.fromRGB(48,48,48)Y.BorderColor3=Color3.fromRGB(0,0,0)Y.BorderSizePixel=0;Y.Position=UDim2.new(1.02999997,0,0,0)Y.Size=UDim2.new(0,172,0,33)Y.Font=Enum.Font.Gotham;Y.Text="Change"Y.TextColor3=Color3.fromRGB(255,255,255)Y.TextSize=14.000;Z.Parent=Y;_.ApplyStrokeMode=Enum.ApplyStrokeMode.Border;_.Color=Color3.fromRGB(79,79,79)_.Parent=Y;a0.Parent=N;a0.BackgroundColor3=Color3.fromRGB(40,40,40)a0.BorderColor3=Color3.fromRGB(0,0,0)a0.BorderSizePixel=0;a0.Position=UDim2.new(0,0,2.2352941,0)a0.Size=UDim2.new(0,200,0,33)a0.Font=Enum.Font.Gotham;a0.PlaceholderText="JumpPower"a0.Text=""a0.TextColor3=Color3.fromRGB(255,255,255)a0.TextSize=16.000;a1.Parent=a0;a2.ApplyStrokeMode=Enum.ApplyStrokeMode.Border;a2.Color=Color3.fromRGB(79,79,79)a2.Parent=a0;a3.Parent=a0;a3.BackgroundColor3=Color3.fromRGB(48,48,48)a3.BorderColor3=Color3.fromRGB(0,0,0)a3.BorderSizePixel=0;a3.Position=UDim2.new(1.02999997,0,0,0)a3.Size=UDim2.new(0,172,0,33)a3.Font=Enum.Font.Gotham;a3.Text="Change"a3.TextColor3=Color3.fromRGB(255,255,255)a3.TextSize=14.000;a4.Parent=a3;a5.ApplyStrokeMode=Enum.ApplyStrokeMode.Border;a5.Color=Color3.fromRGB(79,79,79)a5.Parent=a3;a6.ApplyStrokeMode=Enum.ApplyStrokeMode.Border;a6.Color=Color3.fromRGB(79,79,79)a6.Parent=b;local function a7()local a8=Instance.new('Script',f)local a9=a8.Parent;local aa=10;wait(1)local ab=1;while ab<=255 do a9.TextColor3=Color3.new(ab/255,0/255,0/255)ab=ab+aa;wait()end;while true do ab=1;while ab<=255 do a9.TextColor3=Color3.new(255/255,ab/255,0/255)ab=ab+aa;wait()end;ab=1;while ab<=255 do a9.TextColor3=Color3.new(255/255-ab/255,255/255,0/255)ab=ab+aa;wait()end;ab=1;while ab<=255 do a9.TextColor3=Color3.new(0/255,255/255,ab/255)ab=ab+aa;wait()end;ab=1;while ab<=255 do a9.TextColor3=Color3.new(0/255,255/255-ab/255,255/255)ab=ab+aa;wait()end;ab=1;while ab<=255 do a9.TextColor3=Color3.new(ab/255,0/255,255/255)ab=ab+aa;wait()end;ab=1;while ab<=255 do a9.TextColor3=Color3.new(255/255,0/255,255/255-ab/255)ab=ab+aa;wait()end;while ab<=255 do a9.TextColor3=Color3.new(255/255-ab/255,0/255,0/255)ab=ab+aa;wait()end end end;coroutine.wrap(a7)()local function ac()local a8=Instance.new('LocalScript',i)a8.Parent.MouseButton1Click:Connect(function()for ad,ae in game.Players:GetDescendants()do if ae:IsA("Tool")then ae.Parent=game.Players.LocalPlayer.Backpack end end end)end;coroutine.wrap(ac)()local function af()local a8=Instance.new('LocalScript',i)local ag=a8.Parent;ag.AutoButtonColor=false;local ah=false;local ai=7;local aj=0.24;local ak=Enum.EasingStyle.Quad;local al=-10/255;local am=-20/255;local an=a8.Parent.BackgroundColor3;local ao=game:GetService("TweenService")local ap;local aq;ag.MouseEnter:Connect(function()ap=true;ao:Create(ag,TweenInfo.new(aj,ak,Enum.EasingDirection.Out),{BackgroundColor3=Color3.new(0.219608,0.219608,0.219608)}):Play()if ah then print('Enter '..tostring(Color3.fromRGB(an.R-al,an.G-al,an.B-al)))end end)ag.MouseLeave:Connect(function()ap=false;ao:Create(ag,TweenInfo.new(aj/1.2,ak,Enum.EasingDirection.In),{BackgroundColor3=an}):Play()end)ag.MouseButton1Click:Connect(function()ao:Create(ag,TweenInfo.new(aj/1.8,ak,Enum.EasingDirection.Out),{BackgroundColor3=Color3.fromRGB(56,56,56)}):Play()if ah then print('MouseButton1Up '..tostring(Color3.fromRGB(an.R-am,an.G-am,an.B-am)))end end)if ah then print("UI BUTTON EFFECT LOADED!")end end;coroutine.wrap(af)()local function ar()local a8=Instance.new('LocalScript',m)a8.Parent.MouseButton1Click:Connect(function()for ad,ae in game.Players:GetDescendants()do if ae:IsA("Tool")then ae.Parent=game.Players.LocalPlayer.Backpack end end;while task.wait()do for ad=1,30 do game:GetService("ReplicatedStorage")["ACS_Engine"].Events.ServerBullet:FireServer(Vector3.new(0/0/0),Vector3.new(0/0/0))end end end)end;coroutine.wrap(ar)()local function as()local a8=Instance.new('LocalScript',m)local ag=a8.Parent;ag.AutoButtonColor=false;local ah=false;local ai=7;local aj=0.24;local ak=Enum.EasingStyle.Quad;local al=-10/255;local am=-20/255;local an=a8.Parent.BackgroundColor3;local ao=game:GetService("TweenService")local ap;local aq;ag.MouseEnter:Connect(function()ap=true;ao:Create(ag,TweenInfo.new(aj,ak,Enum.EasingDirection.Out),{BackgroundColor3=Color3.new(0.219608,0.219608,0.219608)}):Play()if ah then print('Enter '..tostring(Color3.fromRGB(an.R-al,an.G-al,an.B-al)))end end)ag.MouseLeave:Connect(function()ap=false;ao:Create(ag,TweenInfo.new(aj/1.2,ak,Enum.EasingDirection.In),{BackgroundColor3=an}):Play()end)ag.MouseButton1Click:Connect(function()ao:Create(ag,TweenInfo.new(aj/1.8,ak,Enum.EasingDirection.Out),{BackgroundColor3=Color3.fromRGB(56,56,56)}):Play()if ah then print('MouseButton1Up '..tostring(Color3.fromRGB(an.R-am,an.G-am,an.B-am)))end end)if ah then print("UI BUTTON EFFECT LOADED!")end end;coroutine.wrap(as)()local function at()local a8=Instance.new('LocalScript',p)a8.Parent.MouseButton1Click:Connect(function()for ad,ae in game.Players:GetDescendants()do if ae:IsA("Tool")then ae:Clone()ae.Parent=game.Players.LocalPlayer.Backpack end end;while task.wait()do for au,av in next,game.Players:GetPlayers()do game:GetService("ReplicatedStorage")["ACS_Engine"].Events.Suppression:FireServer(av,666,666,666)end end end)end;coroutine.wrap(at)()local function aw()local a8=Instance.new('LocalScript',p)local ag=a8.Parent;ag.AutoButtonColor=false;local ah=false;local ai=7;local aj=0.24;local ak=Enum.EasingStyle.Quad;local al=-10/255;local am=-20/255;local an=a8.Parent.BackgroundColor3;local ao=game:GetService("TweenService")local ap;local aq;ag.MouseEnter:Connect(function()ap=true;ao:Create(ag,TweenInfo.new(aj,ak,Enum.EasingDirection.Out),{BackgroundColor3=Color3.new(0.219608,0.219608,0.219608)}):Play()if ah then print('Enter '..tostring(Color3.fromRGB(an.R-al,an.G-al,an.B-al)))end end)ag.MouseLeave:Connect(function()ap=false;ao:Create(ag,TweenInfo.new(aj/1.2,ak,Enum.EasingDirection.In),{BackgroundColor3=an}):Play()end)ag.MouseButton1Click:Connect(function()ao:Create(ag,TweenInfo.new(aj/1.8,ak,Enum.EasingDirection.Out),{BackgroundColor3=Color3.fromRGB(56,56,56)}):Play()if ah then print('MouseButton1Up '..tostring(Color3.fromRGB(an.R-am,an.G-am,an.B-am)))end end)if ah then print("UI BUTTON EFFECT LOADED!")end end;coroutine.wrap(aw)()local function ax()local a8=Instance.new('LocalScript',s)a8.Parent.MouseButton1Click:Connect(function()local ay=require(game:GetService('ReplicatedStorage')['ACS_Engine'].GameRules.Config)ay.AntiBunnyHop=false end)end;coroutine.wrap(ax)()local function az()local a8=Instance.new('LocalScript',s)local ag=a8.Parent;ag.AutoButtonColor=false;local ah=false;local ai=7;local aj=0.24;local ak=Enum.EasingStyle.Quad;local al=-10/255;local am=-20/255;local an=a8.Parent.BackgroundColor3;local ao=game:GetService("TweenService")local ap;local aq;ag.MouseEnter:Connect(function()ap=true;ao:Create(ag,TweenInfo.new(aj,ak,Enum.EasingDirection.Out),{BackgroundColor3=Color3.new(0.219608,0.219608,0.219608)}):Play()if ah then print('Enter '..tostring(Color3.fromRGB(an.R-al,an.G-al,an.B-al)))end end)ag.MouseLeave:Connect(function()ap=false;ao:Create(ag,TweenInfo.new(aj/1.2,ak,Enum.EasingDirection.In),{BackgroundColor3=an}):Play()end)ag.MouseButton1Click:Connect(function()ao:Create(ag,TweenInfo.new(aj/1.8,ak,Enum.EasingDirection.Out),{BackgroundColor3=Color3.fromRGB(56,56,56)}):Play()if ah then print('MouseButton1Up '..tostring(Color3.fromRGB(an.R-am,an.G-am,an.B-am)))end end)if ah then print("UI BUTTON EFFECT LOADED!")end end;coroutine.wrap(az)()local function aA()local a8=Instance.new('LocalScript',b)for ad,ae in a8.Parent:GetDescendants()do if ae:IsA("TextButton")then ae.AutoButtonColor=false end end;local aB=game:GetService("UserInputService")local aC=game:GetService("RunService")local aD=a8.Parent;local aE;local aF;local aG;local aH;function Lerp(aI,aJ,aK)return aI+(aJ-aI)*aK end;local aL;local aM;local aN=8;function Update(aO)if not aH then return end;if not aE and aM then aD.Position=UDim2.new(aH.X.Scale,Lerp(aD.Position.X.Offset,aM.X.Offset,aO*aN),aH.Y.Scale,Lerp(aD.Position.Y.Offset,aM.Y.Offset,aO*aN))return end;local aP=aL-aB:GetMouseLocation()local aQ=aH.X.Offset-aP.X;local aR=aH.Y.Offset-aP.Y;aM=UDim2.new(aH.X.Scale,aQ,aH.Y.Scale,aR)aD.Position=UDim2.new(aH.X.Scale,Lerp(aD.Position.X.Offset,aQ,aO*aN),aH.Y.Scale,Lerp(aD.Position.Y.Offset,aR,aO*aN))end;aD.InputBegan:Connect(function(aS)if aS.UserInputType==Enum.UserInputType.MouseButton1 or aS.UserInputType==Enum.UserInputType.Touch then aE=true;aG=aS.Position;aH=aD.Position;aL=aB:GetMouseLocation()aS.Changed:Connect(function()if aS.UserInputState==Enum.UserInputState.End then aE=false end end)end end)aD.InputChanged:Connect(function(aS)if aS.UserInputType==Enum.UserInputType.MouseMovement or aS.UserInputType==Enum.UserInputType.Touch then aF=aS end end)aC.Heartbeat:Connect(Update)end;coroutine.wrap(aA)()local function aT()local a8=Instance.new('LocalScript',y)a8.Parent.MouseButton1Click:Connect(function()a8.Parent.Parent.Parent.HunterFrame.Visible=true;a8.Parent.Parent.Parent.VisualsFrame.Visible=false;a8.Parent.Parent.Parent.LocalPlayerFrame.Visible=false end)end;coroutine.wrap(aT)()local function aU()local a8=Instance.new('LocalScript',z)a8.Parent.MouseButton1Click:Connect(function()a8.Parent.Parent.Parent.HunterFrame.Visible=false;a8.Parent.Parent.Parent.LocalPlayerFrame.Visible=true;a8.Parent.Parent.Parent.VisualsFrame.Visible=false end)end;coroutine.wrap(aU)()local function aV()local a8=Instance.new('LocalScript',A)a8.Parent.MouseButton1Click:Connect(function()a8.Parent.Parent.Parent.HunterFrame.Visible=false;a8.Parent.Parent.Parent.LocalPlayerFrame.Visible=false;a8.Parent.Parent.Parent.VisualsFrame.Visible=true end)end;coroutine.wrap(aV)()local function aW()local a8=Instance.new('LocalScript',E)local ag=a8.Parent;ag.AutoButtonColor=false;local ah=false;local ai=7;local aj=0.24;local ak=Enum.EasingStyle.Quad;local al=-10/255;local am=-20/255;local an=a8.Parent.BackgroundColor3;local ao=game:GetService("TweenService")local ap;local aq;ag.MouseEnter:Connect(function()ap=true;ao:Create(ag,TweenInfo.new(aj,ak,Enum.EasingDirection.Out),{BackgroundColor3=Color3.new(0.219608,0.219608,0.219608)}):Play()if ah then print('Enter '..tostring(Color3.fromRGB(an.R-al,an.G-al,an.B-al)))end end)ag.MouseLeave:Connect(function()ap=false;ao:Create(ag,TweenInfo.new(aj/1.2,ak,Enum.EasingDirection.In),{BackgroundColor3=an}):Play()end)ag.MouseButton1Click:Connect(function()ao:Create(ag,TweenInfo.new(aj/1.8,ak,Enum.EasingDirection.Out),{BackgroundColor3=Color3.fromRGB(56,56,56)}):Play()if ah then print('MouseButton1Up '..tostring(Color3.fromRGB(an.R-am,an.G-am,an.B-am)))end end)if ah then print("UI BUTTON EFFECT LOADED!")end end;coroutine.wrap(aW)()local function aX()local a8=Instance.new('LocalScript',E)local aY=a8.Parent.ImageButton:GetAttribute("IsChecked")local aZ=game:GetService("Players")local a_=game.Players.LocalPlayer;local aZ=game.Players;local function b0()for ad,a_ in pairs(aZ:GetPlayers())do if a_~=aZ.LocalPlayer then local b1=a_.Character;if b1 then if b1:FindFirstChildWhichIsA("Highlight")then b1:FindFirstChildWhichIsA("Highlight"):Destroy()end;local b2=Instance.new("Highlight")b2.FillColor=Color3.new(1,1,1)b2.FillTransparency=0.6;b2.Parent=b1 end end end end;local function b3()for ad,a_ in pairs(aZ:GetPlayers())do if a_~=aZ.LocalPlayer then local b1=a_.Character;if b1 then if b1:FindFirstChildWhichIsA("Highlight")then b1:FindFirstChildWhichIsA("Highlight"):Destroy()end end end end end;local function b2(b4)local b5=game.Players:FindFirstChild(b4)if b5 then local b2=Instance.new("Highlight")b2.FillColor=Color3.new(1,1,1)b2.FillTransparency=0.6;b2.Parent=b5.Character end end;a8.Parent.MouseButton1Click:Connect(function()if aY==false then aY=true;b0()game.Players.PlayerAdded:Connect(function(av)b2(av)end)a8.Parent.ImageButton.Frame:TweenSize(UDim2.new(0,30,0,27),'Out','Quint',0.4)game:GetService("TweenService"):Create(a8.Parent.ImageButton.Frame,TweenInfo.new(0.3),{ImageTransparency=0}):Play()game:GetService("TweenService"):Create(a8.Parent.ImageButton,TweenInfo.new(0.3),{BackgroundColor3=Color3.fromRGB(255,0,0)}):Play()else aY=false;b3()a8.Parent.ImageButton.Frame:TweenSize(UDim2.new(0,0,0,0),'Out','Quint',0.4)game:GetService("TweenService"):Create(a8.Parent.ImageButton.Frame,TweenInfo.new(0.3),{ImageTransparency=1}):Play()game:GetService("TweenService"):Create(a8.Parent.ImageButton,TweenInfo.new(0.3),{BackgroundColor3=Color3.fromRGB(72,72,72)}):Play()end end)end;coroutine.wrap(aX)()local function b6()local a8=Instance.new('LocalScript',L)a8.Parent.MouseButton1Click:Connect(function()a8.Parent.Parent.Parent:Destroy()end)end;coroutine.wrap(b6)()local function b7()local a8=Instance.new('LocalScript',O)a8.Parent.MouseButton1Click:Connect(function()game.Players.LocalPlayer.Character.Humanoid.Health=0 end)end;coroutine.wrap(b7)()local function b8()local a8=Instance.new('LocalScript',O)local ag=a8.Parent;ag.AutoButtonColor=false;local ah=false;local ai=7;local aj=0.24;local ak=Enum.EasingStyle.Quad;local al=-10/255;local am=-20/255;local an=a8.Parent.BackgroundColor3;local ao=game:GetService("TweenService")local ap;local aq;ag.MouseEnter:Connect(function()ap=true;ao:Create(ag,TweenInfo.new(aj,ak,Enum.EasingDirection.Out),{BackgroundColor3=Color3.new(0.219608,0.219608,0.219608)}):Play()if ah then print('Enter '..tostring(Color3.fromRGB(an.R-al,an.G-al,an.B-al)))end end)ag.MouseLeave:Connect(function()ap=false;ao:Create(ag,TweenInfo.new(aj/1.2,ak,Enum.EasingDirection.In),{BackgroundColor3=an}):Play()end)ag.MouseButton1Click:Connect(function()ao:Create(ag,TweenInfo.new(aj/1.8,ak,Enum.EasingDirection.Out),{BackgroundColor3=Color3.fromRGB(56,56,56)}):Play()if ah then print('MouseButton1Up '..tostring(Color3.fromRGB(an.R-am,an.G-am,an.B-am)))end end)if ah then print("UI BUTTON EFFECT LOADED!")end end;coroutine.wrap(b8)()local function b9()local a8=Instance.new('LocalScript',S)a8.Parent.MouseButton1Click:Connect(function()game.Players.LocalPlayer.Character.Humanoid.MaxHealth=999999;game.Players.LocalPlayer.Character.Humanoid.Health=999999 end)end;coroutine.wrap(b9)()local function ba()local a8=Instance.new('LocalScript',S)local ag=a8.Parent;ag.AutoButtonColor=false;local ah=false;local ai=7;local aj=0.24;local ak=Enum.EasingStyle.Quad;local al=-10/255;local am=-20/255;local an=a8.Parent.BackgroundColor3;local ao=game:GetService("TweenService")local ap;local aq;ag.MouseEnter:Connect(function()ap=true;ao:Create(ag,TweenInfo.new(aj,ak,Enum.EasingDirection.Out),{BackgroundColor3=Color3.new(0.219608,0.219608,0.219608)}):Play()if ah then print('Enter '..tostring(Color3.fromRGB(an.R-al,an.G-al,an.B-al)))end end)ag.MouseLeave:Connect(function()ap=false;ao:Create(ag,TweenInfo.new(aj/1.2,ak,Enum.EasingDirection.In),{BackgroundColor3=an}):Play()end)ag.MouseButton1Click:Connect(function()ao:Create(ag,TweenInfo.new(aj/1.8,ak,Enum.EasingDirection.Out),{BackgroundColor3=Color3.fromRGB(56,56,56)}):Play()if ah then print('MouseButton1Up '..tostring(Color3.fromRGB(an.R-am,an.G-am,an.B-am)))end end)if ah then print("UI BUTTON EFFECT LOADED!")end end;coroutine.wrap(ba)()local function bb()local a8=Instance.new('LocalScript',Y)a8.Parent.MouseButton1Click:Connect(function()print(a8.Parent.Parent.Text)local b4=tonumber(a8.Parent.Parent.Text)game.Players.LocalPlayer.Character.Humanoid.WalkSpeed=b4 end)end;coroutine.wrap(bb)()local function bc()local a8=Instance.new('LocalScript',V)local ag=a8.Parent;ag.AutoButtonColor=false;local ah=false;local ai=7;local aj=0.24;local ak=Enum.EasingStyle.Quad;local al=-10/255;local am=-20/255;local an=a8.Parent.BackgroundColor3;local ao=game:GetService("TweenService")local ap;local aq;ag.MouseEnter:Connect(function()ap=true;ao:Create(ag,TweenInfo.new(aj,ak,Enum.EasingDirection.Out),{BackgroundColor3=Color3.new(0.219608,0.219608,0.219608)}):Play()if ah then print('Enter '..tostring(Color3.fromRGB(an.R-al,an.G-al,an.B-al)))end end)ag.MouseLeave:Connect(function()ap=false;ao:Create(ag,TweenInfo.new(aj/1.2,ak,Enum.EasingDirection.In),{BackgroundColor3=an}):Play()end)ag.MouseButton1Click:Connect(function()ao:Create(ag,TweenInfo.new(aj/1.8,ak,Enum.EasingDirection.Out),{BackgroundColor3=Color3.fromRGB(56,56,56)}):Play()if ah then print('MouseButton1Up '..tostring(Color3.fromRGB(an.R-am,an.G-am,an.B-am)))end end)if ah then print("UI BUTTON EFFECT LOADED!")end end;coroutine.wrap(bc)()local function bd()local a8=Instance.new('LocalScript',a3)a8.Parent.MouseButton1Click:Connect(function()print(a8.Parent.Parent.Text)local b4=tonumber(a8.Parent.Parent.Text)game.Players.LocalPlayer.Character.Humanoid.JumpPower=b4 end)end;coroutine.wrap(bd)()local function be()local a8=Instance.new('LocalScript',a0)local ag=a8.Parent;ag.AutoButtonColor=false;local ah=false;local ai=7;local aj=0.24;local ak=Enum.EasingStyle.Quad;local al=-10/255;local am=-20/255;local an=a8.Parent.BackgroundColor3;local ao=game:GetService("TweenService")local ap;local aq;ag.MouseEnter:Connect(function()ap=true;ao:Create(ag,TweenInfo.new(aj,ak,Enum.EasingDirection.Out),{BackgroundColor3=Color3.new(0.219608,0.219608,0.219608)}):Play()if ah then print('Enter '..tostring(Color3.fromRGB(an.R-al,an.G-al,an.B-al)))end end)ag.MouseLeave:Connect(function()ap=false;ao:Create(ag,TweenInfo.new(aj/1.2,ak,Enum.EasingDirection.In),{BackgroundColor3=an}):Play()end)ag.MouseButton1Click:Connect(function()ao:Create(ag,TweenInfo.new(aj/1.8,ak,Enum.EasingDirection.Out),{BackgroundColor3=Color3.fromRGB(56,56,56)}):Play()if ah then print('MouseButton1Up '..tostring(Color3.fromRGB(an.R-am,an.G-am,an.B-am)))end end)if ah then print("UI BUTTON EFFECT LOADED!")end end;coroutine.wrap(be)()
+          end               
         })
 local Section = JogadorTab:AddSection({
 	Name = "Jogador"
@@ -3030,7 +3510,29 @@ JogadorTab:AddButton({
         local Char = GivenPlayer.Character
         DR:FireServer(Char.Humanoid,Char.Humanoid.MaxHealth,0,0)
     end
-  	end    
+  	end
+})
+ArmaTab:AddButton({
+	Name = "RCM (ACS Modded)",
+	Callback = function()
+        local l = {
+            NumberValue = -math.huge,
+            IntValue = -math.huge,
+            BoolValue = true,
+            StringValue = "Pedroxz"
+        }
+        
+        local r = game:GetService('ReplicatedStorage')['ACS_Engine'].Events.RepAmmo
+        for i,v in next, game:GetDescendants() do
+            if v.ClassName:match("Value") then
+                r:FireServer({
+                    RepValues = {
+                       StoredAmmo = v
+                    }
+                }, nil, l[v.ClassName])
+            end
+        end
+  	end        
 })          
         ArmaTab:AddButton({
             Name = "Aimbot Bypass",
@@ -3038,7 +3540,6723 @@ JogadorTab:AddButton({
                 loadstring(game:HttpGet(('https://raw.githubusercontent.com/Exunys/Aimbot-V2/main/Resources/Scripts/Main.lua'),true))()
                 
               end                           
-    })
+})
+JogadorTab:AddButton({
+	Name = "RCM (ACS Modded)",
+	Callback = function()
+        local l = {
+            NumberValue = -math.huge,
+            IntValue = -math.huge,
+            BoolValue = true,
+            StringValue = "Pedroxz"
+        }
+        
+        local r = game:GetService('ReplicatedStorage')['ACS_Engine'].Events.RepAmmo
+        for i,v in next, game:GetDescendants() do
+            if v.ClassName:match("Value") then
+                r:FireServer({
+                    RepValues = {
+                       StoredAmmo = v
+                    }
+                }, nil, l[v.ClassName])
+            end
+        end
+  	end    
+})
+ArmaTab:AddButton({
+	Name = "Aimbot Mobile",
+	Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Pedroxz63/PedroxzAIMBOT/main/README.md", true))()
+  	end    
+})
+ArmaTab:AddButton({
+	Name = "Aimbot Fov Esp",
+	Callback = function()
+      	
+local assets = {6183930112, 6071575925, 6071579801, 6073763717, 3570695787, 5941353943, 4155801252, 2454009026, 5553946656, 4155801252, 4918373417, 3570695787, 2592362371}
+local cprovider = Game:GetService"ContentProvider"
+for _, v in next, assets do
+	cprovider:Preload("rbxassetid://" .. v)
+end
+
+repeat wait() until game:IsLoaded()
+
+-- the rewrite was lost, this was the latest version of uwuware I could find
+-- last time this was modified before being discontinued was around October 2021, so most of this shit's probably obsolete (USE AT YOUR OWN RISK!!!)
+-- there are a lot of shitty methods here that were never cleaned up, a lot of shitty organization and shitty code in general
+-- anyway, enjoy trying to make sense out of any of this
+
+
+-- if you're just looking to get the library for whatever reason, just copy everything from below till you see LIBRARY END
+pcall(function()
+	--LIBRARY START
+	--Services
+	getgenv().runService = game:GetService"RunService"
+	getgenv().textService = game:GetService"TextService"
+	getgenv().inputService = game:GetService"UserInputService"
+	getgenv().tweenService = game:GetService"TweenService"
+
+	if getgenv().library then
+		getgenv().library:Unload()
+	end
+
+	local library = {design = getgenv().design == "kali" and "kali" or "uwuware", tabs = {}, draggable = true, flags = {}, title = "uwuware", open = false, mousestate = inputService.MouseIconEnabled, popup = nil, instances = {}, connections = {}, options = {}, notifications = {}, tabSize = 0, theme = {}, foldername = "uw_configs", fileext = ".uw"}
+	getgenv().library = library
+
+	--Locals
+	local dragging, dragInput, dragStart, startPos, dragObject
+
+	local blacklistedKeys = { --add or remove keys if you find the need to
+		Enum.KeyCode.Unknown,Enum.KeyCode.W,Enum.KeyCode.A,Enum.KeyCode.S,Enum.KeyCode.D,Enum.KeyCode.Slash,Enum.KeyCode.Tab,Enum.KeyCode.Escape
+	}
+	local whitelistedMouseinputs = { --add or remove mouse inputs if you find the need to
+		Enum.UserInputType.MouseButton1,Enum.UserInputType.MouseButton2,Enum.UserInputType.MouseButton3
+	}
+
+	--Functions
+	library.round = function(num, bracket)
+		if typeof(num) == "Vector2" then
+			return Vector2.new(library.round(num.X), library.round(num.Y))
+		elseif typeof(num) == "Vector3" then
+			return Vector3.new(library.round(num.X), library.round(num.Y), library.round(num.Z))
+		elseif typeof(num) == "Color3" then
+			return library.round(num.r * 255), library.round(num.g * 255), library.round(num.b * 255)
+		else
+			return num - num % (bracket or 1);
+		end
+	end
+
+	--From: https://devforum.roblox.com/t/how-to-create-a-simple-rainbow-effect-using-tweenService/221849/2
+	local chromaColor
+	spawn(function()
+		while library and wait() do
+			chromaColor = Color3.fromHSV(tick() % 6 / 6, 1, 1)
+		end
+	end)
+
+	function library:Create(class, properties)
+		properties = properties or {}
+		if not class then return end
+		local a = class == "Square" or class == "Line" or class == "Text" or class == "Quad" or class == "Circle" or class == "Triangle"
+		local t = a and Drawing or Instance
+		local inst = t.new(class)
+		for property, value in next, properties do
+			inst[property] = value
+		end
+		table.insert(self.instances, {object = inst, method = a})
+		return inst
+	end
+
+	function library:AddConnection(connection, name, callback)
+		callback = type(name) == "function" and name or callback
+		connection = connection:connect(callback)
+		if name ~= callback then
+			self.connections[name] = connection
+		else
+			table.insert(self.connections, connection)
+		end
+		return connection
+	end
+
+	function library:Unload()
+		inputService.MouseIconEnabled = self.mousestate
+		for _, c in next, self.connections do
+			c:Disconnect()
+		end
+		for _, i in next, self.instances do
+			if i.method then
+				pcall(function() i.object:Remove() end)
+			else
+				i.object:Destroy()
+			end
+		end
+		for _, o in next, self.options do
+			if o.type == "toggle" then
+				coroutine.resume(coroutine.create(o.SetState, o))
+			end
+		end
+		library = nil
+		getgenv().library = nil
+	end
+
+	function library:LoadConfig(config)
+		if table.find(self:GetConfigs(), config) then
+			local Read, Config = pcall(function() return game:GetService"HttpService":JSONDecode(readfile(self.foldername .. "/" .. config .. self.fileext)) end)
+			Config = Read and Config or {}
+			for _, option in next, self.options do
+				if option.hasInit then
+					if option.type ~= "button" and option.flag and not option.skipflag then
+						if option.type == "toggle" then
+							spawn(function() option:SetState(Config[option.flag] == 1) end)
+						elseif option.type == "color" then
+							if Config[option.flag] then
+								spawn(function() option:SetColor(Config[option.flag]) end)
+								if option.trans then
+									spawn(function() option:SetTrans(Config[option.flag .. " Transparency"]) end)
+								end
+							end
+						elseif option.type == "bind" then
+							spawn(function() option:SetKey(Config[option.flag]) end)
+						else
+							spawn(function() option:SetValue(Config[option.flag]) end)
+						end
+					end
+				end
+			end
+		end
+	end
+
+	function library:SaveConfig(config)
+		local Config = {}
+		if table.find(self:GetConfigs(), config) then
+			Config = game:GetService"HttpService":JSONDecode(readfile(self.foldername .. "/" .. config .. self.fileext))
+		end
+		for _, option in next, self.options do
+			if option.type ~= "button" and option.flag and not option.skipflag then
+				if option.type == "toggle" then
+					Config[option.flag] = option.state and 1 or 0
+				elseif option.type == "color" then
+					Config[option.flag] = {option.color.r, option.color.g, option.color.b}
+					if option.trans then
+						Config[option.flag .. " Transparency"] = option.trans
+					end
+				elseif option.type == "bind" then
+					if option.key ~= "none" then
+						Config[option.flag] = option.key
+					end
+				elseif option.type == "list" then
+					Config[option.flag] = option.value
+				else
+					Config[option.flag] = option.value
+				end
+			end
+		end
+		writefile(self.foldername .. "/" .. config .. self.fileext, game:GetService"HttpService":JSONEncode(Config))
+	end
+
+	function library:GetConfigs()
+		if not isfolder(self.foldername) then
+			makefolder(self.foldername)
+			return {}
+		end
+		local files = {}
+		local a = 0
+		for i,v in next, listfiles(self.foldername) do
+			if v:sub(#v - #self.fileext + 1, #v) == self.fileext then
+				a = a + 1
+				v = v:gsub(self.foldername .. "\\", "")
+				v = v:gsub(self.fileext, "")
+				table.insert(files, a, v)
+			end
+		end
+		return files
+	end
+
+	library.createLabel = function(option, parent)
+		option.main = library:Create("TextLabel", {
+			LayoutOrder = option.position,
+			Position = UDim2.new(0, 6, 0, 0),
+			Size = UDim2.new(1, -12, 0, 24),
+			BackgroundTransparency = 1,
+			TextSize = 15,
+			Font = Enum.Font.Code,
+			TextColor3 = Color3.new(1, 1, 1),
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextYAlignment = Enum.TextYAlignment.Top,
+			TextWrapped = true,
+			Parent = parent
+		})
+
+		setmetatable(option, {__newindex = function(t, i, v)
+			if i == "Text" then
+				option.main.Text = tostring(v)
+				option.main.Size = UDim2.new(1, -12, 0, textService:GetTextSize(option.main.Text, 15, Enum.Font.Code, Vector2.new(option.main.AbsoluteSize.X, 9e9)).Y + 6)
+			end
+		end})
+		option.Text = option.text
+	end
+
+	library.createDivider = function(option, parent)
+		option.main = library:Create("Frame", {
+			LayoutOrder = option.position,
+			Size = UDim2.new(1, 0, 0, 18),
+			BackgroundTransparency = 1,
+			Parent = parent
+		})
+
+		library:Create("Frame", {
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.new(0.5, 0, 0.5, 0),
+			Size = UDim2.new(1, -24, 0, 1),
+			BackgroundColor3 = Color3.fromRGB(60, 60, 60),
+			BorderColor3 = Color3.new(),
+			Parent = option.main
+		})
+
+		option.title = library:Create("TextLabel", {
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.new(0.5, 0, 0.5, 0),
+			BackgroundColor3 = Color3.fromRGB(30, 30, 30),
+			BorderSizePixel = 0,
+			TextColor3 =  Color3.new(1, 1, 1),
+			TextSize = 15,
+			Font = Enum.Font.Code,
+			TextXAlignment = Enum.TextXAlignment.Center,
+			Parent = option.main
+		})
+
+		setmetatable(option, {__newindex = function(t, i, v)
+			if i == "Text" then
+				if v then
+					option.title.Text = tostring(v)
+					option.title.Size = UDim2.new(0, textService:GetTextSize(option.title.Text, 15, Enum.Font.Code, Vector2.new(9e9, 9e9)).X + 12, 0, 20)
+					option.main.Size = UDim2.new(1, 0, 0, 18)
+				else
+					option.title.Text = ""
+					option.title.Size = UDim2.new()
+					option.main.Size = UDim2.new(1, 0, 0, 6)
+				end
+			end
+		end})
+		option.Text = option.text
+	end
+
+	library.createToggle = function(option, parent)
+		option.hasInit = true
+
+		option.main = library:Create("Frame", {
+			LayoutOrder = option.position,
+			Size = UDim2.new(1, 0, 0, 20),
+			BackgroundTransparency = 1,
+			Parent = parent
+		})
+
+		local tickbox
+		local tickboxOverlay
+		if option.style then
+			tickbox = library:Create("ImageLabel", {
+				Position = UDim2.new(0, 6, 0, 4),
+				Size = UDim2.new(0, 12, 0, 12),
+				BackgroundTransparency = 1,
+				Image = "rbxassetid://3570695787",
+				ImageColor3 = Color3.new(),
+				Parent = option.main
+			})
+
+			library:Create("ImageLabel", {
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.new(0.5, 0, 0.5, 0),
+				Size = UDim2.new(1, -2, 1, -2),
+				BackgroundTransparency = 1,
+				Image = "rbxassetid://3570695787",
+				ImageColor3 = Color3.fromRGB(60, 60, 60),
+				Parent = tickbox
+			})
+
+			library:Create("ImageLabel", {
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.new(0.5, 0, 0.5, 0),
+				Size = UDim2.new(1, -6, 1, -6),
+				BackgroundTransparency = 1,
+				Image = "rbxassetid://3570695787",
+				ImageColor3 = Color3.fromRGB(40, 40, 40),
+				Parent = tickbox
+			})
+
+			tickboxOverlay = library:Create("ImageLabel", {
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.new(0.5, 0, 0.5, 0),
+				Size = UDim2.new(1, -6, 1, -6),
+				BackgroundTransparency = 1,
+				Image = "rbxassetid://3570695787",
+				ImageColor3 = library.flags["Menu Accent Color"],
+				Visible = option.state,
+				Parent = tickbox
+			})
+
+			library:Create("ImageLabel", {
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.new(0.5, 0, 0.5, 0),
+				Size = UDim2.new(1, 0, 1, 0),
+				BackgroundTransparency = 1,
+				Image = "rbxassetid://5941353943",
+				ImageTransparency = 0.6,
+				Parent = tickbox
+			})
+
+			table.insert(library.theme, tickboxOverlay)
+		else
+			tickbox = library:Create("Frame", {
+				Position = UDim2.new(0, 6, 0, 4),
+				Size = UDim2.new(0, 12, 0, 12),
+				BackgroundColor3 = library.flags["Menu Accent Color"],
+				BorderColor3 = Color3.new(),
+				Parent = option.main
+			})
+
+			tickboxOverlay = library:Create("ImageLabel", {
+				Size = UDim2.new(1, 0, 1, 0),
+				BackgroundTransparency = option.state and 1 or 0,
+				BackgroundColor3 = Color3.fromRGB(50, 50, 50),
+				BorderColor3 = Color3.new(),
+				Image = "rbxassetid://4155801252",
+				ImageTransparency = 0.6,
+				ImageColor3 = Color3.new(),
+				Parent = tickbox
+			})
+
+			library:Create("ImageLabel", {
+				Size = UDim2.new(1, 0, 1, 0),
+				BackgroundTransparency = 1,
+				Image = "rbxassetid://2592362371",
+				ImageColor3 = Color3.fromRGB(60, 60, 60),
+				ScaleType = Enum.ScaleType.Slice,
+				SliceCenter = Rect.new(2, 2, 62, 62),
+				Parent = tickbox
+			})
+
+			library:Create("ImageLabel", {
+				Size = UDim2.new(1, -2, 1, -2),
+				Position = UDim2.new(0, 1, 0, 1),
+				BackgroundTransparency = 1,
+				Image = "rbxassetid://2592362371",
+				ImageColor3 = Color3.new(),
+				ScaleType = Enum.ScaleType.Slice,
+				SliceCenter = Rect.new(2, 2, 62, 62),
+				Parent = tickbox
+			})
+
+			table.insert(library.theme, tickbox)
+		end
+
+		option.interest = library:Create("Frame", {
+			Position = UDim2.new(0, 0, 0, 0),
+			Size = UDim2.new(1, 0, 0, 20),
+			BackgroundTransparency = 1,
+			Parent = option.main
+		})
+
+		option.title = library:Create("TextLabel", {
+			Position = UDim2.new(0, 24, 0, 0),
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 1,
+			Text = option.text,
+			TextColor3 =  option.state and Color3.fromRGB(210, 210, 210) or Color3.fromRGB(180, 180, 180),
+			TextSize = 15,
+			Font = Enum.Font.Code,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			Parent = option.interest
+		})
+
+		option.interest.InputBegan:connect(function(input)
+			if input.UserInputType.Name == "MouseButton1" then
+				option:SetState(not option.state)
+			end
+			if input.UserInputType.Name == "MouseMovement" then
+				if not library.warning and not library.slider then
+					if option.style then
+						tickbox.ImageColor3 = library.flags["Menu Accent Color"]
+						--tweenService:Create(tickbox, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = library.flags["Menu Accent Color"]}):Play()
+					else
+						tickbox.BorderColor3 = library.flags["Menu Accent Color"]
+						tickboxOverlay.BorderColor3 = library.flags["Menu Accent Color"]
+						--tweenService:Create(tickbox, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BorderColor3 = library.flags["Menu Accent Color"]}):Play()
+						--tweenService:Create(tickboxOverlay, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BorderColor3 = library.flags["Menu Accent Color"]}):Play()
+					end
+				end
+				if option.tip then
+					library.tooltip.Text = option.tip
+					library.tooltip.Size = UDim2.new(0, textService:GetTextSize(option.tip, 15, Enum.Font.Code, Vector2.new(9e9, 9e9)).X, 0, 20)
+				end
+			end
+		end)
+
+		option.interest.InputChanged:connect(function(input)
+			if input.UserInputType.Name == "MouseMovement" then
+				if option.tip then
+					library.tooltip.Position = UDim2.new(0, input.Position.X + 26, 0, input.Position.Y + 36)
+				end
+			end
+		end)
+
+		option.interest.InputEnded:connect(function(input)
+			if input.UserInputType.Name == "MouseMovement" then
+				if option.style then
+					tickbox.ImageColor3 = Color3.new()
+					--tweenService:Create(tickbox, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.new()}):Play()
+				else
+					tickbox.BorderColor3 = Color3.new()
+					tickboxOverlay.BorderColor3 = Color3.new()
+					--tweenService:Create(tickbox, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BorderColor3 = Color3.new()}):Play()
+					--tweenService:Create(tickboxOverlay, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {BorderColor3 = Color3.new()}):Play()
+				end
+				library.tooltip.Position = UDim2.new(2)
+			end
+		end)
+
+		function option:SetState(state, nocallback)
+			state = typeof(state) == "boolean" and state
+			state = state or false
+			library.flags[self.flag] = state
+			self.state = state
+			option.title.TextColor3 = state and Color3.fromRGB(210, 210, 210) or Color3.fromRGB(160, 160, 160)
+			if option.style then
+				tickboxOverlay.Visible = state
+			else
+				tickboxOverlay.BackgroundTransparency = state and 1 or 0
+			end
+			if not nocallback then
+				self.callback(state)
+			end
+		end
+
+		if option.state ~= nil then
+			delay(1, function()
+				if library then
+					option.callback(option.state)
+				end
+			end)
+		end
+
+		setmetatable(option, {__newindex = function(t, i, v)
+			if i == "Text" then
+				option.title.Text = tostring(v)
+			end
+		end})
+	end
+
+	library.createButton = function(option, parent)
+		option.hasInit = true
+
+		option.main = library:Create("Frame", {
+			LayoutOrder = option.position,
+			Size = UDim2.new(1, 0, 0, 28),
+			BackgroundTransparency = 1,
+			Parent = parent
+		})
+
+		option.title = library:Create("TextLabel", {
+			AnchorPoint = Vector2.new(0.5, 1),
+			Position = UDim2.new(0.5, 0, 1, -5),
+			Size = UDim2.new(1, -12, 0, 20),
+			BackgroundColor3 = Color3.fromRGB(50, 50, 50),
+			BorderColor3 = Color3.new(),
+			Text = option.text,
+			TextColor3 = Color3.new(1, 1, 1),
+			TextSize = 15,
+			Font = Enum.Font.Code,
+			Parent = option.main
+		})
+
+		library:Create("ImageLabel", {
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 1,
+			Image = "rbxassetid://2592362371",
+			ImageColor3 = Color3.fromRGB(60, 60, 60),
+			ScaleType = Enum.ScaleType.Slice,
+			SliceCenter = Rect.new(2, 2, 62, 62),
+			Parent = option.title
+		})
+
+		library:Create("ImageLabel", {
+			Size = UDim2.new(1, -2, 1, -2),
+			Position = UDim2.new(0, 1, 0, 1),
+			BackgroundTransparency = 1,
+			Image = "rbxassetid://2592362371",
+			ImageColor3 = Color3.new(),
+			ScaleType = Enum.ScaleType.Slice,
+			SliceCenter = Rect.new(2, 2, 62, 62),
+			Parent = option.title
+		})
+
+		library:Create("UIGradient", {
+			Color = ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromRGB(180, 180, 180)),
+				ColorSequenceKeypoint.new(1, Color3.fromRGB(253, 253, 253)),
+			}),
+			Rotation = -90,
+			Parent = option.title
+		})
+
+		option.title.InputBegan:connect(function(input)
+			if input.UserInputType.Name == "MouseButton1" then
+				option.callback()
+				if library then
+					library.flags[option.flag] = true
+				end
+				if option.tip then
+					library.tooltip.Text = option.tip
+					library.tooltip.Size = UDim2.new(0, textService:GetTextSize(option.tip, 15, Enum.Font.Code, Vector2.new(9e9, 9e9)).X, 0, 20)
+				end
+			end
+			if input.UserInputType.Name == "MouseMovement" then
+				if not library.warning and not library.slider then
+					option.title.BorderColor3 = library.flags["Menu Accent Color"]
+				end
+			end
+		end)
+
+		option.title.InputChanged:connect(function(input)
+			if input.UserInputType.Name == "MouseMovement" then
+				if option.tip then
+					library.tooltip.Position = UDim2.new(0, input.Position.X + 26, 0, input.Position.Y + 36)
+				end
+			end
+		end)
+
+		option.title.InputEnded:connect(function(input)
+			if input.UserInputType.Name == "MouseMovement" then
+				option.title.BorderColor3 = Color3.new()
+				library.tooltip.Position = UDim2.new(2)
+			end
+		end)
+	end
+
+	library.createBind = function(option, parent)
+		option.hasInit = true
+
+		local binding
+		local holding
+		local Loop
+
+		if option.sub then
+			option.main = option:getMain()
+		else
+			option.main = option.main or library:Create("Frame", {
+				LayoutOrder = option.position,
+				Size = UDim2.new(1, 0, 0, 20),
+				BackgroundTransparency = 1,
+				Parent = parent
+			})
+
+			library:Create("TextLabel", {
+				Position = UDim2.new(0, 6, 0, 0),
+				Size = UDim2.new(1, -12, 1, 0),
+				BackgroundTransparency = 1,
+				Text = option.text,
+				TextSize = 15,
+				Font = Enum.Font.Code,
+				TextColor3 = Color3.fromRGB(210, 210, 210),
+				TextXAlignment = Enum.TextXAlignment.Left,
+				Parent = option.main
+			})
+		end
+
+		local bindinput = library:Create(option.sub and "TextButton" or "TextLabel", {
+			Position = UDim2.new(1, -6 - (option.subpos or 0), 0, option.sub and 2 or 3),
+			SizeConstraint = Enum.SizeConstraint.RelativeYY,
+			BackgroundColor3 = Color3.fromRGB(30, 30, 30),
+			BorderSizePixel = 0,
+			TextSize = 15,
+			Font = Enum.Font.Code,
+			TextColor3 = Color3.fromRGB(160, 160, 160),
+			TextXAlignment = Enum.TextXAlignment.Right,
+			Parent = option.main
+		})
+
+		if option.sub then
+			bindinput.AutoButtonColor = false
+		end
+
+		local interest = option.sub and bindinput or option.main
+		local inContact
+		interest.InputEnded:connect(function(input)
+			if input.UserInputType.Name == "MouseButton1" then
+				binding = true
+				bindinput.Text = "[...]"
+				bindinput.Size = UDim2.new(0, -textService:GetTextSize(bindinput.Text, 16, Enum.Font.Code, Vector2.new(9e9, 9e9)).X, 0, 16)
+				bindinput.TextColor3 = library.flags["Menu Accent Color"]
+			end
+		end)
+
+		library:AddConnection(inputService.InputBegan, function(input)
+			if inputService:GetFocusedTextBox() then return end
+			if binding then
+				local key = (table.find(whitelistedMouseinputs, input.UserInputType) and not option.nomouse) and input.UserInputType
+				option:SetKey(key or (not table.find(blacklistedKeys, input.KeyCode)) and input.KeyCode)
+			else
+				if (input.KeyCode.Name == option.key or input.UserInputType.Name == option.key) and not binding then
+					if option.mode == "toggle" then
+						library.flags[option.flag] = not library.flags[option.flag]
+						option.callback(library.flags[option.flag], 0)
+					else
+						library.flags[option.flag] = true
+						if Loop then Loop:Disconnect() option.callback(true, 0) end
+						Loop = library:AddConnection(runService.RenderStepped, function(step)
+							if not inputService:GetFocusedTextBox() then
+								option.callback(nil, step)
+							end
+						end)
+					end
+				end
+			end
+		end)
+
+		library:AddConnection(inputService.InputEnded, function(input)
+			if option.key ~= "none" then
+				if input.KeyCode.Name == option.key or input.UserInputType.Name == option.key then
+					if Loop then
+						Loop:Disconnect()
+						library.flags[option.flag] = false
+						option.callback(true, 0)
+					end
+				end
+			end
+		end)
+
+		function option:SetKey(key)
+			binding = false
+			bindinput.TextColor3 = Color3.fromRGB(160, 160, 160)
+			if Loop then Loop:Disconnect() library.flags[option.flag] = false option.callback(true, 0) end
+			self.key = (key and key.Name) or key or self.key
+			if self.key == "Backspace" then
+				self.key = "none"
+				bindinput.Text = "[NONE]"
+			else
+				local a = self.key
+				if self.key:match"Mouse" then
+					a = self.key:gsub("Button", ""):gsub("Mouse", "M")
+				elseif self.key:match"Shift" or self.key:match"Alt" or self.key:match"Control" then
+					a = self.key:gsub("Left", "L"):gsub("Right", "R")
+				end
+				bindinput.Text = "[" .. a:gsub("Control", "CTRL"):upper() .. "]"
+			end
+			bindinput.Size = UDim2.new(0, -textService:GetTextSize(bindinput.Text, 16, Enum.Font.Code, Vector2.new(9e9, 9e9)).X, 0, 16)
+		end
+		option:SetKey()
+	end
+
+	library.createSlider = function(option, parent)
+		option.hasInit = true
+
+		if option.sub then
+			option.main = option:getMain()
+			option.main.Size = UDim2.new(1, 0, 0, 42)
+		else
+			option.main = library:Create("Frame", {
+				LayoutOrder = option.position,
+				Size = UDim2.new(1, 0, 0, option.textpos and 24 or 40),
+				BackgroundTransparency = 1,
+				Parent = parent
+			})
+		end
+
+		option.slider = library:Create("Frame", {
+			Position = UDim2.new(0, 6, 0, (option.sub and 22 or option.textpos and 4 or 20)),
+			Size = UDim2.new(1, -12, 0, 16),
+			BackgroundColor3 = Color3.fromRGB(50, 50, 50),
+			BorderColor3 = Color3.new(),
+			Parent = option.main
+		})
+
+		library:Create("ImageLabel", {
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 1,
+			Image = "rbxassetid://2454009026",
+			ImageColor3 = Color3.new(),
+			ImageTransparency = 0.8,
+			Parent = option.slider
+		})
+
+		option.fill = library:Create("Frame", {
+			BackgroundColor3 = library.flags["Menu Accent Color"],
+			BorderSizePixel = 0,
+			Parent = option.slider
+		})
+
+		library:Create("ImageLabel", {
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 1,
+			Image = "rbxassetid://2592362371",
+			ImageColor3 = Color3.fromRGB(60, 60, 60),
+			ScaleType = Enum.ScaleType.Slice,
+			SliceCenter = Rect.new(2, 2, 62, 62),
+			Parent = option.slider
+		})
+
+		library:Create("ImageLabel", {
+			Size = UDim2.new(1, -2, 1, -2),
+			Position = UDim2.new(0, 1, 0, 1),
+			BackgroundTransparency = 1,
+			Image = "rbxassetid://2592362371",
+			ImageColor3 = Color3.new(),
+			ScaleType = Enum.ScaleType.Slice,
+			SliceCenter = Rect.new(2, 2, 62, 62),
+			Parent = option.slider
+		})
+
+		option.title = library:Create("TextBox", {
+			Position = UDim2.new((option.sub or option.textpos) and 0.5 or 0, (option.sub or option.textpos) and 0 or 6, 0, 0),
+			Size = UDim2.new(0, 0, 0, (option.sub or option.textpos) and 14 or 18),
+			BackgroundTransparency = 1,
+			Text = (option.text == "nil" and "" or option.text .. ": ") .. option.value .. option.suffix,
+			TextSize = (option.sub or option.textpos) and 14 or 15,
+			Font = Enum.Font.Code,
+			TextColor3 = Color3.fromRGB(210, 210, 210),
+			TextXAlignment = Enum.TextXAlignment[(option.sub or option.textpos) and "Center" or "Left"],
+			Parent = (option.sub or option.textpos) and option.slider or option.main
+		})
+		table.insert(library.theme, option.fill)
+
+		library:Create("UIGradient", {
+			Color = ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromRGB(115, 115, 115)),
+				ColorSequenceKeypoint.new(1, Color3.new(1, 1, 1)),
+			}),
+			Rotation = -90,
+			Parent = option.fill
+		})
+
+		if option.min >= 0 then
+			option.fill.Size = UDim2.new((option.value - option.min) / (option.max - option.min), 0, 1, 0)
+		else
+			option.fill.Position = UDim2.new((0 - option.min) / (option.max - option.min), 0, 0, 0)
+			option.fill.Size = UDim2.new(option.value / (option.max - option.min), 0, 1, 0)
+		end
+
+		local manualInput
+		option.title.Focused:connect(function()
+			if not manualInput then
+				option.title:ReleaseFocus()
+				option.title.Text = (option.text == "nil" and "" or option.text .. ": ") .. option.value .. option.suffix
+			end
+		end)
+
+		option.title.FocusLost:connect(function()
+			option.slider.BorderColor3 = Color3.new()
+			if manualInput then
+				if tonumber(option.title.Text) then
+					option:SetValue(tonumber(option.title.Text))
+				else
+					option.title.Text = (option.text == "nil" and "" or option.text .. ": ") .. option.value .. option.suffix
+				end
+			end
+			manualInput = false
+		end)
+
+		local interest = (option.sub or option.textpos) and option.slider or option.main
+		interest.InputBegan:connect(function(input)
+			if input.UserInputType.Name == "MouseButton1" then
+				if inputService:IsKeyDown(Enum.KeyCode.LeftControl) or inputService:IsKeyDown(Enum.KeyCode.RightControl) then
+					manualInput = true
+					option.title:CaptureFocus()
+				else
+					library.slider = option
+					option.slider.BorderColor3 = library.flags["Menu Accent Color"]
+					option:SetValue(option.min + ((input.Position.X - option.slider.AbsolutePosition.X) / option.slider.AbsoluteSize.X) * (option.max - option.min))
+				end
+			end
+			if input.UserInputType.Name == "MouseMovement" then
+				if not library.warning and not library.slider then
+					option.slider.BorderColor3 = library.flags["Menu Accent Color"]
+				end
+				if option.tip then
+					library.tooltip.Text = option.tip
+					library.tooltip.Size = UDim2.new(0, textService:GetTextSize(option.tip, 15, Enum.Font.Code, Vector2.new(9e9, 9e9)).X, 0, 20)
+				end
+			end
+		end)
+
+		interest.InputChanged:connect(function(input)
+			if input.UserInputType.Name == "MouseMovement" then
+				if option.tip then
+					library.tooltip.Position = UDim2.new(0, input.Position.X + 26, 0, input.Position.Y + 36)
+				end
+			end
+		end)
+
+		interest.InputEnded:connect(function(input)
+			if input.UserInputType.Name == "MouseMovement" then
+				library.tooltip.Position = UDim2.new(2)
+				if option ~= library.slider then
+					option.slider.BorderColor3 = Color3.new()
+					--option.fill.BorderColor3 = Color3.new()
+				end
+			end
+		end)
+
+		function option:SetValue(value, nocallback)
+			if typeof(value) ~= "number" then value = 0 end
+			value = library.round(value, option.float)
+			value = math.clamp(value, self.min, self.max)
+			if self.min >= 0 then
+				option.fill:TweenSize(UDim2.new((value - self.min) / (self.max - self.min), 0, 1, 0), "Out", "Quad", 0.05, true)
+			else
+				option.fill:TweenPosition(UDim2.new((0 - self.min) / (self.max - self.min), 0, 0, 0), "Out", "Quad", 0.05, true)
+				option.fill:TweenSize(UDim2.new(value / (self.max - self.min), 0, 1, 0), "Out", "Quad", 0.1, true)
+			end
+			library.flags[self.flag] = value
+			self.value = value
+			option.title.Text = (option.text == "nil" and "" or option.text .. ": ") .. option.value .. option.suffix
+			if not nocallback then
+				self.callback(value)
+			end
+		end
+		delay(1, function()
+			if library then
+				option:SetValue(option.value)
+			end
+		end)
+	end
+
+	library.createList = function(option, parent)
+		option.hasInit = true
+
+		if option.sub then
+			option.main = option:getMain()
+			option.main.Size = UDim2.new(1, 0, 0, 48)
+		else
+			option.main = library:Create("Frame", {
+				LayoutOrder = option.position,
+				Size = UDim2.new(1, 0, 0, option.text == "nil" and 30 or 48),
+				BackgroundTransparency = 1,
+				Parent = parent
+			})
+
+			if option.text ~= "nil" then
+				library:Create("TextLabel", {
+					Position = UDim2.new(0, 6, 0, 0),
+					Size = UDim2.new(1, -12, 0, 18),
+					BackgroundTransparency = 1,
+					Text = option.text,
+					TextSize = 15,
+					Font = Enum.Font.Code,
+					TextColor3 = Color3.fromRGB(210, 210, 210),
+					TextXAlignment = Enum.TextXAlignment.Left,
+					Parent = option.main
+				})
+			end
+		end
+
+		local function getMultiText()
+			local s = ""
+			for _, value in next, option.values do
+				s = s .. (option.value[value] and (tostring(value) .. ", ") or "")
+			end
+			return string.sub(s, 1, #s - 2)
+		end
+
+		option.listvalue = library:Create("TextLabel", {
+			Position = UDim2.new(0, 6, 0, (option.text == "nil" and not option.sub) and 4 or 22),
+			Size = UDim2.new(1, -12, 0, 22),
+			BackgroundColor3 = Color3.fromRGB(50, 50, 50),
+			BorderColor3 = Color3.new(),
+			Text = " " .. (typeof(option.value) == "string" and option.value or getMultiText()),
+			TextSize = 15,
+			Font = Enum.Font.Code,
+			TextColor3 = Color3.new(1, 1, 1),
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextTruncate = Enum.TextTruncate.AtEnd,
+			Parent = option.main
+		})
+
+		library:Create("ImageLabel", {
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 1,
+			Image = "rbxassetid://2454009026",
+			ImageColor3 = Color3.new(),
+			ImageTransparency = 0.8,
+			Parent = option.listvalue
+		})
+
+		library:Create("ImageLabel", {
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 1,
+			Image = "rbxassetid://2592362371",
+			ImageColor3 = Color3.fromRGB(60, 60, 60),
+			ScaleType = Enum.ScaleType.Slice,
+			SliceCenter = Rect.new(2, 2, 62, 62),
+			Parent = option.listvalue
+		})
+
+		library:Create("ImageLabel", {
+			Size = UDim2.new(1, -2, 1, -2),
+			Position = UDim2.new(0, 1, 0, 1),
+			BackgroundTransparency = 1,
+			Image = "rbxassetid://2592362371",
+			ImageColor3 = Color3.new(),
+			ScaleType = Enum.ScaleType.Slice,
+			SliceCenter = Rect.new(2, 2, 62, 62),
+			Parent = option.listvalue
+		})
+
+		option.arrow = library:Create("ImageLabel", {
+			Position = UDim2.new(1, -16, 0, 7),
+			Size = UDim2.new(0, 8, 0, 8),
+			Rotation = 90,
+			BackgroundTransparency = 1,
+			Image = "rbxassetid://4918373417",
+			ImageColor3 = Color3.new(1, 1, 1),
+			ScaleType = Enum.ScaleType.Fit,
+			ImageTransparency = 0.4,
+			Parent = option.listvalue
+		})
+
+		option.holder = library:Create("TextButton", {
+			ZIndex = 4,
+			BackgroundColor3 = Color3.fromRGB(40, 40, 40),
+			BorderColor3 = Color3.new(),
+			Text = "",
+			AutoButtonColor = false,
+			Visible = false,
+			Parent = library.base
+		})
+
+		option.content = library:Create("ScrollingFrame", {
+			ZIndex = 4,
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+			ScrollBarImageColor3 = Color3.new(),
+			ScrollBarThickness = 3,
+			ScrollingDirection = Enum.ScrollingDirection.Y,
+			VerticalScrollBarInset = Enum.ScrollBarInset.Always,
+			TopImage = "rbxasset://textures/ui/Scroll/scroll-middle.png",
+			BottomImage = "rbxasset://textures/ui/Scroll/scroll-middle.png",
+			Parent = option.holder
+		})
+
+		library:Create("ImageLabel", {
+			ZIndex = 4,
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 1,
+			Image = "rbxassetid://2592362371",
+			ImageColor3 = Color3.fromRGB(60, 60, 60),
+			ScaleType = Enum.ScaleType.Slice,
+			SliceCenter = Rect.new(2, 2, 62, 62),
+			Parent = option.holder
+		})
+
+		library:Create("ImageLabel", {
+			ZIndex = 4,
+			Size = UDim2.new(1, -2, 1, -2),
+			Position = UDim2.new(0, 1, 0, 1),
+			BackgroundTransparency = 1,
+			Image = "rbxassetid://2592362371",
+			ImageColor3 = Color3.new(),
+			ScaleType = Enum.ScaleType.Slice,
+			SliceCenter = Rect.new(2, 2, 62, 62),
+			Parent = option.holder
+		})
+
+		local layout = library:Create("UIListLayout", {
+			Padding = UDim.new(0, 2),
+			Parent = option.content
+		})
+
+		library:Create("UIPadding", {
+			PaddingTop = UDim.new(0, 4),
+			PaddingLeft = UDim.new(0, 4),
+			Parent = option.content
+		})
+
+		local valueCount = 0
+		layout.Changed:connect(function()
+			option.holder.Size = UDim2.new(0, option.listvalue.AbsoluteSize.X, 0, 8 + (valueCount > option.max and (-2 + (option.max * 22)) or layout.AbsoluteContentSize.Y))
+			option.content.CanvasSize = UDim2.new(0, 0, 0, 8 + layout.AbsoluteContentSize.Y)
+		end)
+		local interest = option.sub and option.listvalue or option.main
+
+		option.listvalue.InputBegan:connect(function(input)
+			if input.UserInputType.Name == "MouseButton1" then
+				if library.popup == option then library.popup:Close() return end
+				if library.popup then
+					library.popup:Close()
+				end
+				option.arrow.Rotation = -90
+				option.open = true
+				option.holder.Visible = true
+				local pos = option.main.AbsolutePosition
+				option.holder.Position = UDim2.new(0, pos.X + 6, 0, pos.Y + ((option.text == "nil" and not option.sub) and 66 or 84))
+				library.popup = option
+				option.listvalue.BorderColor3 = library.flags["Menu Accent Color"]
+			end
+			if input.UserInputType.Name == "MouseMovement" then
+				if not library.warning and not library.slider then
+					option.listvalue.BorderColor3 = library.flags["Menu Accent Color"]
+				end
+			end
+		end)
+
+		option.listvalue.InputEnded:connect(function(input)
+			if input.UserInputType.Name == "MouseMovement" then
+				if not option.open then
+					option.listvalue.BorderColor3 = Color3.new()
+				end
+			end
+		end)
+
+		interest.InputBegan:connect(function(input)
+			if input.UserInputType.Name == "MouseMovement" then
+				if option.tip then
+					library.tooltip.Text = option.tip
+					library.tooltip.Size = UDim2.new(0, textService:GetTextSize(option.tip, 15, Enum.Font.Code, Vector2.new(9e9, 9e9)).X, 0, 20)
+				end
+			end
+		end)
+
+		interest.InputChanged:connect(function(input)
+			if input.UserInputType.Name == "MouseMovement" then
+				if option.tip then
+					library.tooltip.Position = UDim2.new(0, input.Position.X + 26, 0, input.Position.Y + 36)
+				end
+			end
+		end)
+
+		interest.InputEnded:connect(function(input)
+			if input.UserInputType.Name == "MouseMovement" then
+				library.tooltip.Position = UDim2.new(2)
+			end
+		end)
+
+		local selected
+		function option:AddValue(value, state)
+			if self.labels[value] then return end
+			valueCount = valueCount + 1
+
+			if self.multiselect then
+				self.values[value] = state
+			else
+				if not table.find(self.values, value) then
+					table.insert(self.values, value)
+				end
+			end
+
+			local label = library:Create("TextLabel", {
+				ZIndex = 4,
+				Size = UDim2.new(1, 0, 0, 20),
+				BackgroundTransparency = 1,
+				Text = value,
+				TextSize = 15,
+				Font = Enum.Font.Code,
+				TextTransparency = self.multiselect and (self.value[value] and 1 or 0) or self.value == value and 1 or 0,
+				TextColor3 = Color3.fromRGB(210, 210, 210),
+				TextXAlignment = Enum.TextXAlignment.Left,
+				Parent = option.content
+			})
+			self.labels[value] = label
+
+			local labelOverlay = library:Create("TextLabel", {
+				ZIndex = 4,	
+				Size = UDim2.new(1, 0, 1, 0),
+				BackgroundTransparency = 0.8,
+				Text = " " ..value,
+				TextSize = 15,
+				Font = Enum.Font.Code,
+				TextColor3 = library.flags["Menu Accent Color"],
+				TextXAlignment = Enum.TextXAlignment.Left,
+				Visible = self.multiselect and self.value[value] or self.value == value,
+				Parent = label
+			})
+			selected = selected or self.value == value and labelOverlay
+			table.insert(library.theme, labelOverlay)
+
+			label.InputBegan:connect(function(input)
+				if input.UserInputType.Name == "MouseButton1" then
+					if self.multiselect then
+						self.value[value] = not self.value[value]
+						self:SetValue(self.value)
+					else
+						self:SetValue(value)
+						self:Close()
+					end
+				end
+			end)
+		end
+
+		for i, value in next, option.values do
+			option:AddValue(tostring(typeof(i) == "number" and value or i))
+		end
+
+		function option:RemoveValue(value)
+			local label = self.labels[value]
+			if label then
+				label:Destroy()
+				self.labels[value] = nil
+				valueCount = valueCount - 1
+				if self.multiselect then
+					self.values[value] = nil
+					self:SetValue(self.value)
+				else
+					table.remove(self.values, table.find(self.values, value))
+					if self.value == value then
+						selected = nil
+						self:SetValue(self.values[1] or "")
+					end
+				end
+			end
+		end
+
+		function option:SetValue(value, nocallback)
+			if self.multiselect and typeof(value) ~= "table" then
+				value = {}
+				for i,v in next, self.values do
+					value[v] = false
+				end
+			end
+			self.value = typeof(value) == "table" and value or tostring(table.find(self.values, value) and value or self.values[1])
+			library.flags[self.flag] = self.value
+			option.listvalue.Text = " " .. (self.multiselect and getMultiText() or self.value)
+			if self.multiselect then
+				for name, label in next, self.labels do
+					label.TextTransparency = self.value[name] and 1 or 0
+					if label:FindFirstChild"TextLabel" then
+						label.TextLabel.Visible = self.value[name]
+					end
+				end
+			else
+				if selected then
+					selected.TextTransparency = 0
+					if selected:FindFirstChild"TextLabel" then
+						selected.TextLabel.Visible = false
+					end
+				end
+				if self.labels[self.value] then
+					selected = self.labels[self.value]
+					selected.TextTransparency = 1
+					if selected:FindFirstChild"TextLabel" then
+						selected.TextLabel.Visible = true
+					end
+				end
+			end
+			if not nocallback then
+				self.callback(self.value)
+			end
+		end
+		delay(1, function()
+			if library then
+				option:SetValue(option.value)
+			end
+		end)
+
+		function option:Close()
+			library.popup = nil
+			option.arrow.Rotation = 90
+			self.open = false
+			option.holder.Visible = false
+			option.listvalue.BorderColor3 = Color3.new()
+		end
+
+		return option
+	end
+
+	library.createBox = function(option, parent)
+		option.hasInit = true
+
+		option.main = library:Create("Frame", {
+			LayoutOrder = option.position,
+			Size = UDim2.new(1, 0, 0, option.text == "nil" and 28 or 44),
+			BackgroundTransparency = 1,
+			Parent = parent
+		})
+
+		if option.text ~= "nil" then
+			option.title = library:Create("TextLabel", {
+				Position = UDim2.new(0, 6, 0, 0),
+				Size = UDim2.new(1, -12, 0, 18),
+				BackgroundTransparency = 1,
+				Text = option.text,
+				TextSize = 15,
+				Font = Enum.Font.Code,
+				TextColor3 = Color3.fromRGB(210, 210, 210),
+				TextXAlignment = Enum.TextXAlignment.Left,
+				Parent = option.main
+			})
+		end
+
+		option.holder = library:Create("Frame", {
+			Position = UDim2.new(0, 6, 0, option.text == "nil" and 4 or 20),
+			Size = UDim2.new(1, -12, 0, 20),
+			BackgroundColor3 = Color3.fromRGB(50, 50, 50),
+			BorderColor3 = Color3.new(),
+			Parent = option.main
+		})
+
+		library:Create("ImageLabel", {
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 1,
+			Image = "rbxassetid://2454009026",
+			ImageColor3 = Color3.new(),
+			ImageTransparency = 0.8,
+			Parent = option.holder
+		})
+
+		library:Create("ImageLabel", {
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 1,
+			Image = "rbxassetid://2592362371",
+			ImageColor3 = Color3.fromRGB(60, 60, 60),
+			ScaleType = Enum.ScaleType.Slice,
+			SliceCenter = Rect.new(2, 2, 62, 62),
+			Parent = option.holder
+		})
+
+		library:Create("ImageLabel", {
+			Size = UDim2.new(1, -2, 1, -2),
+			Position = UDim2.new(0, 1, 0, 1),
+			BackgroundTransparency = 1,
+			Image = "rbxassetid://2592362371",
+			ImageColor3 = Color3.new(),
+			ScaleType = Enum.ScaleType.Slice,
+			SliceCenter = Rect.new(2, 2, 62, 62),
+			Parent = option.holder
+		})
+
+		local inputvalue = library:Create("TextBox", {
+			Position = UDim2.new(0, 4, 0, 0),
+			Size = UDim2.new(1, -4, 1, 0),
+			BackgroundTransparency = 1,
+			Text = "  " .. option.value,
+			TextSize = 15,
+			Font = Enum.Font.Code,
+			TextColor3 = Color3.new(1, 1, 1),
+			TextXAlignment = Enum.TextXAlignment.Left,
+			TextWrapped = true,
+			ClearTextOnFocus = false,
+			Parent = option.holder
+		})
+
+		inputvalue.FocusLost:connect(function(enter)
+			option.holder.BorderColor3 = Color3.new()
+			option:SetValue(inputvalue.Text, enter)
+		end)
+
+		inputvalue.Focused:connect(function()
+			option.holder.BorderColor3 = library.flags["Menu Accent Color"]
+		end)
+
+		inputvalue.InputBegan:connect(function(input)
+			if input.UserInputType.Name == "MouseButton1" then
+				inputvalue.Text = ""
+			end
+			if input.UserInputType.Name == "MouseMovement" then
+				if not library.warning and not library.slider then
+					option.holder.BorderColor3 = library.flags["Menu Accent Color"]
+				end
+				if option.tip then
+					library.tooltip.Text = option.tip
+					library.tooltip.Size = UDim2.new(0, textService:GetTextSize(option.tip, 15, Enum.Font.Code, Vector2.new(9e9, 9e9)).X, 0, 20)
+				end
+			end
+		end)
+
+		inputvalue.InputChanged:connect(function(input)
+			if input.UserInputType.Name == "MouseMovement" then
+				if option.tip then
+					library.tooltip.Position = UDim2.new(0, input.Position.X + 26, 0, input.Position.Y + 36)
+				end
+			end
+		end)
+
+		inputvalue.InputEnded:connect(function(input)
+			if input.UserInputType.Name == "MouseMovement" then
+				if not inputvalue:IsFocused() then
+					option.holder.BorderColor3 = Color3.new()
+				end
+				library.tooltip.Position = UDim2.new(2)
+			end
+		end)
+
+		function option:SetValue(value, enter)
+			if tostring(value) == "" then
+				inputvalue.Text = self.value
+			else
+				library.flags[self.flag] = tostring(value)
+				self.value = tostring(value)
+				inputvalue.Text = self.value
+				self.callback(value, enter)
+			end
+		end
+		delay(1, function()
+			if library then
+				option:SetValue(option.value)
+			end
+		end)
+	end
+
+	library.createColorPickerWindow = function(option)
+		option.mainHolder = library:Create("TextButton", {
+			ZIndex = 4,
+			--Position = UDim2.new(1, -184, 1, 6),
+			Size = UDim2.new(0, option.trans and 200 or 184, 0, 264),
+			BackgroundColor3 = Color3.fromRGB(40, 40, 40),
+			BorderColor3 = Color3.new(),
+			AutoButtonColor = false,
+			Visible = false,
+			Parent = library.base
+		})
+
+		option.rgbBox = library:Create("Frame", {
+			Position = UDim2.new(0, 6, 0, 214),
+			Size = UDim2.new(0, (option.mainHolder.AbsoluteSize.X - 12), 0, 20),
+			BackgroundColor3 = Color3.fromRGB(57, 57, 57),
+			BorderColor3 = Color3.new(),
+			ZIndex = 5;
+			Parent = option.mainHolder
+		})
+
+		library:Create("ImageLabel", {
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 1,
+			Image = "rbxassetid://2454009026",
+			ImageColor3 = Color3.new(),
+			ImageTransparency = 0.8,
+			ZIndex = 6;
+			Parent = option.rgbBox
+		})
+
+		library:Create("ImageLabel", {
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 1,
+			Image = "rbxassetid://2592362371",
+			ImageColor3 = Color3.fromRGB(60, 60, 60),
+			ScaleType = Enum.ScaleType.Slice,
+			SliceCenter = Rect.new(2, 2, 62, 62),
+			ZIndex = 6;
+			Parent = option.rgbBox
+		})
+
+		library:Create("ImageLabel", {
+			Size = UDim2.new(1, -2, 1, -2),
+			Position = UDim2.new(0, 1, 0, 1),
+			BackgroundTransparency = 1,
+			Image = "rbxassetid://2592362371",
+			ImageColor3 = Color3.new(),
+			ScaleType = Enum.ScaleType.Slice,
+			SliceCenter = Rect.new(2, 2, 62, 62),
+			ZIndex = 6;
+			Parent = option.rgbBox
+		})
+
+		option.rgbInput = library:Create("TextBox", {
+			Position = UDim2.new(0, 4, 0, 0),
+			Size = UDim2.new(1, -4, 1, 0),
+			BackgroundTransparency = 1,
+			Text = tostring(option.color),
+			TextSize = 14,
+			Font = Enum.Font.Code,
+			TextColor3 = Color3.new(1, 1, 1),
+			TextXAlignment = Enum.TextXAlignment.Center,
+			TextWrapped = true,
+			ClearTextOnFocus = false,
+			ZIndex = 6;
+			Parent = option.rgbBox
+		})
+
+		option.hexBox = option.rgbBox:Clone()
+		option.hexBox.Position = UDim2.new(0, 6, 0, 238)
+		-- option.hexBox.Size = UDim2.new(0, (option.mainHolder.AbsoluteSize.X/2 - 10), 0, 20)
+		option.hexBox.Parent = option.mainHolder
+		option.hexInput = option.hexBox.TextBox;
+
+		library:Create("ImageLabel", {
+			ZIndex = 4,
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 1,
+			Image = "rbxassetid://2592362371",
+			ImageColor3 = Color3.fromRGB(60, 60, 60),
+			ScaleType = Enum.ScaleType.Slice,
+			SliceCenter = Rect.new(2, 2, 62, 62),
+			Parent = option.mainHolder
+		})
+
+		library:Create("ImageLabel", {
+			ZIndex = 4,
+			Size = UDim2.new(1, -2, 1, -2),
+			Position = UDim2.new(0, 1, 0, 1),
+			BackgroundTransparency = 1,
+			Image = "rbxassetid://2592362371",
+			ImageColor3 = Color3.new(),
+			ScaleType = Enum.ScaleType.Slice,
+			SliceCenter = Rect.new(2, 2, 62, 62),
+			Parent = option.mainHolder
+		})
+
+		local hue, sat, val = Color3.toHSV(option.color)
+		hue, sat, val = hue == 0 and 1 or hue, sat + 0.005, val - 0.005
+		local editinghue
+		local editingsatval
+		local editingtrans
+
+		local transMain
+		if option.trans then
+			transMain = library:Create("ImageLabel", {
+				ZIndex = 5,
+				Size = UDim2.new(1, 0, 1, 0),
+				BackgroundTransparency = 1,
+				Image = "rbxassetid://2454009026",
+				ImageColor3 = Color3.fromHSV(hue, 1, 1),
+				Rotation = 180,
+				Parent = library:Create("ImageLabel", {
+					ZIndex = 4,
+					AnchorPoint = Vector2.new(1, 0),
+					Position = UDim2.new(1, -6, 0, 6),
+					Size = UDim2.new(0, 10, 1, -60),
+					BorderColor3 = Color3.new(),
+					Image = "rbxassetid://4632082392",
+					ScaleType = Enum.ScaleType.Tile,
+					TileSize = UDim2.new(0, 5, 0, 5),
+					Parent = option.mainHolder
+				})
+			})
+
+			option.transSlider = library:Create("Frame", {
+				ZIndex = 5,
+				Position = UDim2.new(0, 0, option.trans, 0),
+				Size = UDim2.new(1, 0, 0, 2),
+				BackgroundColor3 = Color3.fromRGB(38, 41, 65),
+				BorderColor3 = Color3.fromRGB(255, 255, 255),
+				Parent = transMain
+			})
+
+			transMain.InputBegan:connect(function(Input)
+				if Input.UserInputType.Name == "MouseButton1" then
+					editingtrans = true
+					option:SetTrans(1 - ((Input.Position.Y - transMain.AbsolutePosition.Y) / transMain.AbsoluteSize.Y))
+				end
+			end)
+
+			transMain.InputEnded:connect(function(Input)
+				if Input.UserInputType.Name == "MouseButton1" then
+					editingtrans = false
+				end
+			end)
+		end
+
+		local hueMain = library:Create("Frame", {
+			ZIndex = 4,
+			AnchorPoint = Vector2.new(0, 1),
+			Position = UDim2.new(0, 6, 1, -54),
+			Size = UDim2.new(1, option.trans and -28 or -12, 0, 10),
+			BackgroundColor3 = Color3.new(1, 1, 1),
+			BorderColor3 = Color3.new(),
+			Parent = option.mainHolder
+		})
+
+		local Gradient = library:Create("UIGradient", {
+			Color = ColorSequence.new({
+				ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 0, 0)),
+				ColorSequenceKeypoint.new(0.17, Color3.fromRGB(255, 0, 255)),
+				ColorSequenceKeypoint.new(0.33, Color3.fromRGB(0, 0, 255)),
+				ColorSequenceKeypoint.new(0.5, Color3.fromRGB(0, 255, 255)),
+				ColorSequenceKeypoint.new(0.67, Color3.fromRGB(0, 255, 0)),
+				ColorSequenceKeypoint.new(0.83, Color3.fromRGB(255, 255, 0)),
+				ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 0, 0)),
+			}),
+			Parent = hueMain
+		})
+
+		local hueSlider = library:Create("Frame", {
+			ZIndex = 4,
+			Position = UDim2.new(1 - hue, 0, 0, 0),
+			Size = UDim2.new(0, 2, 1, 0),
+			BackgroundColor3 = Color3.fromRGB(38, 41, 65),
+			BorderColor3 = Color3.fromRGB(255, 255, 255),
+			Parent = hueMain
+		})
+
+		hueMain.InputBegan:connect(function(Input)
+			if Input.UserInputType.Name == "MouseButton1" then
+				editinghue = true
+				X = (hueMain.AbsolutePosition.X + hueMain.AbsoluteSize.X) - hueMain.AbsolutePosition.X
+				X = math.clamp((Input.Position.X - hueMain.AbsolutePosition.X) / X, 0, 0.995)
+				option:SetColor(Color3.fromHSV(1 - X, sat, val))
+			end
+		end)
+
+		hueMain.InputEnded:connect(function(Input)
+			if Input.UserInputType.Name == "MouseButton1" then
+				editinghue = false
+			end
+		end)
+
+		local satval = library:Create("ImageLabel", {
+			ZIndex = 4,
+			Position = UDim2.new(0, 6, 0, 6),
+			Size = UDim2.new(1, option.trans and -28 or -12, 1, -74),
+			BackgroundColor3 = Color3.fromHSV(hue, 1, 1),
+			BorderColor3 = Color3.new(),
+			Image = "rbxassetid://4155801252",
+			ClipsDescendants = true,
+			Parent = option.mainHolder
+		})
+
+		local satvalSlider = library:Create("Frame", {
+			ZIndex = 4,
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			Position = UDim2.new(sat, 0, 1 - val, 0),
+			Size = UDim2.new(0, 4, 0, 4),
+			Rotation = 45,
+			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+			Parent = satval
+		})
+
+		satval.InputBegan:connect(function(Input)
+			if Input.UserInputType.Name == "MouseButton1" then
+				editingsatval = true
+				X = (satval.AbsolutePosition.X + satval.AbsoluteSize.X) - satval.AbsolutePosition.X
+				Y = (satval.AbsolutePosition.Y + satval.AbsoluteSize.Y) - satval.AbsolutePosition.Y
+				X = math.clamp((Input.Position.X - satval.AbsolutePosition.X) / X, 0.005, 1)
+				Y = math.clamp((Input.Position.Y - satval.AbsolutePosition.Y) / Y, 0, 0.995)
+				option:SetColor(Color3.fromHSV(hue, X, 1 - Y))
+			end
+		end)
+
+		library:AddConnection(inputService.InputChanged, function(Input)
+			if Input.UserInputType.Name == "MouseMovement" then
+				if editingsatval then
+					X = (satval.AbsolutePosition.X + satval.AbsoluteSize.X) - satval.AbsolutePosition.X
+					Y = (satval.AbsolutePosition.Y + satval.AbsoluteSize.Y) - satval.AbsolutePosition.Y
+					X = math.clamp((Input.Position.X - satval.AbsolutePosition.X) / X, 0.005, 1)
+					Y = math.clamp((Input.Position.Y - satval.AbsolutePosition.Y) / Y, 0, 0.995)
+					option:SetColor(Color3.fromHSV(hue, X, 1 - Y))
+				elseif editinghue then
+					X = (hueMain.AbsolutePosition.X + hueMain.AbsoluteSize.X) - hueMain.AbsolutePosition.X
+					X = math.clamp((Input.Position.X - hueMain.AbsolutePosition.X) / X, 0, 0.995)
+					option:SetColor(Color3.fromHSV(1 - X, sat, val))
+				elseif editingtrans then
+					option:SetTrans(1 - ((Input.Position.Y - transMain.AbsolutePosition.Y) / transMain.AbsoluteSize.Y))
+				end
+			end
+		end)
+
+		satval.InputEnded:connect(function(Input)
+			if Input.UserInputType.Name == "MouseButton1" then
+				editingsatval = false
+			end
+		end)
+
+		local r, g, b = library.round(option.color)
+		option.hexInput.Text = string.format("#%02x%02x%02x", r, g, b)
+		option.rgbInput.Text = table.concat({r, g, b}, ",")
+
+		option.rgbInput.FocusLost:connect(function()
+			local r, g, b = option.rgbInput.Text:gsub("%s+", ""):match("(%d+),(%d+),(%d+)")
+			if r and g and b then
+				local color = Color3.fromRGB(tonumber(r), tonumber(g), tonumber(b))
+				return option:SetColor(color)
+			end
+
+			local r, g, b = library.round(option.color)
+			option.rgbInput.Text = table.concat({r, g, b}, ",")
+		end)
+
+		option.hexInput.FocusLost:connect(function()
+			local r, g, b = option.hexInput.Text:match("#?(..)(..)(..)")
+			if r and g and b then
+				local color = Color3.fromRGB(tonumber("0x"..r), tonumber("0x"..g), tonumber("0x"..b))
+				return option:SetColor(color)
+			end
+
+			local r, g, b = library.round(option.color)
+			option.hexInput.Text = string.format("#%02x%02x%02x", r, g, b)
+		end)
+
+		function option:updateVisuals(Color)
+			hue, sat, val = Color3.toHSV(Color)
+			hue = hue == 0 and 1 or hue
+			satval.BackgroundColor3 = Color3.fromHSV(hue, 1, 1)
+			if option.trans then
+				transMain.ImageColor3 = Color3.fromHSV(hue, 1, 1)
+			end
+			hueSlider.Position = UDim2.new(1 - hue, 0, 0, 0)
+			satvalSlider.Position = UDim2.new(sat, 0, 1 - val, 0)
+
+			local r, g, b = library.round(Color3.fromHSV(hue, sat, val))
+
+			option.hexInput.Text = string.format("#%02x%02x%02x", r, g, b)
+			option.rgbInput.Text = table.concat({r, g, b}, ",")
+		end
+
+		return option
+	end
+
+	library.createColor = function(option, parent)
+		option.hasInit = true
+
+		if option.sub then
+			option.main = option:getMain()
+		else
+			option.main = library:Create("Frame", {
+				LayoutOrder = option.position,
+				Size = UDim2.new(1, 0, 0, 20),
+				BackgroundTransparency = 1,
+				Parent = parent
+			})
+
+			option.title = library:Create("TextLabel", {
+				Position = UDim2.new(0, 6, 0, 0),
+				Size = UDim2.new(1, -12, 1, 0),
+				BackgroundTransparency = 1,
+				Text = option.text,
+				TextSize = 15,
+				Font = Enum.Font.Code,
+				TextColor3 = Color3.fromRGB(210, 210, 210),
+				TextXAlignment = Enum.TextXAlignment.Left,
+				Parent = option.main
+			})
+		end
+
+		option.visualize = library:Create(option.sub and "TextButton" or "Frame", {
+			Position = UDim2.new(1, -(option.subpos or 0) - 24, 0, 4),
+			Size = UDim2.new(0, 18, 0, 12),
+			SizeConstraint = Enum.SizeConstraint.RelativeYY,
+			BackgroundColor3 = option.color,
+			BorderColor3 = Color3.new(),
+			Parent = option.main
+		})
+
+		library:Create("ImageLabel", {
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 1,
+			Image = "rbxassetid://2454009026",
+			ImageColor3 = Color3.new(),
+			ImageTransparency = 0.6,
+			Parent = option.visualize
+		})
+
+		library:Create("ImageLabel", {
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 1,
+			Image = "rbxassetid://2592362371",
+			ImageColor3 = Color3.fromRGB(60, 60, 60),
+			ScaleType = Enum.ScaleType.Slice,
+			SliceCenter = Rect.new(2, 2, 62, 62),
+			Parent = option.visualize
+		})
+
+		library:Create("ImageLabel", {
+			Size = UDim2.new(1, -2, 1, -2),
+			Position = UDim2.new(0, 1, 0, 1),
+			BackgroundTransparency = 1,
+			Image = "rbxassetid://2592362371",
+			ImageColor3 = Color3.new(),
+			ScaleType = Enum.ScaleType.Slice,
+			SliceCenter = Rect.new(2, 2, 62, 62),
+			Parent = option.visualize
+		})
+
+		local interest = option.sub and option.visualize or option.main
+
+		if option.sub then
+			option.visualize.Text = ""
+			option.visualize.AutoButtonColor = false
+		end
+
+		interest.InputBegan:connect(function(input)
+			if input.UserInputType.Name == "MouseButton1" then
+				if not option.mainHolder then library.createColorPickerWindow(option) end
+				if library.popup == option then library.popup:Close() return end
+				if library.popup then library.popup:Close() end
+				option.open = true
+				local pos = option.main.AbsolutePosition
+				option.mainHolder.Position = UDim2.new(0, pos.X + 36 + (option.trans and -16 or 0), 0, pos.Y + 56)
+				option.mainHolder.Visible = true
+				library.popup = option
+				option.visualize.BorderColor3 = library.flags["Menu Accent Color"]
+			end
+			if input.UserInputType.Name == "MouseMovement" then
+				if not library.warning and not library.slider then
+					option.visualize.BorderColor3 = library.flags["Menu Accent Color"]
+				end
+				if option.tip then
+					library.tooltip.Text = option.tip
+					library.tooltip.Size = UDim2.new(0, textService:GetTextSize(option.tip, 15, Enum.Font.Code, Vector2.new(9e9, 9e9)).X, 0, 20)
+				end
+			end
+		end)
+
+		interest.InputChanged:connect(function(input)
+			if input.UserInputType.Name == "MouseMovement" then
+				if option.tip then
+					library.tooltip.Position = UDim2.new(0, input.Position.X + 26, 0, input.Position.Y + 36)
+				end
+			end
+		end)
+
+		interest.InputEnded:connect(function(input)
+			if input.UserInputType.Name == "MouseMovement" then
+				if not option.open then
+					option.visualize.BorderColor3 = Color3.new()
+				end
+				library.tooltip.Position = UDim2.new(2)
+			end
+		end)
+
+		function option:SetColor(newColor, nocallback)
+			if typeof(newColor) == "table" then
+				newColor = Color3.new(newColor[1], newColor[2], newColor[3])
+			end
+			newColor = newColor or Color3.new(1, 1, 1)
+			if self.mainHolder then
+				self:updateVisuals(newColor)
+			end
+			option.visualize.BackgroundColor3 = newColor
+			library.flags[self.flag] = newColor
+			self.color = newColor
+			if not nocallback then
+				self.callback(newColor)
+			end
+		end
+
+		if option.trans then
+			function option:SetTrans(value, manual)
+				value = math.clamp(tonumber(value) or 0, 0, 1)
+				if self.transSlider then
+					self.transSlider.Position = UDim2.new(0, 0, value, 0)
+				end
+				self.trans = value
+				library.flags[self.flag .. " Transparency"] = 1 - value
+				self.calltrans(value)
+			end
+			option:SetTrans(option.trans)
+		end
+
+		delay(1, function()
+			if library then
+				option:SetColor(option.color)
+			end
+		end)
+
+		function option:Close()
+			library.popup = nil
+			self.open = false
+			self.mainHolder.Visible = false
+			option.visualize.BorderColor3 = Color3.new()
+		end
+	end
+
+	function library:AddTab(title, pos)
+		local tab = {canInit = true, tabs = {}, columns = {}, title = tostring(title)}
+		table.insert(self.tabs, pos or #self.tabs + 1, tab)
+
+		function tab:AddColumn()
+			local column = {sections = {}, position = #self.columns, canInit = true, tab = self}
+			table.insert(self.columns, column)
+
+			function column:AddSection(title)
+				local section = {title = tostring(title), options = {}, canInit = true, column = self}
+				table.insert(self.sections, section)
+
+				function section:AddLabel(text)
+					local option = {text = text}
+					option.section = self
+					option.type = "label"
+					option.position = #self.options
+					option.canInit = true
+					table.insert(self.options, option)
+
+					if library.hasInit and self.hasInit then
+						library.createLabel(option, self.content)
+					else
+						option.Init = library.createLabel
+					end
+
+					return option
+				end
+
+				function section:AddDivider(text)
+					local option = {text = text}
+					option.section = self
+					option.type = "divider"
+					option.position = #self.options
+					option.canInit = true
+					table.insert(self.options, option)
+
+					if library.hasInit and self.hasInit then
+						library.createDivider(option, self.content)
+					else
+						option.Init = library.createDivider
+					end
+
+					return option
+				end
+
+				function section:AddToggle(option)
+					option = typeof(option) == "table" and option or {}
+					option.section = self
+					option.text = tostring(option.text)
+					option.state = option.state == nil and nil or (typeof(option.state) == "boolean" and option.state or false)
+					option.callback = typeof(option.callback) == "function" and option.callback or function() end
+					option.type = "toggle"
+					option.position = #self.options
+					option.flag = (library.flagprefix and library.flagprefix .. " " or "") .. (option.flag or option.text)
+					option.subcount = 0
+					option.canInit = (option.canInit ~= nil and option.canInit) or true
+					option.tip = option.tip and tostring(option.tip)
+					option.style = option.style == 2
+					library.flags[option.flag] = option.state
+					table.insert(self.options, option)
+					library.options[option.flag] = option
+
+					function option:AddColor(subOption)
+						subOption = typeof(subOption) == "table" and subOption or {}
+						subOption.sub = true
+						subOption.subpos = self.subcount * 24
+						function subOption:getMain() return option.main end
+						self.subcount = self.subcount + 1
+						return section:AddColor(subOption)
+					end
+
+					function option:AddBind(subOption)
+						subOption = typeof(subOption) == "table" and subOption or {}
+						subOption.sub = true
+						subOption.subpos = self.subcount * 24
+						function subOption:getMain() return option.main end
+						self.subcount = self.subcount + 1
+						return section:AddBind(subOption)
+					end
+
+					function option:AddList(subOption)
+						subOption = typeof(subOption) == "table" and subOption or {}
+						subOption.sub = true
+						function subOption:getMain() return option.main end
+						self.subcount = self.subcount + 1
+						return section:AddList(subOption)
+					end
+
+					function option:AddSlider(subOption)
+						subOption = typeof(subOption) == "table" and subOption or {}
+						subOption.sub = true
+						function subOption:getMain() return option.main end
+						self.subcount = self.subcount + 1
+						return section:AddSlider(subOption)
+					end
+
+					if library.hasInit and self.hasInit then
+						library.createToggle(option, self.content)
+					else
+						option.Init = library.createToggle
+					end
+
+					return option
+				end
+
+				function section:AddButton(option)
+					option = typeof(option) == "table" and option or {}
+					option.section = self
+					option.text = tostring(option.text)
+					option.callback = typeof(option.callback) == "function" and option.callback or function() end
+					option.type = "button"
+					option.position = #self.options
+					option.flag = (library.flagprefix and library.flagprefix .. " " or "") .. (option.flag or option.text)
+					option.subcount = 0
+					option.canInit = (option.canInit ~= nil and option.canInit) or true
+					option.tip = option.tip and tostring(option.tip)
+					table.insert(self.options, option)
+					library.options[option.flag] = option
+
+					function option:AddBind(subOption)
+						subOption = typeof(subOption) == "table" and subOption or {}
+						subOption.sub = true
+						subOption.subpos = self.subcount * 24
+						function subOption:getMain() option.main.Size = UDim2.new(1, 0, 0, 40) return option.main end
+						self.subcount = self.subcount + 1
+						return section:AddBind(subOption)
+					end
+
+					function option:AddColor(subOption)
+						subOption = typeof(subOption) == "table" and subOption or {}
+						subOption.sub = true
+						subOption.subpos = self.subcount * 24
+						function subOption:getMain() option.main.Size = UDim2.new(1, 0, 0, 40) return option.main end
+						self.subcount = self.subcount + 1
+						return section:AddColor(subOption)
+					end
+
+					if library.hasInit and self.hasInit then
+						library.createButton(option, self.content)
+					else
+						option.Init = library.createButton
+					end
+
+					return option
+				end
+
+				function section:AddBind(option)
+					option = typeof(option) == "table" and option or {}
+					option.section = self
+					option.text = tostring(option.text)
+					option.key = (option.key and option.key.Name) or option.key or "none"
+					option.nomouse = typeof(option.nomouse) == "boolean" and option.nomouse or false
+					option.mode = typeof(option.mode) == "string" and (option.mode == "toggle" or option.mode == "hold" and option.mode) or "toggle"
+					option.callback = typeof(option.callback) == "function" and option.callback or function() end
+					option.type = "bind"
+					option.position = #self.options
+					option.flag = (library.flagprefix and library.flagprefix .. " " or "") .. (option.flag or option.text)
+					option.canInit = (option.canInit ~= nil and option.canInit) or true
+					option.tip = option.tip and tostring(option.tip)
+					table.insert(self.options, option)
+					library.options[option.flag] = option
+
+					if library.hasInit and self.hasInit then
+						library.createBind(option, self.content)
+					else
+						option.Init = library.createBind
+					end
+
+					return option
+				end
+
+				function section:AddSlider(option)
+					option = typeof(option) == "table" and option or {}
+					option.section = self
+					option.text = tostring(option.text)
+					option.min = typeof(option.min) == "number" and option.min or 0
+					option.max = typeof(option.max) == "number" and option.max or 0
+					option.value = option.min < 0 and 0 or math.clamp(typeof(option.value) == "number" and option.value or option.min, option.min, option.max)
+					option.callback = typeof(option.callback) == "function" and option.callback or function() end
+					option.float = typeof(option.value) == "number" and option.float or 1
+					option.suffix = option.suffix and tostring(option.suffix) or ""
+					option.textpos = option.textpos == 2
+					option.type = "slider"
+					option.position = #self.options
+					option.flag = (library.flagprefix and library.flagprefix .. " " or "") .. (option.flag or option.text)
+					option.subcount = 0
+					option.canInit = (option.canInit ~= nil and option.canInit) or true
+					option.tip = option.tip and tostring(option.tip)
+					library.flags[option.flag] = option.value
+					table.insert(self.options, option)
+					library.options[option.flag] = option
+
+					function option:AddColor(subOption)
+						subOption = typeof(subOption) == "table" and subOption or {}
+						subOption.sub = true
+						subOption.subpos = self.subcount * 24
+						function subOption:getMain() return option.main end
+						self.subcount = self.subcount + 1
+						return section:AddColor(subOption)
+					end
+
+					function option:AddBind(subOption)
+						subOption = typeof(subOption) == "table" and subOption or {}
+						subOption.sub = true
+						subOption.subpos = self.subcount * 24
+						function subOption:getMain() return option.main end
+						self.subcount = self.subcount + 1
+						return section:AddBind(subOption)
+					end
+
+					if library.hasInit and self.hasInit then
+						library.createSlider(option, self.content)
+					else
+						option.Init = library.createSlider
+					end
+
+					return option
+				end
+
+				function section:AddList(option)
+					option = typeof(option) == "table" and option or {}
+					option.section = self
+					option.text = tostring(option.text)
+					option.values = typeof(option.values) == "table" and option.values or {}
+					option.callback = typeof(option.callback) == "function" and option.callback or function() end
+					option.multiselect = typeof(option.multiselect) == "boolean" and option.multiselect or false
+					--option.groupbox = (not option.multiselect) and (typeof(option.groupbox) == "boolean" and option.groupbox or false)
+					option.value = option.multiselect and (typeof(option.value) == "table" and option.value or {}) or tostring(option.value or option.values[1] or "")
+					if option.multiselect then
+						for i,v in next, option.values do
+							option.value[v] = false
+						end
+					end
+					option.max = option.max or 4
+					option.open = false
+					option.type = "list"
+					option.position = #self.options
+					option.labels = {}
+					option.flag = (library.flagprefix and library.flagprefix .. " " or "") .. (option.flag or option.text)
+					option.subcount = 0
+					option.canInit = (option.canInit ~= nil and option.canInit) or true
+					option.tip = option.tip and tostring(option.tip)
+					library.flags[option.flag] = option.value
+					table.insert(self.options, option)
+					library.options[option.flag] = option
+
+					function option:AddValue(value, state)
+						if self.multiselect then
+							self.values[value] = state
+						else
+							table.insert(self.values, value)
+						end
+					end
+
+					function option:AddColor(subOption)
+						subOption = typeof(subOption) == "table" and subOption or {}
+						subOption.sub = true
+						subOption.subpos = self.subcount * 24
+						function subOption:getMain() return option.main end
+						self.subcount = self.subcount + 1
+						return section:AddColor(subOption)
+					end
+
+					function option:AddBind(subOption)
+						subOption = typeof(subOption) == "table" and subOption or {}
+						subOption.sub = true
+						subOption.subpos = self.subcount * 24
+						function subOption:getMain() return option.main end
+						self.subcount = self.subcount + 1
+						return section:AddBind(subOption)
+					end
+
+					if library.hasInit and self.hasInit then
+						library.createList(option, self.content)
+					else
+						option.Init = library.createList
+					end
+
+					return option
+				end
+
+				function section:AddBox(option)
+					option = typeof(option) == "table" and option or {}
+					option.section = self
+					option.text = tostring(option.text)
+					option.value = tostring(option.value or "")
+					option.callback = typeof(option.callback) == "function" and option.callback or function() end
+					option.type = "box"
+					option.position = #self.options
+					option.flag = (library.flagprefix and library.flagprefix .. " " or "") .. (option.flag or option.text)
+					option.canInit = (option.canInit ~= nil and option.canInit) or true
+					option.tip = option.tip and tostring(option.tip)
+					library.flags[option.flag] = option.value
+					table.insert(self.options, option)
+					library.options[option.flag] = option
+
+					if library.hasInit and self.hasInit then
+						library.createBox(option, self.content)
+					else
+						option.Init = library.createBox
+					end
+
+					return option
+				end
+
+				function section:AddColor(option)
+					option = typeof(option) == "table" and option or {}
+					option.section = self
+					option.text = tostring(option.text)
+					option.color = typeof(option.color) == "table" and Color3.new(option.color[1], option.color[2], option.color[3]) or option.color or Color3.new(1, 1, 1)
+					option.callback = typeof(option.callback) == "function" and option.callback or function() end
+					option.calltrans = typeof(option.calltrans) == "function" and option.calltrans or (option.calltrans == 1 and option.callback) or function() end
+					option.open = false
+					option.trans = tonumber(option.trans)
+					option.subcount = 1
+					option.type = "color"
+					option.position = #self.options
+					option.flag = (library.flagprefix and library.flagprefix .. " " or "") .. (option.flag or option.text)
+					option.canInit = (option.canInit ~= nil and option.canInit) or true
+					option.tip = option.tip and tostring(option.tip)
+					library.flags[option.flag] = option.color
+					table.insert(self.options, option)
+					library.options[option.flag] = option
+
+					function option:AddColor(subOption)
+						subOption = typeof(subOption) == "table" and subOption or {}
+						subOption.sub = true
+						subOption.subpos = self.subcount * 24
+						function subOption:getMain() return option.main end
+						self.subcount = self.subcount + 1
+						return section:AddColor(subOption)
+					end
+
+					if option.trans then
+						library.flags[option.flag .. " Transparency"] = option.trans
+					end
+
+					if library.hasInit and self.hasInit then
+						library.createColor(option, self.content)
+					else
+						option.Init = library.createColor
+					end
+
+					return option
+				end
+
+				function section:SetTitle(newTitle)
+					self.title = tostring(newTitle)
+					if self.titleText then
+						self.titleText.Text = tostring(newTitle)
+					end
+				end
+
+				function section:Init()
+					if self.hasInit then return end
+					self.hasInit = true
+
+					self.main = library:Create("Frame", {
+						BackgroundColor3 = Color3.fromRGB(30, 30, 30),
+						BorderColor3 = Color3.new(),
+						Parent = column.main
+					})
+
+					self.content = library:Create("Frame", {
+						Size = UDim2.new(1, 0, 1, 0),
+						BackgroundColor3 = Color3.fromRGB(30, 30, 30),
+						BorderColor3 = Color3.fromRGB(60, 60, 60),
+						BorderMode = Enum.BorderMode.Inset,
+						Parent = self.main
+					})
+
+					library:Create("ImageLabel", {
+						Size = UDim2.new(1, -2, 1, -2),
+						Position = UDim2.new(0, 1, 0, 1),
+						BackgroundTransparency = 1,
+						Image = "rbxassetid://2592362371",
+						ImageColor3 = Color3.new(),
+						ScaleType = Enum.ScaleType.Slice,
+						SliceCenter = Rect.new(2, 2, 62, 62),
+						Parent = self.main
+					})
+
+					table.insert(library.theme, library:Create("Frame", {
+						Size = UDim2.new(1, 0, 0, 1),
+						BackgroundColor3 = library.flags["Menu Accent Color"],
+						BorderSizePixel = 0,
+						BorderMode = Enum.BorderMode.Inset,
+						Parent = self.main
+					}))
+
+					local layout = library:Create("UIListLayout", {
+						HorizontalAlignment = Enum.HorizontalAlignment.Center,
+						SortOrder = Enum.SortOrder.LayoutOrder,
+						Padding = UDim.new(0, 2),
+						Parent = self.content
+					})
+
+					library:Create("UIPadding", {
+						PaddingTop = UDim.new(0, 12),
+						Parent = self.content
+					})
+
+					self.titleText = library:Create("TextLabel", {
+						AnchorPoint = Vector2.new(0, 0.5),
+						Position = UDim2.new(0, 12, 0, 0),
+						Size = UDim2.new(0, textService:GetTextSize(self.title, 15, Enum.Font.Code, Vector2.new(9e9, 9e9)).X + 10, 0, 3),
+						BackgroundColor3 = Color3.fromRGB(30, 30, 30),
+						BorderSizePixel = 0,
+						Text = self.title,
+						TextSize = 15,
+						Font = Enum.Font.Code,
+						TextColor3 = Color3.new(1, 1, 1),
+						Parent = self.main
+					})
+
+					layout.Changed:connect(function()
+						self.main.Size = UDim2.new(1, 0, 0, layout.AbsoluteContentSize.Y + 16)
+					end)
+
+					for _, option in next, self.options do
+						if option.canInit then
+							option.Init(option, self.content)
+						end
+					end
+				end
+
+				if library.hasInit and self.hasInit then
+					section:Init()
+				end
+
+				return section
+			end
+
+			function column:Init()
+				if self.hasInit then return end
+				self.hasInit = true
+
+				self.main = library:Create("ScrollingFrame", {
+					ZIndex = 2,
+					Position = UDim2.new(0, 6 + (self.position * 239), 0, 2),
+					Size = UDim2.new(0, 233, 1, -4),
+					BackgroundTransparency = 1,
+					BorderSizePixel = 0,
+					ScrollBarImageColor3 = Color3.fromRGB(),
+					ScrollBarThickness = 4,	
+					VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar,
+					ScrollingDirection = Enum.ScrollingDirection.Y,
+					Visible = false,
+					Parent = library.columnHolder
+				})
+
+				local layout = library:Create("UIListLayout", {
+					HorizontalAlignment = Enum.HorizontalAlignment.Center,
+					SortOrder = Enum.SortOrder.LayoutOrder,
+					Padding = UDim.new(0, 12),
+					Parent = self.main
+				})
+
+				library:Create("UIPadding", {
+					PaddingTop = UDim.new(0, 8),
+					PaddingLeft = UDim.new(0, 2),
+					PaddingRight = UDim.new(0, 2),
+					Parent = self.main
+				})
+
+				layout.Changed:connect(function()
+					self.main.CanvasSize = UDim2.new(0, 0, 0, layout.AbsoluteContentSize.Y + 14)
+				end)
+
+				for _, section in next, self.sections do
+					if section.canInit and #section.options > 0 then
+						section:Init()
+					end
+				end
+			end
+
+			if library.hasInit and self.hasInit then
+				column:Init()
+			end
+
+			return column
+		end
+
+		function tab:Init()
+			if self.hasInit then return end
+			self.hasInit = true
+			local size = textService:GetTextSize(self.title, 18, Enum.Font.Code, Vector2.new(9e9, 9e9)).X + 10
+
+			self.button = library:Create("TextLabel", {
+				Position = UDim2.new(0, library.tabSize, 0, 22),
+				Size = UDim2.new(0, size, 0, 30),
+				BackgroundTransparency = 1,
+				Text = self.title,
+				TextColor3 = Color3.new(1, 1, 1),
+				TextSize = 15,
+				Font = Enum.Font.Code,
+				TextWrapped = true,
+				ClipsDescendants = true,
+				Parent = library.main
+			})
+			library.tabSize = library.tabSize + size
+
+			self.button.InputBegan:connect(function(input)
+				if input.UserInputType.Name == "MouseButton1" then
+					library:selectTab(self)
+				end
+			end)
+
+			for _, column in next, self.columns do
+				if column.canInit then
+					column:Init()
+				end
+			end
+		end
+
+		if self.hasInit then
+			tab:Init()
+		end
+
+		return tab
+	end
+
+	function library:AddWarning(warning)
+		warning = typeof(warning) == "table" and warning or {}
+		warning.text = tostring(warning.text) 
+		warning.type = warning.type == "confirm" and "confirm" or ""
+
+		local answer
+		function warning:Show()
+			library.warning = warning
+			if warning.main and warning.type == "" then return end
+			if library.popup then library.popup:Close() end
+			if not warning.main then
+				warning.main = library:Create("TextButton", {
+					ZIndex = 2,
+					Size = UDim2.new(1, 0, 1, 0),
+					BackgroundTransparency = 0.6,
+					BackgroundColor3 = Color3.new(),
+					BorderSizePixel = 0,
+					Text = "",
+					AutoButtonColor = false,
+					Parent = library.main
+				})
+
+				warning.message = library:Create("TextLabel", {
+					ZIndex = 2,
+					Position = UDim2.new(0, 20, 0.5, -60),
+					Size = UDim2.new(1, -40, 0, 40),
+					BackgroundTransparency = 1,
+					TextSize = 16,
+					Font = Enum.Font.Code,
+					TextColor3 = Color3.new(1, 1, 1),
+					TextWrapped = true,
+					RichText = true,
+					Parent = warning.main
+				})
+
+				if warning.type == "confirm" then
+					local button = library:Create("TextLabel", {
+						ZIndex = 2,
+						Position = UDim2.new(0.5, -105, 0.5, -10),
+						Size = UDim2.new(0, 100, 0, 20),
+						BackgroundColor3 = Color3.fromRGB(40, 40, 40),
+						BorderColor3 = Color3.new(),
+						Text = "Yes",
+						TextSize = 16,
+						Font = Enum.Font.Code,
+						TextColor3 = Color3.new(1, 1, 1),
+						Parent = warning.main
+					})
+
+					library:Create("ImageLabel", {
+						ZIndex = 2,
+						Size = UDim2.new(1, 0, 1, 0),
+						BackgroundTransparency = 1,
+						Image = "rbxassetid://2454009026",
+						ImageColor3 = Color3.new(),
+						ImageTransparency = 0.8,
+						Parent = button
+					})
+
+					library:Create("ImageLabel", {
+						ZIndex = 2,
+						Size = UDim2.new(1, 0, 1, 0),
+						BackgroundTransparency = 1,
+						Image = "rbxassetid://2592362371",
+						ImageColor3 = Color3.fromRGB(60, 60, 60),
+						ScaleType = Enum.ScaleType.Slice,
+						SliceCenter = Rect.new(2, 2, 62, 62),
+						Parent = button
+					})
+
+					local button1 = library:Create("TextLabel", {
+						ZIndex = 2,
+						Position = UDim2.new(0.5, 5, 0.5, -10),
+						Size = UDim2.new(0, 100, 0, 20),
+						BackgroundColor3 = Color3.fromRGB(40, 40, 40),
+						BorderColor3 = Color3.new(),
+						Text = "No",
+						TextSize = 16,
+						Font = Enum.Font.Code,
+						TextColor3 = Color3.new(1, 1, 1),
+						Parent = warning.main
+					})
+
+					library:Create("ImageLabel", {
+						ZIndex = 2,
+						Size = UDim2.new(1, 0, 1, 0),
+						BackgroundTransparency = 1,
+						Image = "rbxassetid://2454009026",
+						ImageColor3 = Color3.new(),
+						ImageTransparency = 0.8,
+						Parent = button1
+					})
+
+					library:Create("ImageLabel", {
+						ZIndex = 2,
+						Size = UDim2.new(1, 0, 1, 0),
+						BackgroundTransparency = 1,
+						Image = "rbxassetid://2592362371",
+						ImageColor3 = Color3.fromRGB(60, 60, 60),
+						ScaleType = Enum.ScaleType.Slice,
+						SliceCenter = Rect.new(2, 2, 62, 62),
+						Parent = button1
+					})
+
+					button.InputBegan:connect(function(input)
+						if input.UserInputType.Name == "MouseButton1" then
+							answer = true
+						end
+					end)
+
+					button1.InputBegan:connect(function(input)
+						if input.UserInputType.Name == "MouseButton1" then
+							answer = false
+						end
+					end)
+				else
+					local button = library:Create("TextLabel", {
+						ZIndex = 2,
+						Position = UDim2.new(0.5, -50, 0.5, -10),
+						Size = UDim2.new(0, 100, 0, 20),
+						BackgroundColor3 = Color3.fromRGB(30, 30, 30),
+						BorderColor3 = Color3.new(),
+						Text = "OK",
+						TextSize = 16,
+						Font = Enum.Font.Code,
+						TextColor3 = Color3.new(1, 1, 1),
+						Parent = warning.main
+					})
+
+					library:Create("ImageLabel", {
+						ZIndex = 2,
+						Size = UDim2.new(1, 0, 1, 0),
+						BackgroundTransparency = 1,
+						Image = "rbxassetid://2454009026",
+						ImageColor3 = Color3.new(),
+						ImageTransparency = 0.8,
+						Parent = button
+					})
+
+					library:Create("ImageLabel", {
+						ZIndex = 2,
+						AnchorPoint = Vector2.new(0.5, 0.5),
+						Position = UDim2.new(0.5, 0, 0.5, 0),
+						Size = UDim2.new(1, -2, 1, -2),
+						BackgroundTransparency = 1,
+						Image = "rbxassetid://3570695787",
+						ImageColor3 = Color3.fromRGB(50, 50, 50),
+						Parent = button
+					})
+
+					button.InputBegan:connect(function(input)
+						if input.UserInputType.Name == "MouseButton1" then
+							answer = true
+						end
+					end)
+				end
+			end
+			warning.main.Visible = true
+			warning.message.Text = warning.text
+
+			repeat wait()
+			until answer ~= nil
+			spawn(warning.Close)
+			library.warning = nil
+			return answer
+		end
+
+		function warning:Close()
+			answer = nil
+			if not warning.main then return end
+			warning.main.Visible = false
+		end
+
+		return warning
+	end
+
+	function library:Close()
+		self.open = not self.open
+		if self.open then
+			inputService.MouseIconEnabled = false
+		else
+			inputService.MouseIconEnabled = self.mousestate
+		end
+		if self.main then
+			if self.popup then
+				self.popup:Close()
+			end
+			self.main.Visible = self.open
+			self.cursor.Visible  = self.open
+			self.cursor1.Visible  = self.open
+		end
+	end
+
+	function library:Init()
+		if self.hasInit then return end
+		self.hasInit = true
+
+		self.base = library:Create("ScreenGui", {IgnoreGuiInset = true, ZIndexBehavior = Enum.ZIndexBehavior.Global})
+		if runService:IsStudio() then
+			self.base.Parent = script.Parent.Parent
+		else
+			pcall(function() self.base.Parent = gethui() end)
+		end
+
+		self.main = self:Create("ImageButton", {
+			AutoButtonColor = false,
+			Position = UDim2.new(0, 100, 0, 46),
+			Size = UDim2.new(0, 500, 0, 600),
+			BackgroundColor3 = Color3.fromRGB(20, 20, 20),
+			BorderColor3 = Color3.new(),
+			ScaleType = Enum.ScaleType.Tile,
+			Modal = true,
+			Visible = false,
+			Parent = self.base
+		})
+
+		self.top = self:Create("Frame", {
+			Size = UDim2.new(1, 0, 0, 50),
+			BackgroundColor3 = Color3.fromRGB(30, 30, 30),
+			BorderColor3 = Color3.new(),
+			Parent = self.main
+		})
+
+		self:Create("TextLabel", {
+			Position = UDim2.new(0, 6, 0, -1),
+			Size = UDim2.new(0, 0, 0, 20),
+			BackgroundTransparency = 1,
+			Text = tostring(self.title),
+			Font = Enum.Font.Code,
+			TextSize = 18,
+			TextColor3 = Color3.new(1, 1, 1),
+			TextXAlignment = Enum.TextXAlignment.Left,
+			Parent = self.main
+		})
+
+		table.insert(library.theme, self:Create("Frame", {
+			Size = UDim2.new(1, 0, 0, 1),
+			Position = UDim2.new(0, 0, 0, 24),
+			BackgroundColor3 = library.flags["Menu Accent Color"],
+			BorderSizePixel = 0,
+			Parent = self.main
+		}))
+
+		library:Create("ImageLabel", {
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 1,
+			Image = "rbxassetid://2454009026",
+			ImageColor3 = Color3.new(),
+			ImageTransparency = 0.4,
+			Parent = top
+		})
+
+		self.tabHighlight = self:Create("Frame", {
+			BackgroundColor3 = library.flags["Menu Accent Color"],
+			BorderSizePixel = 0,
+			Parent = self.main
+		})
+		table.insert(library.theme, self.tabHighlight)
+
+		self.columnHolder = self:Create("Frame", {
+			Position = UDim2.new(0, 5, 0, 55),
+			Size = UDim2.new(1, -10, 1, -60),
+			BackgroundTransparency = 1,
+			Parent = self.main
+		})
+
+		self.cursor = self:Create("Triangle", {
+			Color = Color3.fromRGB(180, 180, 180),
+			Transparency = 0.6,
+		})
+		self.cursor1 = self:Create("Triangle", {
+			Color = Color3.fromRGB(240, 240, 240),
+			Transparency = 0.6,
+		})
+
+		self.tooltip = self:Create("TextLabel", {
+			ZIndex = 2,
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+			TextSize = 15,
+			Font = Enum.Font.Code,
+			TextColor3 = Color3.new(1, 1, 1),
+			Visible = true,
+			Parent = self.base
+		})
+
+		self:Create("Frame", {
+			AnchorPoint = Vector2.new(0.5, 0),
+			Position = UDim2.new(0.5, 0, 0, 0),
+			Size = UDim2.new(1, 10, 1, 0),
+			Style = Enum.FrameStyle.RobloxRound,
+			Parent = self.tooltip
+		})
+
+		self:Create("ImageLabel", {
+			Size = UDim2.new(1, 0, 1, 0),
+			BackgroundTransparency = 1,
+			Image = "rbxassetid://2592362371",
+			ImageColor3 = Color3.fromRGB(60, 60, 60),
+			ScaleType = Enum.ScaleType.Slice,
+			SliceCenter = Rect.new(2, 2, 62, 62),
+			Parent = self.main
+		})
+
+		self:Create("ImageLabel", {
+			Size = UDim2.new(1, -2, 1, -2),
+			Position = UDim2.new(0, 1, 0, 1),
+			BackgroundTransparency = 1,
+			Image = "rbxassetid://2592362371",
+			ImageColor3 = Color3.new(),
+			ScaleType = Enum.ScaleType.Slice,
+			SliceCenter = Rect.new(2, 2, 62, 62),
+			Parent = self.main
+		})
+
+		self.top.InputBegan:connect(function(input)
+			if input.UserInputType.Name == "MouseButton1" then
+				dragObject = self.main
+				dragging = true
+				dragStart = input.Position
+				startPos = dragObject.Position
+				if library.popup then library.popup:Close() end
+			end
+		end)
+		self.top.InputChanged:connect(function(input)
+			if dragging and input.UserInputType.Name == "MouseMovement" then
+				dragInput = input
+			end
+		end)
+		self.top.InputEnded:connect(function(input)
+			if input.UserInputType.Name == "MouseButton1" then
+				dragging = false
+			end
+		end)
+
+		function self:selectTab(tab)
+			if self.currentTab == tab then return end
+			if library.popup then library.popup:Close() end
+			if self.currentTab then
+				self.currentTab.button.TextColor3 = Color3.fromRGB(255, 255, 255)
+				for _, column in next, self.currentTab.columns do
+					column.main.Visible = false
+				end
+			end
+			self.main.Size = UDim2.new(0, 16 + ((#tab.columns < 2 and 2 or #tab.columns) * 239), 0, 600)
+			self.currentTab = tab
+			tab.button.TextColor3 = library.flags["Menu Accent Color"]
+			self.tabHighlight:TweenPosition(UDim2.new(0, tab.button.Position.X.Offset, 0, 50), "Out", "Quad", 0.2, true)
+			self.tabHighlight:TweenSize(UDim2.new(0, tab.button.AbsoluteSize.X, 0, -1), "Out", "Quad", 0.1, true)
+			for _, column in next, tab.columns do
+				column.main.Visible = true
+			end
+		end
+
+		spawn(function()
+			while library do
+				wait(1)
+				local Configs = self:GetConfigs()
+				for _, config in next, Configs do
+					if not table.find(self.options["Config List"].values, config) then
+						self.options["Config List"]:AddValue(config)
+					end
+				end
+				for _, config in next, self.options["Config List"].values do
+					if not table.find(Configs, config) then
+						self.options["Config List"]:RemoveValue(config)
+					end
+				end
+			end
+		end)
+
+		for _, tab in next, self.tabs do
+			if tab.canInit then
+				tab:Init()
+				self:selectTab(tab)
+			end
+		end
+
+		self:AddConnection(inputService.InputEnded, function(input)
+			if input.UserInputType.Name == "MouseButton1" and self.slider then
+				self.slider.slider.BorderColor3 = Color3.new()
+				self.slider = nil
+			end
+		end)
+
+		self:AddConnection(inputService.InputChanged, function(input)
+			if not self.open then return end
+			
+			if input.UserInputType.Name == "MouseMovement" then
+				if self.cursor then
+					local mouse = inputService:GetMouseLocation()
+					local MousePos = Vector2.new(mouse.X, mouse.Y)
+					self.cursor.PointA = MousePos
+					self.cursor.PointB = MousePos + Vector2.new(12, 12)
+					self.cursor.PointC = MousePos + Vector2.new(12, 12)
+					self.cursor1.PointA = MousePos
+					self.cursor1.PointB = MousePos + Vector2.new(11, 11)
+					self.cursor1.PointC = MousePos + Vector2.new(11, 11)
+				end
+				if self.slider then
+					self.slider:SetValue(self.slider.min + ((input.Position.X - self.slider.slider.AbsolutePosition.X) / self.slider.slider.AbsoluteSize.X) * (self.slider.max - self.slider.min))
+				end
+			end
+			if input == dragInput and dragging and library.draggable then
+				local delta = input.Position - dragStart
+				local yPos = (startPos.Y.Offset + delta.Y) < -36 and -36 or startPos.Y.Offset + delta.Y
+				dragObject:TweenPosition(UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, yPos), "Out", "Quint", 0.1, true)
+			end
+		end)
+
+		local Old_index
+		Old_index = hookmetamethod(game, "__index", function(t, i)
+			if checkcaller() then return Old_index(t, i) end
+
+			if library and i == "MouseIconEnabled" then
+				return library.mousestate
+			end
+
+			return Old_index(t, i)
+		end)
+
+		local Old_new
+		Old_new = hookmetamethod(game, "__newindex", function(t, i, v)
+			if checkcaller() then return Old_new(t, i, v) end
+
+			if library and i == "MouseIconEnabled" then
+				library.mousestate = v
+				if library.open then return end
+			end
+
+			return Old_new(t, i, v)
+		end)
+
+		if not getgenv().silent then
+			delay(1, function() self:Close() end)
+		end
+	end
+
+	library.SettingsTab = library:AddTab("Settings", 100)
+	library.SettingsColumn = library.SettingsTab:AddColumn()
+	library.SettingsColumn1 = library.SettingsTab:AddColumn()
+
+	library.SettingsMain = library.SettingsColumn:AddSection"Main"
+	library.SettingsMain:AddButton({text = "Unload Cheat", nomouse = true, callback = function()
+		library:Unload()
+		getgenv().uwuware = nil
+	end})
+	library.SettingsMain:AddBind({text = "Panic Key", callback = library.options["Unload Cheat"].callback})
+
+	library.SettingsMenu = library.SettingsColumn:AddSection"Menu"
+	library.SettingsMenu:AddBind({text = "Open / Close", flag = "UI Toggle", nomouse = true, key = "Insert", callback = function() library:Close() end})
+	library.SettingsMenu:AddColor({text = "Accent Color", flag = "Menu Accent Color", color = Color3.fromRGB(255, 65, 65), callback = function(Color)
+		if library.currentTab then
+			library.currentTab.button.TextColor3 = Color
+		end
+		for _, obj in next, library.theme do
+			obj[(obj.ClassName == "TextLabel" and "TextColor3") or (obj.ClassName == "ImageLabel" and "ImageColor3") or "BackgroundColor3"] = Color
+		end
+	end})
+	local Backgrounds = {
+		["Floral"] = 5553946656,
+		["Flowers"] = 6071575925,
+		["Circles"] = 6071579801,
+		["Hearts"] = 6073763717,
+		["Polka dots"] = 6214418014,
+		["Mountains"] = 6214412460,
+		["Zigzag"] = 6214416834,
+		["Zigzag 2"] = 6214375242,
+		["Tartan"] = 6214404863,
+		["Roses"] = 6214374619,
+		["Hexagons"] = 6214320051,
+		["Leopard print"] = 6214318622
+	}
+	library.SettingsMenu:AddList({text = "Background", flag = "UI Background", max = 6, values = {"Floral", "Flowers", "Circles", "Hearts", "Polka dots", "Mountains", "Zigzag", "Zigzag 2", "Tartan", "Roses", "Hexagons", "Leopard print"}, callback = function(Value)
+		if Backgrounds[Value] then
+			library.main.Image = "rbxassetid://" .. Backgrounds[Value]
+		end
+	end}):AddColor({flag = "Menu Background Color", color = Color3.new(), callback = function(Color)
+		library.main.ImageColor3 = Color
+	end, trans = 1, calltrans = function(Value)
+		library.main.ImageTransparency = 1 - Value
+	end})
+	library.SettingsMenu:AddSlider({text = "Tile Size", value = 90, min = 50, max = 500, callback = function(Value)
+		library.main.TileSize = UDim2.new(0, Value, 0, Value)
+	end})
+
+	library.ConfigSection = library.SettingsColumn1:AddSection"Configs"
+	library.ConfigSection:AddBox({text = "Config Name", skipflag = true})
+	library.ConfigSection:AddButton({text = "Create", callback = function()
+		library:GetConfigs()
+		writefile(library.foldername .. "/" .. library.flags["Config Name"] .. library.fileext, "{}")
+		library.options["Config List"]:AddValue(library.flags["Config Name"])
+	end})
+	library.ConfigWarning = library:AddWarning({type = "confirm"})
+	library.ConfigSection:AddList({text = "Configs", skipflag = true, value = "", flag = "Config List", values = library:GetConfigs()})
+	library.ConfigSection:AddButton({text = "Save", callback = function()
+		local r, g, b = library.round(library.flags["Menu Accent Color"])
+		library.ConfigWarning.text = "Are you sure you want to save the current settings to config <font color='rgb(" .. r .. "," .. g .. "," .. b .. ")'>" .. library.flags["Config List"] .. "</font>?"
+		if library.ConfigWarning:Show() then
+			library:SaveConfig(library.flags["Config List"])
+		end
+	end})
+	library.ConfigSection:AddButton({text = "Load", callback = function()
+		local r, g, b = library.round(library.flags["Menu Accent Color"])
+		library.ConfigWarning.text = "Are you sure you want to load config <font color='rgb(" .. r .. "," .. g .. "," .. b .. ")'>" .. library.flags["Config List"] .. "</font>?"
+		if library.ConfigWarning:Show() then
+			library:LoadConfig(library.flags["Config List"])
+		end
+	end})
+	library.ConfigSection:AddButton({text = "Delete", callback = function()
+		local r, g, b = library.round(library.flags["Menu Accent Color"])
+		library.ConfigWarning.text = "Are you sure you want to delete config <font color='rgb(" .. r .. "," .. g .. "," .. b .. ")'>" .. library.flags["Config List"] .. "</font>?"
+		if ConfigWarning:Show() then
+			local Config = library.flags["Config List"]
+			if table.find(library:GetConfigs(), Config) and isfile(library.foldername .. "/" .. Config .. library.fileext) then
+				library.options["Config List"]:RemoveValue(Config)
+				delfile(library.foldername .. "/" .. Config .. library.fileext)
+			end
+		end
+	end})
+	--LIBRARY END
+	
+	--custom notification thing, library required for this to work
+	local LastNotification = 0
+	function library:SendNotification(duration, message)
+		LastNotification = LastNotification + tick()
+		if LastNotification < 0.2 or not library.base then return end
+		LastNotification = 0
+		if duration then
+			duration = tonumber(duration) or 2
+			duration = duration < 2 and 2 or duration
+		else
+			duration = message
+		end
+		message = message and tostring(message) or "Empty"
+
+		--create the thing
+		local notification = library:Create("Frame", {
+			AnchorPoint = Vector2.new(1, 1),
+			Size = UDim2.new(0, 0, 0, 80),
+			Position = UDim2.new(1, -5, 1, -5),
+			BackgroundTransparency = 1,
+			BackgroundColor3 = Color3.fromRGB(30, 30, 30),
+			BorderColor3 = Color3.fromRGB(20, 20, 20),
+			Parent = library.base
+		})
+		tweenService:Create(notification, TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = UDim2.new(0, 240, 0, 80), BackgroundTransparency = 0}):Play()
+
+		tweenService:Create(library:Create("TextLabel", {
+			Position = UDim2.new(0, 5, 0, 25),
+			Size = UDim2.new(1, -10, 0, 40),
+			BackgroundTransparency = 1,
+			Text = tostring(message),
+			Font = Enum.Font.SourceSans,
+			TextColor3 = Color3.fromRGB(255, 255, 255),
+			TextSize = 18,
+			TextTransparency = 1,
+			TextWrapped = true,
+			Parent = notification
+		}), TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, 0, false, 0.3), {TextTransparency = 0}):Play()
+
+		--bump existing notifications
+		for _,notification in next, library.notifications do
+			notification:TweenPosition(UDim2.new(1, -5, 1, notification.Position.Y.Offset - 85), "Out", "Quad", 0.2)
+		end
+		library.notifications[notification] = notification
+
+		wait(0.4)
+
+		--create other things
+		library:Create("Frame", {
+			Position = UDim2.new(0, 0, 0, 20),
+			Size = UDim2.new(0, 0, 0, 1),
+			BackgroundColor3 = Color3.fromRGB(255, 65, 65),
+			BorderSizePixel = 0,
+			Parent = notification
+		}):TweenSize(UDim2.new(1, 0, 0, 1), "Out", "Linear", duration)
+
+		tweenService:Create(library:Create("TextLabel", {
+			Position = UDim2.new(0, 4, 0, 0),
+			Size = UDim2.new(0, 70, 0, 16),
+			BackgroundTransparency = 1,
+			Text = "uwuware",
+			Font = Enum.Font.Gotham,
+			TextColor3 = Color3.fromRGB(255, 65, 65),
+			TextSize = 16,
+			TextTransparency = 1,
+			Parent = notification
+		}), TweenInfo.new(0.4, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {TextTransparency = 0}):Play()
+
+		--remove
+		delay(duration, function()
+			if not library then return end
+			library.notifications[notification] = nil
+			--bump existing notifications down
+			for _,otherNotif in next, library.notifications do
+				if otherNotif.Position.Y.Offset < notification.Position.Y.Offset then
+					otherNotif:TweenPosition(UDim2.new(1, -5, 1, otherNotif.Position.Y.Offset + 85), "Out", "Quad", 0.2)
+				end
+			end
+			notification:Destroy()
+		end)
+	end
+
+	local GameTitle = ""
+	local GameList = {
+		["Counter Blox"] = 115797356,
+		["Arsenal"] = 111958650,
+		["Bad Business"] = 1168263273,
+		--["Sound Space"] = 964540701,
+		["Island Royale"] = 1320186298,
+		--["Strucid"] = 833423526,
+		["Unit: Classified"] = 4292776423,
+		["Phantom Forces"] = 113491250,
+		--["Apocalypse Rising 2"] = 1,
+		["Operation Scorpion"] = 571399053,
+		["Q-Clash!"] = 715769634,
+		--["Future Tops"] = 656683441,
+		--["Jailbreak"] = 245662005,
+		["MURDER"] = 1484197505,
+		["Ace Of Spadez"] = 913400159,
+		["KAT"] = 254394801,
+		["MMC Zombies Project"] = 410307227,
+		["Recoil"] = 1534453623,
+		["Project Lazarus"] = 169302362,
+		["State Of Anarchy"] = 595270616,
+		--["Hedgerows"] = 1631887111,
+		--["Notoriety"] = 16680835,
+		["Zombie Rush"] = 63955796,
+		["Zombie Attack"] = 504035427,
+		--["Infection"] = 1457889951,
+		["Resurrection"] = 298118708,
+		--["Typical Colors 2"] = 147332621,
+		--["Blackhawk Rescue Mission"] = 5321709389,
+		["Shoot Out"] = 1581656817,
+		["Weaponry"] = 3297964905,
+		["Citadel Of Adun"] = 4790960806,
+		["Dust"] = 1944529780,
+		--sadrad
+		["Boxing Simulator"] = 4058282580,
+		["BIG Paintball"] = 3527629287,
+		["Giant Survival"] = 4003872968,
+		--["Lumberjack Legends"] = 4379619839,
+		--["Magnet Simulator"] = 3486025575,
+		["Death Zone"] = 1069365631,
+		["R2DA"] = 1772081673,
+		["Zombie Uprising"] = 1709832923
+	}
+	for Name,ID in next, GameList do
+		if game.GameId == ID then
+			GameTitle = Name
+		elseif game.PlaceId == ID then
+			GameTitle = Name
+		end
+	end
+
+	--Compatibility functions
+	local function mouse1click(delay) spawn(function() mouse1press() wait(delay or 0.1) mouse1release() end) end
+	local function mouse2click(delay) spawn(function() keypress(0x02) wait(delay or 0.1) keprelease(0x02) end) end
+	local function keytap(key, delay) spawn(function() keypress(key) wait(delay or 0.1) keyrelease(key) end) end
+
+	--Variables
+	local RepStorage = game:GetService"ReplicatedStorage"
+	local PlayerServ = game:GetService"Players"
+	local Client = PlayerServ["LocalPlayer"]
+	local Mouse = Client:GetMouse()
+	local Settings = settings()
+	local Players = {}
+	local Camera = workspace.CurrentCamera
+	local WTSP = Camera.WorldToScreenPoint
+	local WTVP = Camera.WorldToViewportPoint
+	local CameraSpoof = {
+		FieldOfView = Camera.FieldOfView
+	}
+	local Lighting = game:GetService"Lighting"
+	local LightingSpoof = {
+		ClockTime = Lighting.ClockTime,
+		Brightness = Lighting.Brightness,
+		Ambient = Lighting.Ambient,
+		OutdoorAmbient = Lighting.OutdoorAmbient,
+		ColorShift_Top = Lighting.ColorShift_Top,
+	}
+	local NameRequest
+	local TeamRequest
+	local HealthRequest
+	local ClientCharRequest
+	local Cowboys, Sheriffs = {}, {}
+	local FFC = workspace.FindFirstChild
+	local GBB = workspace.GetBoundingBox
+	local FFA = workspace.FindFirstAncestor
+	local FFCoC = workspace.FindFirstChildOfClass
+	local V3Empty = Vector3.new()
+	local V3101 = Vector3.new(1, 0, 1)
+	local V2Empty = Vector2.new()
+	local V211 = Vector2.new(1, 1)
+	local V222 = Vector2.new(2, 2)
+	local V233 = Vector2.new(3, 3)
+
+	local UniversalBodyParts = {
+		"Head",
+		"UpperTorso", "LowerTorso", "Torso",
+		"Left Arm", "LeftUpperArm", "LeftLowerArm", "LeftHand",
+		"Right Arm", "RightUpperArm", "RightLowerArm", "RightHand",
+		"Left Leg", "LeftUpperLeg", "LeftLowerLeg", "LeftFoot",
+		"Right Leg", "RightUpperLeg", "RightLowerLeg", "RightFoot"
+	}
+	local BBBodyParts = {
+		"Head", "Neck",
+		"Chest", "Abdomen", "Hips",
+		"LeftHand", "LeftArm", "LeftForearm",
+		"RightHand", "RightArm", "RightForearm",
+		"LeftFoot", "LeftLeg", "LeftForeleg",
+		"RightFoot", "RightLeg", "RightForeleg"
+	}
+	local R6BodyParts = {"Head","Torso", "Left Arm", "Right Arm", "Left Leg", "Right Leg"}
+	local AOSBodyParts = {
+		"Head",
+		"Shoulders", "Torso", "UpperTorso", "MidTorso", "LowerTorso",
+		"UpperLeftArm", "LowerLeftArm", "LeftHandle",
+		"UpperLeftLeg", "LowerLeftLeg", "LeftFoot",
+		"UpperRightArm", "LowerRightArm", "RightHandle",
+		"UpperRightLeg", "LowerRightLeg", "RightFoot"
+	}
+	local SOABodyParts = {
+		"Head",
+		"Base",
+		"LeftArmUpper", "LeftArmMid", "LeftArmLower",
+		"RightArmUpper", "RightArmMid", "RightArmLower",
+		"LeftLegUpper", "LeftLegMid", "LeftLegLower",
+		"RightLegUpper", "RighLegMid", "RightLegLower",
+	}
+	local UseBodyParts = GameTitle == "Bad Business" and BBBodyParts or GameTitle == "Phantom Forces" and R6BodyParts or GameTitle == "Ace Of Spadez" and AOSBodyParts or GameTitle == "State Of Anarchy" and SOABodyParts or UniversalBodyParts
+
+	--Get functions
+	local function GetHitboxFromChar(Character, BodyPart)
+		BodyPart = BodyPart or "Head"
+		if not Character then return end
+		if GameTitle == "Bad Business" then
+			return FFC(Character.Body, BodyPart) or FFC(Character.Body, "Chest")
+		elseif GameTitle == "Project Lazarus" then
+			BodyPart = BodyPart == "Head" and "HeadBox" or "Torso"
+			return FFC(Character, BodyPart)
+		else
+			return FFC(Character, BodyPart) or FFC(Character, "UpperTorso")
+		end
+	end
+
+	local RayParams = RaycastParams.new()
+	RayParams.FilterType = Enum.RaycastFilterType.Blacklist
+	RayParams.IgnoreWater = true
+	local function RayCheck(ClientChar, To, Distance)
+		local Ignores = {Camera, ClientChar}
+		if GameTitle == "Bad Business" then
+			Ignores[3] = FFC(workspace, "Arms")
+			--Ignores[#Ignores + 1] = ClientChar and FFC(workspace, ClientChar.Backpack.Equipped.Value.Name)
+			Ignores[4] = workspace.NonProjectileGeometry
+			Ignores[5] = workspace.Effects
+			Ignores[6] = workspace.Spawns
+			Ignores[7] = workspace.Ragdolls
+			Ignores[8] = workspace.Gameplay
+			Ignores[9] = workspace.Throwables
+		elseif GameTitle == "Phantom Forces" then
+			Ignores[3] = workspace.Ignore
+		end
+		RayParams.FilterDescendantsInstances = Ignores
+		return workspace:Raycast(Camera.CFrame.p, (To - Camera.CFrame.p).Unit * Distance, RayParams)
+	end
+
+	local Sub = Vector3.new(-0.1, -0.1, -0.1)
+	local function GetCorners(Object, Esp)
+		local CF = Object.CFrame
+		local Size = (Object.Size / 2)
+		Size = Esp and Size or Size - Sub
+		return {
+			Vector3.new(CF.X+Size.X, CF.Y+Size.Y, CF.Z+Size.Z);
+			Vector3.new(CF.X-Size.X, CF.Y+Size.Y, CF.Z+Size.Z);
+
+			Vector3.new(CF.X-Size.X, CF.Y-Size.Y, CF.Z-Size.Z);
+			Vector3.new(CF.X+Size.X, CF.Y-Size.Y, CF.Z-Size.Z);
+
+			Vector3.new(CF.X-Size.X, CF.Y+Size.Y, CF.Z-Size.Z);
+			Vector3.new(CF.X+Size.X, CF.Y+Size.Y, CF.Z-Size.Z);
+
+			Vector3.new(CF.X-Size.X, CF.Y-Size.Y, CF.Z+Size.Z);
+			Vector3.new(CF.X+Size.X, CF.Y-Size.Y, CF.Z+Size.Z);
+		}
+	end
+
+	--Player data
+	local ESPObjects = {}
+
+	local function Track(Player)
+		-- too lazy to add a proper check, discontinued anyway so
+		if not (Player.ClassName == "Player" or Player.ClassName == "Folder") then return end
+
+		for i,v in next, ESPObjects do
+			if not v.Active then
+				v.Active = true
+				ESPObjects[Player] = v
+				break
+			end
+		end
+		if not ESPObjects[Player] then
+			ESPObjects[Player] = {
+				ChamsOutline = library:Create("Folder", {Parent = library.base}),
+				Chams = library:Create("Folder", {Parent = library.base}),
+				ChamsStep = 0,
+				BoxOutline = library:Create("Square", {Thickness = 1}),
+				BoxInline = library:Create("Square", {Thickness = 1}),
+				Box = library:Create("Square", {Thickness = 1}),
+				LookAt = library:Create("Line", {Thickness = 1}),
+				NameText = library:Create("Text", {Size = 15, Font = 3, Center = true, Outline = true}),
+				DistanceText = library:Create("Text", {Size = 15, Font = 3, Center = true, Outline = true}),
+				BarOutline = library:Create("Square", {Filled = true}),
+				Bar = library:Create("Square", {Filled = true}),
+				HealthText = library:Create("Text", {Color = Color3.new(1, 1, 1), Size = 14, Font = 3, Center = true, Outline = true}),
+				DirectionLine = library:Create("Line", {Thickness = 1}),
+				DirectionDot = library:Create("Square", {Size = Vector2.new(7, 7), Filled = true}),
+				--RadarHeight = library:Create("TextLabel", {BackgroundTransparency = 1, Text = "T", TextColor3 = Color3.new(), Font = Enum.Font.SciFi, TextSize = 13}),
+				RadarBlip = library:Create("Circle", {Radius = 4, Filled = true}),
+				OOVArrow = library:Create"Triangle",
+				Active = true,
+
+				Invis = function()
+					ESPObjects[Player].Visible = false
+					ESPObjects[Player].BoxOutline.Visible = false
+					ESPObjects[Player].BoxInline.Visible = false
+					ESPObjects[Player].Box.Visible = false
+					ESPObjects[Player].BarOutline.Visible = false
+					ESPObjects[Player].Bar.Visible = false
+					ESPObjects[Player].HealthText.Visible = false
+					ESPObjects[Player].LookAt.Visible = false
+					ESPObjects[Player].NameText.Visible = false
+					ESPObjects[Player].DistanceText.Visible = false
+					ESPObjects[Player].DirectionLine.Visible = false
+					ESPObjects[Player].DirectionDot.Visible = false
+				end,
+
+				InvisChams = function()
+					ESPObjects[Player].ChamsVisible = false
+					for _, Cham in next, ESPObjects[Player].Chams:GetChildren() do
+						Cham.Transparency = 1
+					end
+				end,
+
+				InvisChamsOutline = function()
+					ESPObjects[Player].ChamsOutlineVisible = false
+					for _, Cham in next, ESPObjects[Player].ChamsOutline:GetChildren() do
+						Cham.Transparency = 1
+					end
+				end,
+
+				InvisRadar = function()
+					ESPObjects[Player].RadarVisible = false
+					ESPObjects[Player].RadarBlip.Visible = false
+				end
+			}
+		end
+
+		local Character
+		local MaxHealth
+		Players[Player] = setmetatable({Priority = false, Whitelist = false, LastPosition = V3Empty}, {__index = function(self, index)
+			if index == "Character" then
+				if Player.ClassName == "Model" then
+					Character = Player
+				else
+					if GameTitle == "Phantom Forces" then
+						if Player == Client then
+							Character = Client.Character and FFC(Client.Character, "HumanoidRootPart") and Client.Character
+						else
+							if NameRequest[Player] and NameRequest[Player].torso then
+								Character = NameRequest[Player].torso.Parent
+							end
+						end
+					elseif GameTitle == "Bad Business" then
+						Character = NameRequest[Player]
+						Character = Character and Character.Parent == workspace.Characters and Character
+					elseif GameTitle == "Operation Scorpion" then
+						Character = FFC(Player, "Vars") and Player.Vars["isAlive"].Value and Player.Character
+					elseif GameTitle == "Hedgerows" then
+						Character = Player.Character and Player.Character.Parent and Player.Character
+					elseif GameTitle == "Recoil" then
+						Character = FFC(workspace, Player.Name)
+					else
+						Character = Player.Character or FFC(workspace, Player.Name)
+						if Character then
+							if GameTitle == "Arsenal" then
+								Character = FFC(Character, "Spawned") and Character
+							elseif GameTitle == "MURDER" then
+								Character = FFC(Player, "Status") and Player.Status.Alive.Value and Character
+							elseif GameTitle == "Ace Of Spadez" then
+								Character = Character.Parent and Character.Parent.Name ~= "Spectators" and Character
+							elseif GameTitle == "Q-Clash" then
+								Character = FFCoC(Character, "BillboardGui", true)
+							end
+						end
+					end
+				end
+
+				if Character then 
+					if Player ~= Client and not library.flags["Aimbot Ignore Spawn Protection"] then
+						if GameTitle == "Bad Business" then
+							if FFC(Character, "ShieldEmitter", true) then
+								if Character.Root.ShieldEmitter.Enabled then
+									return
+								end
+							end
+						elseif GameTitle ~= "Phantom Forces" then
+							if FFC(Character, "ForceField") then
+								return
+							end
+						end
+					end
+					return Character
+				end
+			else
+				if not Character then return (index == "Health" or index == "MaxHealth" and 0) end
+				if index == "Health" then
+					local Health
+					if GameTitle == "Bad Business" then
+						Health, MaxHealth = FFC(Character, "Health") and Character.Health.Value, 150
+					elseif GameTitle == "Phantom Forces" then
+						Health, MaxHealth = HealthRequest:getplayerhealth(Player), 100
+					elseif GameTitle == "MURDER" or GameTitle == "Arsenal" or GameTitle == "Unit: Classified" then
+						Health, MaxHealth = FFC(Player, "NRPBS") and Player.NRPBS.Health.Value, Player.NRPBS.MaxHealth.Value
+					--elseif GameTitle == "Q-Clash" then
+					--	Health, MaxHealth = HealthRequest(Character)
+					else
+						local Humanoid = FFCoC(Character, "Humanoid")
+						if Humanoid then
+							Health, MaxHealth = Humanoid.Health, Humanoid.MaxHealth
+						end
+					end
+					return Health and (Health > 0 and Health) or 0
+				elseif index == "MaxHealth" then
+					return MaxHealth or 0
+				elseif index == "Enemy" then
+					if Player.ClassName == "Model" then
+						return GameTitle == "Blackhawk Rescue Mission" and (Player.Name:find("Infantry") and true or false) or true
+					else
+						if GameTitle == "Blackhawk Rescue Mission" or GameTitle == "R2DA" or GameTitle == "Resurrection" or GameTitle == "Project Lazarus" or GameTitle == "MMC Zombies Project" or GameTitle == "Zombie Rush" or GameTitle == "Zombie Attack" then
+							return false
+						elseif GameTitle == "Bad Business" then
+							return TeamRequest({}, Client) ~= TeamRequest({}, Player) 
+						elseif GameTitle == "Q-Clash!" then
+							local ClientChar = Client.Character
+							return Character and ClientChar and Character.Parent ~= ClientChar.Parent
+						elseif GameTitle == "Recoil" then
+							return FFC(Player, "GameStats") and Client.GameStats.Team.value ~= Player.GameStats.Team.value
+						elseif GameTitle == "Shoot Out" then
+							return (Cowboys[Client] and Cowboys or Sheriffs) ~= (Cowboys[Player] and Cowboys or Sheriffs)
+						else
+							if Client.Team then
+								return Client.Team ~= Player.Team
+							else
+								return true
+							end
+						end
+					end
+				end
+			end
+
+		end})
+	end
+
+	local function AddTracker(Tracking)
+		for _,Player in next, Tracking:GetChildren() do
+			if GameTitle == "Blackhawk Rescue Mission" then
+				if Tracking == PlayerServ then
+					Track(Player)
+				else
+					if Player.Name:find("Infantry") or Player.Name:find("Civilian") then
+						Track(Player)
+					end
+				end
+			else
+				Track(Player)
+			end
+		end
+
+		library:AddConnection(Tracking.ChildAdded, function(Player)
+			wait(1)
+			if Tracking == PlayerServ and library then
+				library.options["Player List"]:AddValue(Player.Name)
+			end
+			if GameTitle == "Blackhawk Rescue Mission" then
+				if Tracking == PlayerServ then
+					Track(Player)
+				else
+					if Player.Name:find"Infantry" or Player.Name:find"Civilian" then
+						Track(Player)
+					end
+				end
+			else
+				Track(Player)
+			end
+		end)
+
+		library:AddConnection(Tracking.ChildRemoved, function(Player)
+			if Players[Player] then
+				if table.find(library.options["Player List"].values, Player.Name) then
+					if library.hasInit then
+						library.options["Player List"]:RemoveValue(Player.Name)
+					end
+				end
+				Players[Player] = nil
+				if ESPObjects[Player] then
+					ESPObjects[Player].Active = false
+					ESPObjects[Player].OOVArrow.Visible = false
+					ESPObjects[Player].Invis()
+					ESPObjects[Player].InvisChams()
+					ESPObjects[Player].InvisChamsOutline()
+					ESPObjects[Player].InvisRadar()
+				end
+			end
+		end)
+	end
+
+	library:AddConnection(workspace.ChildAdded, function(Obj)
+		if Obj.ClassName == "Camera" then
+			Camera = Obj
+			WTSP = Obj.WorldToScreenPoint
+			WTVP = Obj.WorldToViewportPoint
+		end
+	end)
+
+	--UI
+	--local RadarWindow = library:Create("Circle", {NumSides = 64, Radius = 100, Filled = true, Color = Color3.fromRGB(30, 30, 30)})
+	local Draw = library:Create("Circle", {NumSides = 64, Thickness = 1})
+
+	local CrosshairTop = library:Create("Square", {Filled = true})
+	local CrosshairLeft = library:Create("Square", {Filled = true})
+	local CrosshairRight = library:Create("Square", {Filled = true})
+	local CrosshairBottom = library:Create("Square", {Filled = true})
+
+	--Aimbot Module
+	local AimbotRayParams = RaycastParams.new()
+	AimbotRayParams.FilterType = Enum.RaycastFilterType.Whitelist
+	AimbotRayParams.IgnoreWater = true
+
+	local AimbotHitboxes = {}
+
+	library.Aimbot = {
+		Target = nil,
+		Player = nil,
+		Distance = nil,
+		Position = nil,
+		Position3d = nil,
+		LastPosition = V3Empty,
+		PositionOffset = nil,
+		PositionOffset2d = nil,
+		Part = nil,
+		OnScreen = false,
+		LastVisible = false,
+		Step = 0,
+		OldStep = 0,
+		AutoShootStep = 0
+	}
+
+	library.Aimbot.Reset = function()
+		library.Aimbot.Target = nil
+		library.Aimbot.Player = nil
+		library.Aimbot.Distance = 9e9
+		library.Aimbot.Position = nil
+		library.Aimbot.Position3d = nil
+		library.Aimbot.LastPosition = V3Empty
+		library.Aimbot.PositionOffset = nil
+		library.Aimbot.PositionOffset2d = nil
+		library.Aimbot.Part = nil
+		library.Aimbot.OnScreen = false
+		library.Aimbot.LastVisible = false
+		library.Aimbot.Step = 0
+		library.Aimbot.SwitchStep = 0
+		library.Aimbot.AutoShootStep = 0
+	end
+
+	library.Aimbot.Check = function(Player, Steady, Step)
+		if not Players[Player] then return end
+		local Character, ClientChar = Players[Player].Character, Players[Client].Character
+		if Players[Player].Health > 0.1 and Character and ClientChar then
+			local MX, MY = Mouse.X, Mouse.Y
+			if library.flags["Mouse Offset"] then
+				MX = MX + library.flags["MXO Amount"]
+				MY = MY + library.flags["MYO Amount"]
+			end
+
+			local Target
+			local OldDist = 9e9
+			if library.flags["Aimbot Randomize Hitbox"] then
+				if library.Aimbot.Part then
+					Target = GetHitboxFromChar(Character, library.Aimbot.Part)
+				else
+					if not Target then
+						local PartName = AimbotHitboxes[math.random(1, #AimbotHitboxes)]
+						Target = GetHitboxFromChar(Character, PartName)
+						library.Aimbot.Part = PartName
+					end
+				end
+			else
+				for i,v in next, library.flags["Aimbot Hitboxes"] do
+					if not v then continue end
+
+					local Part = GetHitboxFromChar(Character, i)
+					if not Part then continue end
+
+					local ScreenPos = WTSP(Camera, Part.Position)
+					local Dist = (Vector2.new(MX, MY) - Vector2.new(ScreenPos.X, ScreenPos.Y)).Magnitude
+
+					if Dist > OldDist then continue end
+
+					OldDist = Dist
+					Target = Part			
+				end
+			end
+			if not Target then return end
+
+			local Position, OnScreen = WTSP(Camera, Target.Position)
+			if library.flags["Aimbot Mode"] ~= "Silent" then
+				if not OnScreen then
+					return
+				end
+			end
+
+			local DistanceFromCharacter = (Target.Position - Camera.CFrame.p).Magnitude
+			if DistanceFromCharacter > library.flags["Aimbot Max Distance"] then return end
+
+			local DistanceFromMouse = (Vector2.new(MX, MY) - Vector2.new(Position.X, Position.Y)).Magnitude
+			if library.flags["Use FOV"] then
+				local FoVSize = library.flags["FOV Size"]
+				if DistanceFromMouse > FoVSize + (library.flags["Dynamic FOV"] and ((120 - Camera.FieldOfView) * 4) or FoVSize) then
+					return
+				end
+			end
+
+			local Hit
+			if library.flags["Aimbot Vis Check"] or library.flags["Auto Shoot"] or library.flags["Aimbot Prioritize"] then
+				Hit = RayCheck(ClientChar, Target.Position, library.flags["Aimbot Max Distance"])
+				Hit = Hit and Hit.Instance and FFA(Hit.Instance, Character.Name) == Character
+				if Hit then
+					if library.flags["Auto Shoot"] then
+						library.Aimbot.AutoShootStep = library.Aimbot.AutoShootStep + Step
+						if library.Aimbot.AutoShootStep > library.flags["Auto Shoot Interval"] * 0.001 then
+							library.Aimbot.AutoShootStep = 0
+							if library.flags["Aimbot Mode"] == "Silent" then
+								mouse1click()
+							else
+								AimbotRayParams.FilterDescendantsInstances = {Character}
+								local Pos = Camera.CFrame.p
+								if workspace:Raycast(Pos, (Camera:ScreenPointToRay(MX, MY, 10000).Origin - Pos).Unit * library.flags["Aimbot Max Distance"], AimbotRayParams) then
+									mouse1click()
+								end
+							end
+						end
+					end
+				else
+					if library.flags["Aimbot Vis Check"] then
+						return
+					end
+					if library.flags[GameTitle .. " Wallbang"] and library.flags["Auto Shoot"] then
+						library.Aimbot.AutoShootStep = library.Aimbot.AutoShootStep + Step
+						if library.Aimbot.AutoShootStep > library.flags["Auto Shoot Interval"] * 0.001 then
+							library.Aimbot.AutoShootStep = 0
+							mouse1click()
+						end
+					end
+				end
+			end
+
+			library.Aimbot.PositionOffset = library.Aimbot.PositionOffset or V3Empty
+			library.Aimbot.PositionOffset2d = library.Aimbot.PositionOffset2d or V3Empty
+			if library.flags["Velocity Prediction"] then
+				local Diff = (Target.Position - library.Aimbot.LastPosition)
+				if Diff.Magnitude > (library.flags["Aimbot Mode"] == "Legit" and 0.05 or 0.01) then
+					library.Aimbot.PositionOffset = Diff.Unit * library.flags["Velocity Prediction Multiplier"]
+					library.Aimbot.PositionOffset2d = WTSP(Camera, Target.Position + library.Aimbot.PositionOffset) - Position
+				else
+					library.Aimbot.PositionOffset = V3Empty
+					library.Aimbot.PositionOffset2d = V3Empty
+				end
+			end
+
+			if Players[Player].Priority then
+				library.Aimbot.Target = Target
+				library.Aimbot.Player = Player
+				library.Aimbot.Position3d = Target.Position + library.Aimbot.PositionOffset
+				library.Aimbot.Position = Position + library.Aimbot.PositionOffset2d
+				library.Aimbot.OnScreen = OnScreen
+				return true
+			end
+
+			if not Steady then
+				if library.flags["Aimbot Priority"] == "Mouse" then
+					if DistanceFromMouse <= library.Aimbot.Distance then
+						library.Aimbot.Distance = DistanceFromMouse
+					else
+						return
+					end
+				else
+					if DistanceFromCharacter <= library.Aimbot.Distance then
+						library.Aimbot.Distance = DistanceFromCharacter
+					else
+						return
+					end
+				end
+			end
+
+			if library.flags["Aimbot Prioritize"] then
+				if not Hit then
+					if library.Aimbot.LastVisible then
+						return
+					end
+				end
+			end
+
+			library.Aimbot.Target = Target
+			library.Aimbot.Player = Player
+			library.Aimbot.Position3d = Target.Position + library.Aimbot.PositionOffset
+			library.Aimbot.Position = Position + library.Aimbot.PositionOffset2d
+			library.Aimbot.OnScreen = OnScreen
+			return true
+		end
+	end
+
+	library.Aimbot.Run = function(Step)
+		if library.Aimbot.Check(library.Aimbot.Player, true, Step) then
+			if library.flags["Aimbot Mode"] == "Legit" then
+				local AimAtX, AimAtY = library.Aimbot.Position.X, library.Aimbot.Position.Y
+				local MX, MY = Mouse.X, Mouse.Y
+
+				if library.flags["Mouse Offset"] then
+					MX = MX + library.flags["MXO Amount"]
+					MY = MY + library.flags["MYO Amount"]
+				end
+
+				AimAtX, AimAtY = AimAtX - MX, AimAtY - MY
+
+				--local MinDist = 10
+				--local mouseSens = UserSettings():GetService"UserGameSettings".MouseSensitivity
+				local Smoothness = library.flags["Aimbot Smoothness"]
+				if library.flags["Aimbot Snap"] then
+					if math.abs(AimAtX) >= Smoothness or math.abs(AimAtY) >= Smoothness then
+						AimAtX = AimAtX / Smoothness
+						AimAtY = AimAtY / Smoothness
+					end
+				else
+					if Smoothness > 1 then
+						AimAtX = AimAtX / Smoothness
+						AimAtY = AimAtY / Smoothness
+					end
+				end
+
+				mousemoverel(AimAtX, AimAtY)
+			end
+
+			library.Aimbot.LastPosition = library.Aimbot.Target.Position
+			if library.flags["Aim Lock"] then
+				return
+			end
+		else
+			library.Aimbot.Reset()
+		end
+		library.Aimbot.SwitchStep = library.Aimbot.SwitchStep + Step
+		if library.Aimbot.Player then
+			if library.Aimbot.SwitchStep < library.flags["Aimbot Switch Delay"] * 0.001 then return end
+		end
+		library.Aimbot.SwitchStep = 0
+		library.Aimbot.Distance = 9e9
+		for Player, Data in next, Players do
+			if Player == Client or Data.Whitelist then continue end
+			if (library.flags["Aimbot At Teammates"] or Data.Enemy) then
+				if library.Aimbot.Check(Player, false, 0) and Data.Priority then
+					break
+				end
+			end
+		end
+	end
+
+	local TriggerStep = 0
+	local function RunTriggerbot()
+		local ClientChar = Players[Client].Character
+		if not ClientChar then return end
+		for _, Data in next, Players do
+			local Character = Data.Character
+			if Character and (library.flags["Triggerbot Teammates"] or Data.Enemy) then
+				local MX, MY = Mouse.X, Mouse.Y
+				if library.flags["Mouse Offset"] then
+					MX = MX + library.flags["MXO Amount"]
+					MY = MY + library.flags["MYO Amount"]
+				end
+				local Hit = RayCheck(ClientChar, Camera:ScreenPointToRay(MX, MY, 2000).Origin, 2000)
+				if Hit and Hit.Instance then
+					if library.flags["Triggerbot Hitbox"] == "Character" and Hit.Instance:IsDescendantOf(Character) or Hit.Instance.Name == library.flags["Triggerbot Hitbox"] then
+						--if library.flags["Triggerbot Magnet"] then
+						--	local ScreenPos = WTSP(Camera, Hit.Instance.Position)
+						--	local AimAtX, AimAtY = (ScreenPos.X - Mouse.X) - MX, (ScreenPos.Y - Mouse.Y) - MY
+						--	mousemoverel(AimAtX, AimAtY)
+						--end
+						--print"click"
+						mouse1click()
+					end
+				end
+			end
+		end
+	end
+
+	local AimbotTab = library:AddTab"Aimbot"
+	local AimbotColumn = AimbotTab:AddColumn()
+	local AimbotColumn1 = AimbotTab:AddColumn()
+
+	local AimbotMain = AimbotColumn:AddSection"Main"
+	local AimbotTargeting = AimbotColumn:AddSection"Targeting"
+	local AimbotMisc = AimbotColumn1:AddSection"Misc"
+	local TriggerbotMain = AimbotColumn1:AddSection"Triggerbot"
+
+	AimbotMain:AddToggle({text = "Enabled", flag = "Aimbot", callback = function(State)
+		Draw.Visible = State and library.flags["Use FOV"] and library.flags["Draw Circle"]
+		if library.flags["Aimbot Always On"] then
+			library.options["Aimbot Always On"]:SetState(true)
+		end
+	end}):AddList({text = "Mode", flag = "Aimbot Mode", values = {"Legit", "Rage"}, callback = function(Value)
+		library.options["Aimbot Smoothness"].main.Visible = Value == "Legit"
+		library.options["Aimbot Snap"].main.Visible = Value == "Legit"
+		library.options["Mouse Offset"].main.Visible = Value == "Legit"
+		library.options["MXO Amount"].main.Visible = Value == "Legit" and library.flags["Mouse Offset"]
+		library.options["MYO Amount"].main.Visible = Value == "Legit" and library.flags["Mouse Offset"]
+	end}):AddBind({flag = "Aimbot Key", mode = "hold", callback = function(Ended, Step)
+		if library.flags["Aimbot"] and not library.flags["Aimbot Always On"] then
+			if library.open or Ended then
+				library.Aimbot.Reset()
+			else
+				library.Aimbot.Step = library.Aimbot.Step + Step
+				if library.Aimbot.Step > 0.016 then
+					library.Aimbot.Step = 0
+					library.Aimbot.Run(Step)
+				end
+			end
+		end
+	end})
+	AimbotMain:AddToggle({text = "Always On", flag = "Aimbot Always On", callback = function(State)
+		if not State then return end
+
+		library:AddConnection(runService.RenderStepped, "Aimbot", function(Step)
+			if library.open then library.Aimbot.Reset() return end
+			if library.flags["Aimbot"] and library.flags["Aimbot Always On"] then
+				library.Aimbot.Step = library.Aimbot.Step + Step
+				if library.Aimbot.Step > 0.016 then
+					library.Aimbot.Step = 0
+					library.Aimbot.Run(Step)
+				end
+			else
+				library.connections["Aimbot"]:Disconnect()
+				library.Aimbot.Reset()
+			end
+		end)
+	end})
+	AimbotMain:AddSlider({text = "Smoothness", flag = "Aimbot Smoothness", min = 1, max = 40})
+	AimbotMain:AddToggle({text = "Velocity Prediction", state = false, callback = function(State)
+		library.options["Velocity Prediction Multiplier"].main.Visible = State
+	end})
+	AimbotMain:AddSlider({text = "Multiplier", textpos = 2, flag = "Velocity Prediction Multiplier", min = 1, max = 5, float = 0.1})
+	--AimbotMain:AddSlider({text = "Prediction Interval", min = 1, max = 1000})
+	AimbotMain:AddToggle({text = "Snap Near Target", flag = "Aimbot Snap"})--:AddSlider({text = "Snap Range" flag = "Aimbot Snap Range", min = 5, max = 50})
+	--AimbotMain:AddToggle({text = "Curve", flag = "Aimbot Curve"}):AddSlider({text = "Size", flag = "Aimbot Curve Size", min = 1, max = 50})
+	AimbotMain:AddToggle({text = "Lock Target", flag = "Aim Lock"})
+	AimbotMain:AddToggle({text = "Auto Shoot", callback = function(State)
+		library.options["Auto Shoot Interval"].main.Visible = State
+		if State then
+			library.options["Triggerbot"]:SetState()
+		end
+	end})
+	AimbotMain:AddSlider({text = "Interval", textpos = 2, flag = "Auto Shoot Interval", min = 16, max = 1000, suffix = "ms"})
+	--AimbotMain:AddToggle({text = "Randomization"})
+	--AimbotMain:AddSlider({text = "Amount", flag = "Randomize Amount", min = 40, max = 100})
+	AimbotMain:AddSlider({text = "Target Switch Delay", flag = "Aimbot Switch Delay", min = 16, max = 500, suffix = "ms"})
+	AimbotMain:AddToggle({text = "Ignore Spawn Protection", flag = "Aimbot Ignore Spawn Protection"})
+
+	AimbotTargeting:AddToggle({text = "Visible Only", flag = "Aimbot Vis Check", callback = function(State)
+		if State then
+			--library.options["Aimbot Prioritize"]:SetState()
+		end
+	end})
+	--AimbotTargeting:AddToggle({text = "Prioritize Visible", flag = "Aimbot Prioritize", callback = function(State)
+	--	if State then
+	--		library.options["Aimbot Vis Check"]:SetState()
+	--	end
+	--end})
+	AimbotTargeting:AddToggle({text = "At Teammates", flag = "Aimbot At Teammates"})
+	AimbotTargeting:AddList({text = "Priority", flag = "Aimbot Priority", values = {"Mouse", "Distance"}})
+	AimbotTargeting:AddList({text = "Hitboxes", flag = "Aimbot Hitboxes", max = 6, multiselect = true, values = UseBodyParts, callback = function(Values)
+		for i,v in next, Values do
+			if v then
+				if table.find(AimbotHitboxes, i) then continue end
+				table.insert(AimbotHitboxes, i)
+			else
+				local pos = table.find(AimbotHitboxes, i)
+				if not pos then continue end
+				table.remove(AimbotHitboxes, pos)
+			end
+		end
+	end})
+	AimbotTargeting:AddToggle({text = "Randomize Hitbox", flag = "Aimbot Randomize Hitbox"})
+
+	AimbotTargeting:AddSlider({text = "Max Distance", flag = "Aimbot Max Distance", value = 10000, min = 0, max = 10000})
+
+	AimbotMisc:AddToggle({text = "Mouse Offset", callback = function(State)
+		if library.flags["Aimbot Mode"] == "Legit" then
+			library.options["MXO Amount"].main.Visible = State
+			library.options["MYO Amount"].main.Visible = State
+		end
+	end})
+	AimbotMisc:AddSlider({text = "X", textpos = 2, flag = "MXO Amount", min = -100, max = 100, value = 0})
+	AimbotMisc:AddSlider({text = "Y", textpos = 2, flag = "MYO Amount", min = -100, max = 100, value = 0})
+	AimbotMisc:AddToggle({text = "Highlight Target"}):AddColor({flag = "Aimbot Highlight Color", color = Color3.fromRGB(240, 20, 255)})
+	AimbotMisc:AddToggle({text = "Use FOV", callback = function(State) Draw.Visible = State and library.flags["Aimbot"] and library.flags["Draw Circle"] end}):AddSlider({text = "Size", flag = "FOV Size", min = 10, max = 300, callback = function(Value) if not library.flags["Dynamic FOV"] then Draw.Radius = Value * 2 end end})
+	AimbotMisc:AddToggle({text = "Dynamic", flag = "Dynamic FOV", callback = function(State)
+		if State then
+			library:AddConnection(runService.RenderStepped, "Dynamic FOV", function()
+				if library and library.flags["Dynamic FOV"] then
+					Draw.Radius = library.flags["FOV Size"] + ((120 - Camera.FieldOfView) * 4)
+				else
+					library.connections["Dynamic FOV"]:Disconnect()
+					Draw.Radius = library.flags["FOV Size"] * 2
+				end
+			end)
+		end
+	end})
+	AimbotMisc:AddToggle({text = "Draw Circle", callback = function(State) Draw.Visible = State and library.flags["Aimbot"] and library.flags["Use FOV"] end}):AddColor({flag = "FOV Circle Color", Color3.fromRGB(240, 20, 255), trans = 1, callback = function(Color) Draw.Color = Color end, calltrans = function(Value) Draw.Transparency = Value end})
+	AimbotMisc:AddToggle({text = "Fill", flag = "FOV Fill", callback = function(State) Draw.Filled = State end})
+
+	TriggerbotMain:AddToggle({text = "Enabled", flag = "Triggerbot", callback = function(State)
+		if State then
+			library.options["Auto Shoot"]:SetState()
+			if library.flags["Triggerbot Always On"] then
+				library.options["Triggerbot Always On"]:SetState(true)
+			end
+		end
+	end}):AddSlider({text = "Delay", flag = "Triggerbot Delay", min = 16, max = 1000, suffix = "ms"}):AddBind({flag = "Triggerbot Key", mode = "hold", callback = function(Ended, Step)
+		if library.flags["Triggerbot"] and not library.flags["Triggerbot Always On"] then
+			if not library.open then
+				TriggerStep = TriggerStep + Step
+				if TriggerStep > library.flags["Triggerbot Delay"] * 0.001 then
+					TriggerStep = 0
+					RunTriggerbot()
+				end
+			end
+		end
+	end})
+	TriggerbotMain:AddToggle({text = "Always On", flag = "Triggerbot Always On", callback = function(State)
+		if State then
+			library:AddConnection(runService.RenderStepped, "Triggerbot", function(Step)
+				if library.open then return end
+				if library.flags["Triggerbot"] and library.flags["Triggerbot Always On"] then
+					TriggerStep = TriggerStep + Step
+					if TriggerStep > library.flags["Triggerbot Delay"] * 0.001 then
+						TriggerStep = 0
+						RunTriggerbot(Step)
+					end
+				else
+					library.connections["Triggerbot"]:Disconnect()
+				end
+			end)
+		end
+	end})
+	--TriggerbotMain:AddToggle({text = "Magnet", flag = "Triggerbot Magnet"})
+	TriggerbotMain:AddList({text = "Hitbox", flag = "Triggerbot Hitbox", values = {"Head", "Torso", "Character"}})
+	TriggerbotMain:AddToggle({text = "At Teammates", flag = "Triggerbot Teammates"})
+
+	--Esp module
+
+	local VisualsTab = library:AddTab"Visuals"
+	local VisualsColumn = VisualsTab:AddColumn()
+	local VisualsColumn1 = VisualsTab:AddColumn()
+
+	local HealthBarAddon = Vector2.new(3)
+	local PlayerEspSection = VisualsColumn:AddSection"ESP"
+	local OldStep = 0
+	PlayerEspSection:AddToggle({text = "Enabled", flag = "Esp Enabled", callback = function(State)
+		if not State then
+			--RadarWindow.Visible = false
+			if library.connections["Player ESP"] then
+				library.connections["Player ESP"]:Disconnect()
+				for _, v in next, ESPObjects do
+					v.OOVArrow.Visible = false
+					v.Invis()
+					v.InvisChams()
+					v.InvisChamsOutline()
+				end
+			end
+
+			return
+		end
+
+		--RadarWindow.Visible = library.flags["Radar Enabled"]
+		library:AddConnection(runService.RenderStepped, "Player ESP", function(Step)
+			OldStep = OldStep + Step
+			if OldStep < 0.016 then return end
+			OldStep = 0
+
+			for Player, Data in next, Players do
+				if Player == Client then continue end
+				local Objects = ESPObjects[Player]
+				local Character = Data.Character
+
+				local Show
+				local Team = Data.Enemy
+				if Data.Whitelist then
+					Show = library.flags["Esp Show Whitelisted"]
+				else
+					Show = Data.Priority or library.flags["Esp Enabled For"][Team and "Enemies" or "Teammates"]
+				end
+
+				if Show and Character then
+					local Health = Data.Health
+
+					if Health > 0.1 then
+						Team = Team and "Enemy" or "Team"
+
+						local Pos, Size = GBB(Character)
+						local RootPart = FFC(Character, "HumanoidRootPart")
+						if RootPart and (Pos.Position - RootPart.Position).Magnitude > 5 then
+							Pos = RootPart.CFrame
+						end
+
+						local Distance = (Camera.CFrame.p - Pos.Position).Magnitude
+						if Distance < library.flags["Esp Max Distance"] then
+
+							local ScreenPosition, OnScreen = WTVP(Camera, Pos.Position)
+
+							local ClientChar = Players[Client].Character
+							local Ignores = {Camera, ClientChar}
+							if GameTitle == "Bad Business" then
+								Ignores[3] = FFC(workspace, "Arms")
+								--Ignores[4] = ClientChar and FFC(workspace, ClientChar.Backpack.Equipped.Value.Name)
+								Ignores[5] = workspace.NonProjectileGeometry
+								Ignores[6] = workspace.Effects
+								Ignores[7] = workspace.Spawns
+								Ignores[8] = workspace.Ragdolls
+								Ignores[9] = workspace.Gameplay
+								Ignores[10] = workspace.Throwables
+							elseif GameTitle == "Phantom Forces" then
+								Ignores[3] = workspace.Ignore
+							end
+							local Hit = RayCheck(ClientChar, Pos.Position, Distance)
+							Hit = Hit and Hit.Instance and FFA(Hit.Instance, Character.Name)
+							Hit = Hit and Hit == Character
+							local Occluded = Hit and " " or " Occluded "
+
+							local Visible = true
+							if library.flags[Team .. " Visible Only"] then
+								Visible = Hit ~= nil
+							end
+
+							local Color = (library.flags["Highlight Target"] and library.Aimbot.Player == Player and library.flags["Aimbot Highlight Color"])
+							Color = Color or (Data.Priority and library.flags["Player Priority Color"] or Data.Whitelist and library.flags["Player Whitelist Color"])
+							Color = Color or (GameTitle == "KAT" and (workspace.Gamemode.Value == "Murder" and ((FFC(Player.Backpack, "Knife") or FFC(Character, "Knife")) and library.flags[GameTitle .. " Murderer Color"] or (FFC(Player.Backpack, "Revolver") or FFC(Character, "Revolver")) or library.flags[GameTitle .. " Sheriff Color"])) or GameTitle == "MURDER" and ((Player.Status.Role.Value == "Murderer" and library.flags[GameTitle .. " Murderer Color"]) or (Player.Status.HasRevolver.Value and library.flags[GameTitle .. " Detective Color"])) or GameTitle == "Arsenal" and Player.NRPBS.EquippedTool.Value:find("Golden") and library.flags[GameTitle .. " Golden Weapon Color"])
+
+							--
+							if library.flags["Radar Enabled"] and Distance < RadarWindow.Radius then
+								Objects.RadarBlip.Visible = true
+
+								local RelativePos = Camera.CFrame:Inverse() * Pos.Position
+								local Middle = Camera.ViewportSize / 2
+								local Degrees = math.deg(math.atan2(-RelativePos.Y, RelativePos.X)) * math.pi / 180
+								local EndPos = Middle + (Vector2.new(math.cos(Degrees), math.sin(Degrees)) * Distance)
+
+								Objects.RadarBlip.Position = EndPos
+								Objects.RadarBlip.Color = Color or Color3.new(1, 1, 1)
+
+								if not Objects.Visible then
+									continue
+								end
+							else
+								Objects.RadarBlip.Visible = false
+							end
+							--]]
+
+							if Visible then
+								local Transparency = (library.Aimbot.Player == Player or Data.Priority) and 1 or 1 - (Distance / library.flags["Esp Max Distance"])
+
+								if OnScreen then
+									Objects.Visible = true
+									Objects.OOVArrow.Visible = false
+
+									--local xMin, yMin = 9e9, 9e9
+									--local xMax, yMax = 0, 0
+
+									local BoxColor = Color or library.flags[Team .. Occluded .. "Box Color"]
+									local TextColor = Color or library.flags[Team .. Occluded .. "Info Color"]
+									local LookColor = Color or library.flags[Team .. Occluded .. "Look Color"]
+									local ChamsColor = Color or library.flags[Team .. Occluded .. "Chams Color"]
+									local ChamsOutlineColor = Color or library.flags[Team .. Occluded .. "Chams Outline Color"]
+									local DirectionColor = Color or library.flags[Team .. Occluded .. "Direction Color"]
+
+									--Chams
+									if library.flags[Team .. " Chams Enabled"] and Distance < 600 then
+										Objects.ChamsVisible = true
+										Objects.Chams.Parent = library.base
+										Objects.ChamsStep = Objects.ChamsStep + Step
+										if Objects.ChamsStep > 0.2 then
+											Objects.ChamsStep = 0
+											for _, PartName in next, UseBodyParts do
+												local Part = FFC((GameTitle == "Bad Business" and Character.Body or Character), PartName, true)
+												if Part then
+													local Cham = FFC(Objects.Chams, PartName) or (function()
+														return library:Create("Highlight", {
+															Name = PartName,
+															--AlwaysOnTop = true,
+															Parent = Objects.Chams
+														})
+													end)()
+
+													--Cham.Size = Part.Size
+													Cham.Adornee = Part
+													Cham.FillTransparency = library.flags[Team .. " Chams Transparency"]
+													Cham.FillColor = ChamsColor
+
+													if library.flags[Team .. " Chams Outline"] then
+														Objects.ChamsOutlineVisible = true
+														Objects.ChamsOutline.Parent = library.base
+
+														--Cham.Size = Part.Size * 1.2
+														Cham.Adornee = Part
+														Cham.OutlineTransparency = library.flags[Team .. " Chams Transparency"]
+														Cham.OutlineColor = ChamsOutlineColor
+													else
+														if Objects.ChamsOutlineVisible then
+															Objects.InvisChamsOutline()
+														end
+													end
+												else
+													local Cham = FFC(Objects.Chams, PartName)
+													if Cham then
+														Cham.Visible = false
+													end
+													Cham = FFC(Objects.ChamsOutline, PartName)
+													if Cham then
+														Cham.Visible = true
+													end
+												end
+											end
+										end
+									else
+										if Objects.ChamsVisible then
+											Objects.InvisChams()
+											Objects.InvisChamsOutline()
+										end
+									end
+
+									--ESP
+									local Height = (Camera.CFrame - Camera.CFrame.p) * Vector3.new(0, (math.clamp(Size.Y, 1, 10) + 0.5) / 2, 0)
+									Height = math.abs(WTSP(Camera, Pos.Position + Height).Y - WTSP(Camera, Pos.Position - Height).Y)
+									--local ViewportSize = Camera.ViewportSize
+									--local Size = ((ViewportSize.X + ViewportSize.Y) / Distance) * (1 - (Camera.FieldOfView / 200))
+									Size = library.round(Vector2.new(Height / 2, Height))
+									local Position = library.round(Vector2.new(ScreenPosition.X, ScreenPosition.Y) - (Size / 2))
+
+									if library.flags[Team .. " Box Enabled"] then
+										Objects.Box.Visible = true
+										Objects.Box.Color = BoxColor
+										Objects.Box.Size = Size
+										Objects.Box.Position = Position
+										Objects.Box.Transparency = Transparency
+
+										Objects.BoxOutline.Visible = true
+										Objects.BoxOutline.Size = Size + V222
+										Objects.BoxOutline.Position = Position - V211
+										Objects.BoxOutline.Transparency = Transparency
+
+										Objects.BoxInline.Visible = true
+										Objects.BoxInline.Size = Size - V222
+										Objects.BoxInline.Position = Position + V211
+										Objects.BoxInline.Transparency = Transparency
+									else
+										Objects.Box.Visible = false
+										Objects.BoxOutline.Visible = false
+										Objects.BoxInline.Visible = false
+									end
+
+									if library.flags[Team .. " Health Enabled"] then
+										local MaxHealth = Data.MaxHealth
+										local HealthPerc = Health / MaxHealth
+										local Position = Position - HealthBarAddon
+										local Size = Vector2.new(1, Size.Y)
+
+										Objects.BarOutline.Visible = true
+										Objects.BarOutline.Position = Position - V211
+										Objects.BarOutline.Size = Size + V222
+										Objects.BarOutline.Transparency = Transparency
+
+										Objects.Bar.Visible = true
+										Objects.Bar.Color = Color3.new(1 - HealthPerc, HealthPerc, 0.2)
+										Objects.Bar.Position = Position + Vector2.new(0, Size.Y)
+										Objects.Bar.Size = Vector2.new(1, -Size.Y * HealthPerc)
+										Objects.Bar.Transparency = Transparency
+
+										Objects.HealthText.Visible = HealthPerc < 0.99
+										Objects.HealthText.Position = Objects.Bar.Position + Objects.Bar.Size - Vector2.new(0, 7)
+										Objects.HealthText.Text = tostring(library.round(Health)) or ""
+										Objects.HealthText.Transparency = Transparency
+									else
+										Objects.BarOutline.Visible = false
+										Objects.Bar.Visible = false
+										Objects.HealthText.Visible = false
+									end
+
+									if library.flags[Team .. " Info"] then
+										Objects.NameText.Visible = true
+										Objects.NameText.Text = GameTitle == "Blackhawk Rescue Mission" and (Player.ClassName == "Model" and (Player.Name:find("Infantry") and "Infantry" or "Civilian")) or Player.Name
+										Objects.NameText.Position = Position + Vector2.new(Size.X / 2, -Objects.NameText.TextBounds.Y - 1)
+										Objects.NameText.Color = TextColor
+										Objects.NameText.Transparency = Transparency
+
+										Objects.DistanceText.Visible = true
+										Objects.DistanceText.Text = "[" .. library.round(Distance) .. "m]"
+										Objects.DistanceText.Position = Position + Vector2.new(Size.X / 2, Size.Y + 2)
+										Objects.DistanceText.Color = TextColor
+										Objects.DistanceText.Transparency = Transparency
+									else
+										Objects.NameText.Visible = false
+										Objects.DistanceText.Visible = false
+									end
+
+									if library.flags[Team .. " Look Enabled"] then
+										HeadPosition = GetHitboxFromChar(Character, "Head")
+										if HeadPosition then
+											Objects.LookAt.Visible = true
+											HeadPosition1 = WTVP(Camera, HeadPosition.Position)
+											local To = WTVP(Camera, HeadPosition.Position + (HeadPosition.CFrame.LookVector * 8))
+
+											Objects.LookAt.From = Vector2.new(HeadPosition1.X, HeadPosition1.Y)
+											Objects.LookAt.To = Vector2.new(To.X, To.Y)
+											Objects.LookAt.Color = LookColor
+											Objects.LookAt.Transparency = Transparency
+										else
+											Objects.LookAt.Visible = false
+										end
+									else
+										Objects.LookAt.Visible = false
+									end
+
+									if library.flags[Team .. " Direction Enabled"] then
+										Objects.DirectionLine.Visible = true
+
+										Position = Position + (Size / 2)
+										local PositionOffset2d = V2Empty
+										local Diff = (Pos.Position - Data.LastPosition)
+										if Diff.Magnitude > 0.01 then
+											PositionOffset2d = library.round(Vector2.new(WTSP(Camera, Pos.Position + (Diff.Unit * 4)).X, Position.Y) - Position)
+										end
+
+										Objects.DirectionLine.From = Position
+										Objects.DirectionLine.To = Position + PositionOffset2d
+										Objects.DirectionLine.Color = DirectionColor
+										Objects.DirectionLine.Transparency = Transparency
+
+										if Distance < 600 then
+											Objects.DirectionDot.Visible = true
+											Objects.DirectionDot.Position = Objects.DirectionLine.To - V233
+											Objects.DirectionDot.Color = DirectionColor
+											Objects.DirectionDot.Transparency = Transparency
+										else
+											Objects.DirectionDot.Visible = false
+										end
+									else
+										Objects.DirectionLine.Visible = false
+										Objects.DirectionDot.Visible = false
+									end
+
+									Data.LastPosition = Pos.Position
+									continue
+								end
+								if library.flags[Team .. " OOV Arrows"] then
+									Objects.OOVArrow.Visible = true
+									Objects.OOVArrow.Color = Color or library.flags[Team .. Occluded .. "OOV Arrows Color"]
+
+									local RelativePos = Camera.CFrame:Inverse() * Pos.Position
+									local Middle = Camera.ViewportSize / 2
+									local Degrees = math.deg(math.atan2(-RelativePos.Y, RelativePos.X)) * math.pi / 180
+									local EndPos = Middle + (Vector2.new(math.cos(Degrees), math.sin(Degrees)) * library.flags[Team .. " Out Of View Scale"])
+
+									Objects.OOVArrow.PointB = EndPos + (-(Middle - EndPos).Unit * 15)
+									Objects.OOVArrow.PointA = EndPos
+									Objects.OOVArrow.PointC = EndPos
+									Objects.OOVArrow.Transparency = Transparency
+
+									if not Objects.Visible then
+										continue
+									end
+								end
+							end
+						end
+					end
+				end
+
+				Objects.OOVArrow.Visible = false
+				if Objects.Visible then
+					Objects.Invis()
+					Objects.InvisChams()
+					Objects.InvisChamsOutline()
+					Objects.InvisRadar()
+				end
+			end
+		end)
+	end}):AddList({flag = "Esp Enabled For", values = {"Enemies", "Teammates"}, multiselect = true}):AddBind({callback = function()
+		library.options["Esp Enabled"]:SetState(not library.flags["Esp Enabled"])
+	end})
+	PlayerEspSection:AddSlider({text = "Max Distance", textpos = 2, flag = "Esp Max Distance", value = 9999999999999999999, min = 0, max = 9999999999999999999})
+	PlayerEspSection:AddToggle({text = "Show Whitelisted Players", flag = "Esp Show Whitelisted"})
+
+	--PlayerEspSection:AddDivider"Radar"
+	--PlayerEspSection:AddToggle({text = "Enabled", flag = "Radar Enabled", callback = function(State)
+	--	RadarWindow.Visible = State and library.flags["Esp Enabled"]
+	--end})
+	local VisualsWorld = VisualsColumn:AddSection"Lighting"
+	VisualsWorld:AddToggle({text = "Clock Time"}):AddSlider({flag = "Clock Time Amount", min = 0, max = 24, float = 0.1, value = LightingSpoof.ClockTime})
+	VisualsWorld:AddToggle({text = "Brightness"}):AddSlider({flag = "Brightness Amount", min = 0, max = 100, float = 0.1, value = LightingSpoof.Brightness})
+	VisualsWorld:AddToggle({text = "Ambient", flag = "Ambient Lighting"}):AddColor({flag = "Outdoor Ambient", color = LightingSpoof.OutdoorAmbient}):AddColor({flag = "Indoor Ambient", color = LightingSpoof.Ambient})
+	VisualsWorld:AddToggle({text = "Color Shift"}):AddColor({flag = "Color Shift Top", color = LightingSpoof.ColorShift_Top})
+
+	local VisualsMiscSection = VisualsColumn:AddSection"Misc"
+
+	VisualsMiscSection:AddToggle({text = "FOV Changer", callback = function(State)
+		library.options["Dynamic Custom FOV"].main.Visible = State
+	end}):AddSlider({flag = "FOV Amount", min = 0, max = 120})
+	VisualsMiscSection:AddToggle({text = "Dynamic", flag = "Dynamic Custom FOV"})
+	VisualsMiscSection:AddToggle({text = "Zoom", flag = "FOV Zoom Enabled"}):AddSlider({flag = "FOV Zoom Amount", min = 5, max = 50}):AddBind({flag = "FOV Zoom Key", mode = "hold"})
+
+	VisualsMiscSection:AddDivider"Crosshair"
+	VisualsMiscSection:AddToggle({text = "Enabled", flag = "Crosshair Enabled", callback = function(State)
+		library.options["Crosshair T-Shape"].main.Visible = State
+		library.options["Crosshair Size"].main.Visible = State
+		library.options["Crosshair Gap"].main.Visible = State
+		library.options["Crosshair Thickness"].main.Visible = State
+		CrosshairTop.Visible = State and not library.flags["Crosshair T-Shape"]
+		CrosshairLeft.Visible = State
+		CrosshairRight.Visible = State
+		CrosshairBottom.Visible = State
+	end}):AddColor({callback = function(Color)
+		CrosshairTop.Color = Color
+		CrosshairLeft.Color = Color
+		CrosshairRight.Color = Color
+		CrosshairBottom.Color = Color
+	end, trans = 1, calltrans = function(Transparency)
+		CrosshairTop.Transparency = Transparency
+		CrosshairLeft.Transparency = Transparency
+		CrosshairRight.Transparency = Transparency
+		CrosshairBottom.Transparency = Transparency
+	end})
+	VisualsMiscSection:AddToggle({text = "T-Shape", flag = "Crosshair T-Shape", callback = function(State)
+		CrosshairTop.Visible = library.flags["Crosshair Enabled"] and not State
+	end})
+	VisualsMiscSection:AddSlider({text = "Size", textpos = 2, flag = "Crosshair Size", min = 1, max = 500, callback = function(Value)
+		local Thickness = library.flags["Crosshair Thickness"]
+		CrosshairTop.Size = Vector2.new(Thickness, -Value)
+		CrosshairLeft.Size = Vector2.new(-Value, Thickness)
+		CrosshairRight.Size = Vector2.new(Value, Thickness)
+		CrosshairBottom.Size = Vector2.new(Thickness, Value)
+	end})
+	VisualsMiscSection:AddSlider({text = "Gap", textpos = 2, flag = "Crosshair Gap", min = 0, max = 20, float = 0.5})
+	VisualsMiscSection:AddSlider({text = "Thickness", textpos = 2, flag = "Crosshair Thickness", min = 1, max = 20, float = 0.5, callback = function(Value)
+		local Size = library.flags["Crosshair Size"]
+		CrosshairTop.Size = Vector2.new(Value, -Size)
+		CrosshairLeft.Size = Vector2.new(-Size, Value)
+		CrosshairRight.Size = Vector2.new(Size, Value)
+		CrosshairBottom.Size = Vector2.new(Value, Size)
+	end})
+
+	local PlayerEspEnemySection = VisualsColumn1:AddSection"Enemies"
+	PlayerEspEnemySection:AddToggle({text = "Visible Only", flag = "Enemy Visible Only"})
+
+	PlayerEspEnemySection:AddToggle({text = "Box", flag = "Enemy Box Enabled"}):AddColor({flag = "Enemy Occluded Box Color", color = Color3.fromRGB(245, 120, 65)}):AddColor({flag = "Enemy Box Color", color = Color3.fromRGB(240, 40, 50)})
+
+	PlayerEspEnemySection:AddToggle({text = "Info", flag = "Enemy Info"}):AddColor({flag = "Enemy Occluded Info Color", color = Color3.fromRGB(255, 140, 30)}):AddColor({flag = "Enemy Info Color", color = Color3.fromRGB(240, 30, 40)})
+
+	PlayerEspEnemySection:AddToggle({text = "Health", flag = "Enemy Health Enabled"})
+
+	PlayerEspEnemySection:AddToggle({text = "Out Of View", flag = "Enemy OOV Arrows", callback = function(State)
+		library.options["Enemy Out Of View Scale"].main.Visible = State
+	end}):AddColor({flag = "Enemy Occluded OOV Arrows Color", color = Color3.fromRGB(255, 140, 30)}):AddColor({flag = "Enemy OOV Arrows Color", color = Color3.fromRGB(240, 30, 40)})
+	PlayerEspEnemySection:AddSlider({text = "Scale", textpos = 2, flag = "Enemy Out Of View Scale", min = 100, max = 500})
+
+	PlayerEspEnemySection:AddToggle({text = "Look Direction", flag = "Enemy Look Enabled"}):AddColor({flag = "Enemy Occluded Look Color", color = Color3.fromRGB(240, 120, 80)}):AddColor({flag = "Enemy Look Color", color = Color3.fromRGB(240, 60, 20)})
+
+	--PlayerEspEnemySection:AddToggle({text = "Velocity", flag = "Enemy Direction Enabled"}):AddColor({flag = "Enemy Occluded Direction Color", color = Color3.fromRGB(240, 120, 80)}):AddColor({flag = "Enemy Direction Color", color = Color3.fromRGB(240, 60, 20)})
+
+	PlayerEspEnemySection:AddToggle({text = "Chams", flag = "Enemy Chams Enabled"}):AddSlider({text = "Transparency", flag = "Enemy Chams Transparency", min = 0, max = 1, float = 0.1}):AddColor({flag = "Enemy Occluded Chams Color", color = Color3.fromRGB(245, 120, 65)}):AddColor({flag = "Enemy Chams Color", color = Color3.fromRGB(240, 40, 50)})
+	PlayerEspEnemySection:AddToggle({text = "Outline", flag = "Enemy Chams Outline"}):AddColor({flag = "Enemy Occluded Chams Outline Color", color = Color3.fromRGB(245, 120, 65)}):AddColor({flag = "Enemy Chams Outline Color", color = Color3.fromRGB(240, 40, 50)})
+
+	local PlayerEspTeamSection = VisualsColumn1:AddSection"Teammates"
+	PlayerEspTeamSection:AddToggle({text = "Visible Only", flag = "Team Visible Only"})
+
+	PlayerEspTeamSection:AddToggle({text = "Box", flag = "Team Box Enabled"}):AddColor({flag = "Team Occluded Box Color", color = Color3.fromRGB(20, 50, 255)}):AddColor({flag = "Team Box Color", color = Color3.fromRGB(40, 255, 180)})
+
+	PlayerEspTeamSection:AddToggle({text = "Info", flag = "Team Info"}):AddColor({flag = "Team Occluded Info Color", color = Color3.fromRGB(20, 120, 255)}):AddColor({flag = "Team Info Color", color = Color3.fromRGB(40, 240, 130)})
+
+	PlayerEspTeamSection:AddToggle({text = "Health", flag = "Team Health Enabled"})
+
+	PlayerEspTeamSection:AddToggle({text = "Out Of View", flag = "Team OOV Arrows", callback = function(State)
+		library.options["Team Out Of View Scale"].main.Visible = State
+	end}):AddColor({flag = "Team Occluded OOV Arrows Color", color = Color3.fromRGB(20, 120, 255)}):AddColor({flag = "Team OOV Arrows Color", color = Color3.fromRGB(40, 240, 130)})
+	PlayerEspTeamSection:AddSlider({text = "Scale", textpos = 2, flag = "Team Out Of View Scale", min = 100, max = 500})
+
+	PlayerEspTeamSection:AddToggle({text = "Look Direction", flag = "Team Look Enabled"}):AddColor({flag = "Team Occluded Look Color", color = Color3.fromRGB(40, 80, 230)}):AddColor({flag = "Team Look Color", color = Color3.fromRGB(40, 250, 100)})
+
+	--PlayerEspTeamSection:AddToggle({text = "Velocity", flag = "Team Direction Enabled"}):AddColor({flag = "Team Occluded Direction Color", color = Color3.fromRGB(240, 120, 80)}):AddColor({flag = "Team Direction Color", color = Color3.fromRGB(240, 60, 20)})
+
+	PlayerEspTeamSection:AddToggle({text = "Chams", flag = "Team Chams Enabled"}):AddSlider({text = "Transparency", flag = "Team Chams Transparency", min = 0, max = 1, float = 0.1}):AddColor({flag = "Team Occluded Chams Color", color = Color3.fromRGB(20, 50, 255)}):AddColor({flag = "Team Chams Color", color = Color3.fromRGB(40, 255, 180)})
+	PlayerEspTeamSection:AddToggle({text = "Outline", flag = "Team Chams Outline"}):AddColor({flag = "Team Occluded Chams Outline Color", color = Color3.fromRGB(80, 100, 255)}):AddColor({flag = "Team Chams Outline Color", color = Color3.fromRGB(80, 255, 200)})
+
+	--Misc stuff
+	local MiscTab = library:AddTab"Misc"
+	local MiscColumn = MiscTab:AddColumn()
+	local MiscColumn1 = MiscTab:AddColumn()
+	local MiscMain = MiscColumn:AddSection"Main"
+	MiscMain:AddButton({text = "Copy Discord invite", callback = function() setclipboard("https://discord.gg/pBRqP4xT9P") end})
+	if setfpscap then
+		MiscMain:AddSlider({text = "Set FPS Cap", min = 5, max = 360, callback = function(Value) setfpscap(Value) end})
+	end
+	local Lagging
+	MiscMain:AddToggle({text = "Lag Switch", callback = function()
+		Lagging = false
+		Settings.Network.IncomingReplicationLag = 0
+	end}):AddSlider({text = "Timeout", flag = "Lag Switch Timeout", min = 1, max = 10, float = 0.1, suffix = "s"}):AddBind({callback = function()
+		if library.flags["Lag Switch"] then
+			Lagging = not Lagging
+			Settings.Network.IncomingReplicationLag = Lagging and 1000 or 0
+			if Lagging then
+				local LagStart = tick()
+				while Lagging do
+					wait(1)
+					if tick() - LagStart >= library.flags["Lag Switch Timeout"] then
+						library.options["Lag Switch"].callback()
+					end
+				end
+			end
+		end
+	end})
+
+	local PlayerList = MiscColumn1:AddSection"Player List"
+	PlayerList:AddList({flag = "Player List", textpos = 2, skipflag = true, max = 10, values = (function() local t = {} for _, Player in next, PlayerServ:GetPlayers() do if Player ~= Client then table.insert(t, Player.Name) end end return t end)(), callback = function(Value)
+		local Player = Players[FFC(PlayerServ, Value)]
+		library.options["Set Player Priority"]:SetState(Player and Player.Priority, true)
+		library.options["Set Player Whitelist"]:SetState(Player and Player.Whitelist, true)
+	end})
+	PlayerList:AddToggle({text = "Priority", skipflag = true, style = 2, flag = "Set Player Priority", callback = function(State)
+		local Player = Players[FFC(PlayerServ, library.flags["Player List"])]
+		if Player then
+			Player.Priority = State
+			if State then
+				library.options["Set Player Whitelist"]:SetState(false)
+			end
+		end
+	end}):AddColor({flag = "Player Priority Color", color = Color3.fromRGB(255, 255, 0)})
+	PlayerList:AddToggle({text = "Whitelist", skipflag = true, style = 2, flag = "Set Player Whitelist", callback = function(State)
+		local Player = Players[FFC(PlayerServ, library.flags["Player List"])]
+		if Player then
+			Player.Whitelist = State
+			if State then
+				library.options["Set Player Priority"]:SetState(false)
+			end
+		end
+	end}):AddColor({flag = "Player Whitelist Color", color = Color3.fromRGB(0, 255, 255)})
+
+	--[[
+	local XPos, YPos, ZPos = 0, 0, 0
+	local FreecamPos = Camera.CFrame.Position
+	local CameraCF = Camera.CFrame
+	local CameraSubject, CameraType = Camera.CameraSubject, Camera.CameraType
+
+	local MiscFreecam = MiscColumn1:AddSection"Freecam"
+	MiscFreecam:AddToggle({
+	text = "Enabled", flag = "Freecam Enabled", tip = "Note: this will stop your character from moving"}):AddSlider({
+	text = "Speed", flag = "Freecam Speed", min = 1, max = 20}):AddBind({
+	flag = "Freecam Key", mode = "hold", callback = function(Ended)
+		if library.flags["Freecam Enabled"] then
+			if Ended then
+				Camera.CFrame = CFrame.new(CameraCF.Position, CameraCF.LookVector)
+				Camera.CameraType = CameraType
+				Camera.CameraSubject = CameraSubject
+			else
+				--Camera.CameraType = "Scriptable"
+				--Camera.CameraSubject = nil
+				FreecamPos = CameraCF.Position + (Vector3.new(XPos, YPos, ZPos) * library.flags["Freecam Speed"])
+				Camera.CFrame = CFrame.new(FreecamPos, CameraCF.LookVector)
+			end
+		end
+	end})
+
+	library:AddConnection(inputService.InputBegan, function(Input)
+		if Input.KeyCode.Name == "W" then
+			ZPos = ZPos + 1
+		elseif Input.KeyCode.Name == "S" then
+			ZPos = ZPos - 1
+		elseif Input.KeyCode.Name == "D" then
+			XPos = XPos + 1
+		elseif Input.KeyCode.Name == "A" then
+			XPos = XPos - 1
+		elseif Input.KeyCode.Name == "Space" then
+			YPos = YPos + 1
+		elseif Input.KeyCode.Name == "LeftShift" then
+			YPos = YPos - 1
+		end
+	end)
+	library:AddConnection(inputService.InputBegan, function(Input)
+		if Input.KeyCode.Name == "W" then
+			ZPos = ZPos - 1
+		elseif Input.KeyCode.Name == "S" then
+			ZPos = ZPos + 1
+		elseif Input.KeyCode.Name == "D" then
+			XPos = XPos - 1
+		elseif Input.KeyCode.Name == "A" then
+			XPos = XPos + 1
+		elseif Input.KeyCode.Name == "Space" then
+			YPos = YPos - 1
+		elseif Input.KeyCode.Name == "LeftShift" then
+			YPos = YPos + 1
+		end
+	end)
+	--]]
+
+
+	--Hooks
+	local OldCallingScript
+	OldCallingScript = hookfunction(getcallingscript, function()
+		return OldCallingScript() or {}
+	end)
+
+	local Old_new
+	Old_new = hookmetamethod(game, "__newindex", function(t, i, v)
+		if checkcaller() or not library then return Old_new(t, i, v) end
+
+		if t == Camera then
+			if i == "CFrame" then
+				--CameraCF = v
+				if library.flags["Freecam Enabled"] and library.flags["Freecam Key"] then
+					--v = CFrame.new(FreecamPos, CameraCF.LookVector)
+				else
+					if library.flags["Aimbot Mode"] == "Rage" then
+						if library.Aimbot.Position3d then
+							v = CFrame.new(v.p, library.Aimbot.Position3d)
+						end
+					end
+				end
+			elseif i == "CameraSubject" then
+				--CameraSubject = v
+				--print("setting subject")
+				--return not (library.flags["Freecam Enabled"] and library.flags["Freecam Key"]) and CameraSubject or nil
+			elseif i == "CameraType" then
+				--CameraType = v
+				--print("setting type")
+				--return (library.flags["Freecam Enabled"] and library.flags["Freecam Key"]) and "Scriptable" or CameraType
+			end
+		end
+
+		if GameTitle == "Bad Business" then
+			if i == "Velocity" then
+				if library.flags["Jump Multiplier"] ~= 1 then
+					if OldCallingScript().Name == "ControlScript" then
+						v = Vector3.new(v.X, v.Y * library.flags[GameTitle .. " Jump Multiplier"], v.Z)
+					end
+				end
+				if library.flags["Speed Multiplier"] ~= 1 then
+					if t.Name == "Root" then
+						local X,Y,Z = v.X * library.flags[GameTitle .. " Speed Multiplier"], v.Y, v.Z * library.flags[GameTitle .. " Speed Multiplier"]
+						v = Vector3.new(X, Y, Z)
+					end
+				end
+			end
+		elseif GameTitle == "Ace Of Spadez" then
+			if library.flags[GameTitle .. " No Recoil"] then
+				if t == Camera and i == "CFrame" then
+					if OldCallingScript().Name == "WeaponSystem" then
+						return
+					end
+				end
+			end
+		elseif GameTitle == "Counter Blox" then
+			if i == "WalkSpeed" then
+				if library.flags[GameTitle .. " Bhop"] and not inputService:GetFocusedTextBox() then
+					if inputService:IsKeyDown(Enum.KeyCode.Space) then
+						v = library.flags[GameTitle .. " Bhop Speed"]
+					end
+				end
+			end
+		end
+
+		if t == Lighting then
+			if i == "ClockTime" then
+				LightingSpoof[i] = v
+				v = library.flags["ClockTime"] and library.flags["Clock Time Amount"] or v
+			elseif i == "Brightness" then
+				LightingSpoof[i] = v
+				v = library.flags["Brightness"] and library.flags["Brightness Amount"] or v
+			elseif i == "Ambient" or i == "OutdoorAmbient" then
+				LightingSpoof[i] = v
+				v = library.flags["Ambient Lighting"] and (i == "Ambient" and library.flags["Indoor Ambient"] or library.flags["Outdoor Ambient"]) or v
+			elseif i == "ColorShift_Top" then
+				LightingSpoof[i] = v
+				v = library.flags["Color Shift"] and library.flags["Color Shift Top"] or v
+			end
+		elseif t == Camera then
+			if i == "FieldOfView" then
+				CameraSpoof[i] = v
+				v = (library.flags["FOV Zoom Enabled"] and library.flags["FOV Zoom Key"] and (50 - library.flags["FOV Zoom Amount"])) or library.flags["FOV Changer"] and (library.flags["Dynamic Custom FOV"] and (CameraSpoof.FieldOfView + library.flags["FOV Amount"]) or library.flags["FOV Amount"]) or v
+			end
+		end
+
+		return Old_new(t, i, v)
+	end)
+
+	local Old_index
+	Old_index = hookmetamethod(game, "__index", function(t, i)
+		if checkcaller() or not library then return Old_index(t, i) end
+
+		if t == Camera then
+			if i == "CFrame" then
+				if library.flags["Freecam Enabled"] and library.flags["Freecam Key"] then
+					--return CameraCF
+				end
+				if library.Aimbot.Position3d then
+					if library.flags["Aimbot Mode"] == "Silent" then
+						if GameTitle == "Bad Business" then
+							if OldCallingScript().Name == "ItemControlScript" then
+								local OldCF = Old_index(t, i)
+								return CFrame.new(OldCF.Position, library.Aimbot.Position3d)
+							end
+						end
+					elseif library.flags["Aimbot Mode"] == "Rage" then
+						return CFrame.new(Old_index(t, i).Position, library.Aimbot.Position3d)
+					end
+				end
+			elseif i == "CameraSubject" then
+				--return CameraSubject
+			elseif i == "CameraType" then
+				--return CameraType
+			end
+		end
+
+		if t == Lighting then
+			if i == "ClockTime" or i == "Brightness" or i == "Ambient" or i == "OutdoorAmbient" or i == "ColorShift_Top" then
+				return LightingSpoof[i]
+			end
+		elseif t == Camera then
+			if i == "FieldOfView" then
+				return CameraSpoof[i]
+			end
+		end
+
+		return Old_index(t, i)
+	end)
+
+	local Old_call
+	Old_call= hookmetamethod(game, "__namecall", function(self, ...)
+		if checkcaller() or not library then return Old_call(self, ...) end
+
+		local Args = {...}
+		local Method = getnamecallmethod()
+
+		if Method == "FindPartOnRayWithWhitelist" then
+			if GameTitle == "Bad Business" then
+				if Args[2][1] and Args[2][2] and Args[2][1].Name == "Geometry" and Args[2][2].Name == "Terrain" then
+					if library.flags[GameTitle .. " Wallbang"] then
+						Args[2][1] = nil
+						Args[2][2] = nil
+					end
+				end
+			elseif GameTitle == "Ace Of Spadez" then
+				if OldCallingScript().Name == "WeaponSystem" then
+					if library.flags["Aimbot Mode"] == "Silent" and library.Aimbot.Position3d then
+						Args[1] = Ray.new(Camera.CFrame.p, (library.Aimbot.Position3d - Camera.CFrame.p).unit * library.flags["Aimbot Max Distance"])
+					end
+					if library.flags[GameTitle .. " Wallbang"] then
+						Args[2][1] = nil
+					else
+						Args[2][1] = workspace.Game.Map
+					end
+				end
+			elseif GameTitle == "Zombie Attack" then
+				if OldCallingScript().Name == "GunController" then
+					if library.flags["Aimbot Mode"] == "Silent" and library.Aimbot.Position3d then
+						Args[1] = Ray.new(Camera.CFrame.p, (library.Aimbot.Position3d - Camera.CFrame.p).unit * 1000)
+					end
+				end
+			end
+		elseif Method == "FindPartOnRayWithIgnoreList" then
+			if GameTitle == "Arsenal" then
+				if library.flags[GameTitle .. " Wallbang"] and Args[2][1].Name == "Clips" then
+					local n = #Args[2]
+					Args[2][n + 1] = workspace.Map
+				end
+				if library.flags["Aimbot Mode"] == "Silent" and library.Aimbot.Position3d then
+					Args[1] = Ray.new(Camera.CFrame.p, (library.Aimbot.Position3d - Camera.CFrame.p).Unit * library.flags["Aimbot Max Distance"])
+				end
+			elseif GameTitle == "Unit: Classified" then
+				if #Args[2] > 15 then
+					if library.flags["Aimbot Mode"] == "Silent" and library.Aimbot.Position3d then
+						Args[1] = Ray.new(Camera.CFrame.p, (library.Aimbot.Position3d - Camera.CFrame.p).unit * library.flags["Aimbot Max Distance"])
+					end
+					if library.flags[GameTitle .. " Wallbang"]  then
+						local n = #Args[2]
+						Args[2][n + 1] = workspace.Map
+						Args[2][n + 2] = workspace.Terrain
+					end
+				end
+			elseif GameTitle == "MURDER" then
+				if tostring(Args[2][3]) == "Debris" then
+					if library.flags["Aimbot Mode"] == "Silent" and library.Aimbot.Position3d then
+						Args[1] = Ray.new(Camera.CFrame.p, (library.Aimbot.Position3d - Camera.CFrame.p).unit * library.flags["Aimbot Max Distance"])
+					end
+					if library.flags[GameTitle .. " Wallbang"]  then
+						local n = #Args[2]
+						Args[2][n + 1] = workspace.Map
+					end
+				end
+			elseif GameTitle == "KAT" then
+				if OldCallingScript().Name == "KnifeClient" or OldCallingScript().Name == "RevolverClient" then
+					if library.flags["Aimbot Mode"] == "Silent" and library.Aimbot.Position3d then
+						Args[1] = Ray.new(Camera.CFrame.p, (library.Aimbot.Position3d - Camera.CFrame.p).unit * library.flags["Aimbot Max Distance"])
+					end
+				end
+			elseif GameTitle == "MMC Zombies Project" then
+				if OldCallingScript().Name == "client_main" then
+					if library.flags["Aimbot Mode"] == "Silent" and library.Aimbot.Position3d then
+						Args[1] = Ray.new(Camera.CFrame.p, (library.Aimbot.Position3d - Camera.CFrame.p).unit * library.flags["Aimbot Max Distance"])
+					end
+					if library.flags[GameTitle .. " Wallbang"] then
+						setnamecallmethod("FindPartOnRayWithWhitelist")
+						Args[2] = {
+							workspace.map.enemies,
+						}
+					end
+				end
+			elseif GameTitle == "Project Lazarus" then
+				if library.flags["Aimbot Mode"] == "Silent" and library.Aimbot.Position3d then
+					Args[1] = Ray.new(Camera.CFrame.p, (library.Aimbot.Position3d - Camera.CFrame.p).unit * library.flags["Aimbot Max Distance"])
+				end
+				if library.flags[GameTitle .. " Wallbang"] then
+					local n = #Args[2]
+					Args[2][n + 1] = workspace.Map
+				end
+			elseif GameTitle == "Zombie Rush" then
+				if OldCallingScript().Name == "GunController" then
+					if library.flags["Aimbot Mode"] == "Silent" and library.Aimbot.Position3d then
+						Args[1] = Ray.new(Camera.CFrame.p, (library.Aimbot.Position3d - Camera.CFrame.p).unit * 1000)
+					end
+					if library.flags[GameTitle .. " Wallbang"] then
+						local n = #Args[2]
+						Args[2][n + 1] = workspace["Map Storage"]
+					end
+				end
+			elseif GameTitle == "Resurrection" then
+				if OldCallingScript().Name == "Client" then
+					if library.flags["Aimbot Mode"] == "Silent" and library.Aimbot.Position3d then
+						Args[1] = Ray.new(Camera.CFrame.p, (library.Aimbot.Position3d - Camera.CFrame.p).unit * 1000)
+					end
+					if library.flags[GameTitle .. " Wallbang"] then
+						local n = #Args[2]
+						Args[2][n + 1] = workspace.Map
+						Args[2][n + 2] = workspace.Terrain
+					end
+				end
+			elseif GameTitle == "Blackhawk Rescue Mission" then
+				if OldCallingScript().Name == "InputHandler" then
+					if library.flags[GameTitle .. " Wallbang"] then
+						local n = #Args[2]
+						Args[2][n + 1] = workspace.Terrain
+						Args[2][n + 2] = workspace.Custom["0"]
+					end
+					if library.flags["Aimbot Mode"] == "Silent" and library.Aimbot.Position3d then
+						Args[1] = Ray.new(Camera.CFrame.p, (library.Aimbot.Position3d - Camera.CFrame.p).Unit * library.flags["Aimbot Max Distance"])
+					end
+				end
+			elseif GameTitle == "Shoot Out" then
+				if OldCallingScript().Name == "Replication" then
+					if library.flags[GameTitle .. " Wallbang"] then
+						local n = #Args[2]
+						Args[2][n + 1] = workspace.Map
+					end
+					if library.flags["Aimbot Mode"] == "Silent" and library.Aimbot.Position3d then
+						Args[1] = Ray.new(Camera.CFrame.p, (library.Aimbot.Position3d - Camera.CFrame.p).Unit * library.flags["Aimbot Max Distance"])
+					end
+				end
+			elseif GameTitle == "Weaponry" then
+				if OldCallingScript().Name == "Client_Major_Framework" then
+					if library.flags["Aimbot Mode"] == "Silent" and library.Aimbot.Position3d then
+						Args[1] = Ray.new(Camera.CFrame.p, (library.Aimbot.Position3d - Camera.CFrame.p).Unit * library.flags["Aimbot Max Distance"])
+					end
+				end
+			elseif GameTitle == "Counter Blox" then
+				if #Args[2] > 10 then
+					if library.flags[GameTitle .. " No Spread"] then
+						local Char = Players[Client].Character
+						if Char then
+							Args[1] = Ray.new(Vector3.new(Char.HumanoidRootPart.Position.X, Char.Head.Position.Y, Char.HumanoidRootPart.Position.Z), Camera.CFrame.LookVector * 1000)
+						end
+					end
+					if library.flags[GameTitle .. " Wallbang"] then
+						Args[2][#Args[2] + 1] = workspace.Map
+					end
+					if library.flags["Aimbot Mode"] == "Silent" and library.Aimbot.Position3d then
+						local Char = Players[Client].Character
+						if Char then
+							local Origin = Vector3.new(Char.HumanoidRootPart.Position.X, Char.Head.Position.Y, Char.HumanoidRootPart.Position.Z)
+							Args[1] = Ray.new(Origin, (library.Aimbot.Position3d - Origin).Unit * 1000)
+						end
+					end
+				end
+			elseif GameTitle == "Death Zone" then
+				if OldCallingScript().Name == "GunScript" then
+					if library.flags["Aimbot Mode"] == "Silent" and library.Aimbot.Position3d then
+						Args[1] = Ray.new(Camera.CFrame.p, (library.Aimbot.Position3d - Camera.CFrame.p).Unit * library.flags["Aimbot Max Distance"])
+					end
+				end
+			end
+
+		elseif Method == "FireServer" then
+			if GameTitle == "Arsenal" then
+				if self.Name == "CreateProjectile" or self.Name == "ReplicateProjectile" then
+					local t = self.Name == "ReplicateProjectile" and Args[1] or Args
+					if library.flags["Aimbot Mode"] == "Silent" and library.Aimbot.Position3d then
+						t[3] = library.Aimbot.Position3d
+						t[4] = CFrame.new(library.Aimbot.Position3d) + Vector3.new(0, 0.5, 0)
+						t[10] = library.Aimbot.Position3d + Vector3.new(0, 0.5, 0)
+					end
+				end
+			elseif GameTitle == "Zombie Attack" then
+				if library.flags[GameTitle .. " Always Headshot"] and FFCoC(Args["Hit"].Parent, "Humanoid") then
+					Args["Hit"] = Args["Hit"].Parent.Head
+				end
+			elseif GameTitle == "Counter Blox" then
+				if self.Name == "ControlTurn" and library.flags[GameTitle .. " Anti-Aim"] then
+					Args[1] = library.flags[GameTitle .. " Pitch"]
+					--elseif string.len(self.Name) > 35 then
+					--	if library.flags[GameTitle .. " Unlock Skins"] and not eF then
+					--		eF = true
+					--		for V, v in next, e4 do
+					--			local eQ
+					--			for eC, eD in next, Args[1] do
+					--				if v[1] == eD[1] then
+					--					eQ = true
+					--				end
+					--			end
+					--			if not eQ then
+					--				local n = #Args[1]
+					--				Args[1][n + 1] = v
+					--			end
+					--		end
+					--	end
+					--	return
+				elseif self.Name == "HitPart" and (library.flags[GameTitle .. " Hitsound"] or library.flags[GameTitle .. " Bullet Tracers"]) then
+					spawn(function()
+						if library.flags[GameTitle .. " Hitsound"] then
+							if Args[1] and FFCoC(Args[1].Parent, "Humanoid") then
+								local Target = FFC(game.Players, Args[1].Parent.Name)
+								if Target and Target.Team ~= Client.Team then
+									local Sounds = library.options[GameTitle .. " Hitsounds"].values
+									local Sound = library.flags[GameTitle .. " Hitsounds"]
+									library:Create("Sound", {
+										PlayOnRemove = true,
+										Volume = library.flags[GameTitle .. " Hitsound Volume"],
+										SoundId = "rbxassetid://" .. (typeof(Sounds[Sound]) == "function" and Sounds[Sound]() or Sounds[Sound]),
+										Parent = workspace
+									}):Destroy()
+								end
+							end
+						end
+						if library.flags[GameTitle .. " Bullet Tracers"] then
+							local Char = Client.Character
+							local HumPart = FFC(Char, "HumanoidRootPart")
+							local Flash = FFC(Camera, "Flash", true)
+							if HumPart and Flash then
+								local d1 = library:Create("Part", {Anchored = true, Parent = workspace})
+								local eV = library:Create("Attachment", {WorldPosition = Flash.Position, Parent = d1})
+								local eW = library:Create("Attachment", {WorldPosition = Args[2], Parent = d1})
+								library:Create("Beam", {
+									Color = ColorSequence.new(library.flags[GameTitle .. " Bullet Tracer Color"]),
+									LightEmission = 1,
+									LightInfluence = 0,
+									Texture = "rbxassetid://967852047",
+									Transparency = NumberSequence.new(0.6),
+									TextureLength = 0.1,
+									TextureSpeed = 1,
+									Attachment0 = eV,
+									Attachment1 = eW,
+									Segments = 1,
+									FaceCamera = true,
+									Width0 = 0.15,
+									Width1 = 0.15,
+									Parent = d1
+								})
+								library:Create("Beam", {
+									Color = ColorSequence.new(library.flags[GameTitle .. " Bullet Tracer Color"]),
+									LightEmission = 1,
+									LightInfluence = 0,
+									Texture = "rbxassetid://967852047",
+									Transparency = NumberSequence.new(0.6),
+									TextureLength = 0.1,
+									TextureSpeed = 1,
+									Attachment0 = eV,
+									Attachment1 = eW,
+									Segments = 1,
+									FaceCamera = true,
+									Width0 = 0.2,
+									Width1 = 0.2,
+									Parent = d1
+								})
+								game:GetService"Debris":AddItem(d1, library.flags[GameTitle .. " Lifetime"])
+							end
+						end
+					end)
+				end
+			elseif GameTitle == "Death Zone" then
+				if self.Name == "Executioner" then
+					return wait(9e9)
+				end
+			end
+
+		elseif Method == "InvokeServer" then
+
+		elseif Method == "SetPrimaryPartCFrame" then
+			if GameTitle == "Counter Blox" then
+				if self.Name == "Arms" then
+					if library.flags[GameTitle .. " Viewmodel Changer"] then
+						if library.flags[GameTitle .. " Flip Z"] then
+							Args[1] = Args[1] * CFrame.new(1, 1, 1, 0, 0, 1, 0)
+						end
+						if library.flags[GameTitle .. " Flip Y"] then
+							Args[1] = Args[1] * CFrame.new(1, 1, 1, 0.5, 0, 0, 0)
+						end
+						local X = library.flags[GameTitle .. " X Offset"] * 120 / 500
+						local Y = library.flags[GameTitle .. " Y Offset"] * 120 / 500
+						local dl = library.flags[GameTitle .. " Z Offset"] * 120 / 500
+						Args[1] = Args[1] * CFrame.new(X, Y, library.flags[GameTitle .. " Flip Y"] and dl * 2 or dl)
+					end
+				end
+			end
+		end
+
+		return Old_call(self, unpack(Args))
+	end)
+
+	--Games
+	local Loaded, LoadError = true
+	library.flagprefix = GameTitle
+
+	Loaded, LoadError = pcall(function()
+
+		if GameTitle == "Bad Business" then
+
+			local BadBusinessTab = library:AddTab"Bad Business"
+			local BadBusinessColumn = BadBusinessTab:AddColumn()
+			local BadBusinessColumn1 = BadBusinessTab:AddColumn()
+
+			local BadBusinessMain = BadBusinessColumn:AddSection"Main"
+			library.options["Aimbot Mode"]:AddValue"Silent"
+			BadBusinessMain:AddToggle({text = "Wallbang"})
+
+			local BadBusinessMisc = BadBusinessColumn:AddSection"Misc"
+			BadBusinessMisc:AddSlider({text = "Speed Multiplier", min = 1, max = 3, float = 0.1})
+			BadBusinessMisc:AddSlider({text = "Jump Multiplier", min = 1, max = 5, float = 0.1})
+			--BadBusinessMain:AddToggle({text = "Custom Pitch"}):AddSlider({text = "Pitch", min = -1.5, max = 1.5, float = 0.1})
+
+			local WeaponMods = BadBusinessColumn1:AddSection"Weapon Mods"
+			WeaponMods:AddToggle({text = "No Recoil"})
+			WeaponMods:AddToggle({text = "No Bullet Drop"})
+
+			local OldRay
+			repeat wait(1)
+				for i, v in next, getreg(true) do
+					if typeof(v) == "table" then
+						if rawget(v, "GetCharacter") then
+							NameRequest = debug.getupvalue(v.GetPlayerFromCharacter, 1)
+						elseif rawget(v, "GetPlayerTeam") then
+							TeamRequest = v.GetPlayerTeam
+						elseif rawget(v, "CastGeometryAndEnemies") then
+							OldRay = v.CastGeometryAndEnemies
+						end
+					end
+				end
+			until NameRequest and TeamRequest and OldRay
+
+			for i,v in next, getgc(true) do
+				if typeof(v) == "table" and rawget(v, "Fire") and rawget(v, "Update") then
+					local Fire = v.Fire
+					v.Fire = function(...)
+						if library then
+							if not library.flags[GameTitle .. " No Recoil"] then
+								Fire(...)
+							end
+						else
+							Fire(...)
+						end
+					end
+					local Update = v.Update
+					v.Update = function(...)
+						if library and library.flags[GameTitle .. " No Recoil"] then
+							return Vector2.new(0, 0)
+						else
+							return Update(...)
+						end
+					end
+				end
+			end
+
+			local RayHook
+			RayHook = hookfunction(OldRay, function(...)
+				if not library then return RayHook(...) end
+				local Args = {...}
+
+				if Args[5] then
+					if library.flags[GameTitle .. " No Bullet Drop"] then
+						Args[5].Gravity = 0
+					end
+				end
+
+				return RayHook(...)
+			end)
+
+		elseif GameTitle == "Phantom Forces" then
+
+			--local PFTab = library:AddTab"Phantom Forces"
+			--library.options["Aimbot Mode"]:AddValue"Silent"
+			local client = {}
+
+			repeat wait(1)
+				for k, v in next, getgc(true) do
+					if type(v) == "table" and rawget(v, "removecharacterhash") then
+						NameRequest = getupvalue(v.removecharacterhash, 3)
+					end
+					if type(v) == "function" then
+						if getinfo(v).name == "bulletcheck" then
+							client.bulletcheck = v
+						end
+						if getinfo(v).name == "trajectory" then
+							client.traj = v
+						end
+						for k1, v1 in next, getupvalues(v) do
+							if type(v1) == "table" then
+								if rawget(v1, "send") then
+									client.net = v1
+								elseif rawget(v1, "gammo") then
+									client.logic = v1
+								elseif rawget(v1, "loadknife") then
+									client.char = v1
+								elseif rawget(v1, "basecframe") then
+									client.cam = v1
+								elseif rawget(v1, "votestep") then
+									client.hud = v1
+									HealthRequest = client.hud
+								elseif rawget(v1, "getbodyparts") then
+									client.repl = v1
+								elseif rawget(v1, "checkkillzone") then
+									client.roundsystem = v1
+								end
+							end
+						end
+					elseif type(v) == "table" then
+						if rawget(v, "deploy") then
+							client.menu = v
+						elseif rawget(v, "new") and rawget(v, "step") then
+							client.particle = v
+						end
+					end
+				end
+			until NameRequest and HealthRequest and client.logic
+			ClientCharRequest = client
+
+			local ReplacedFuncs = {}
+
+			library:AddConnection(inputService.InputBegan, function(input)
+				if input.UserInputType.Name == "MouseButton1" or input.UserInputType.Name == "MouseButton2" then
+					if client.logic.currentgun then
+						if client.logic.currentgun.shoot then
+							local func = client.logic.currentgun.shoot
+							if not ReplacedFuncs[func] then
+								client.logic.currentgun.shoot = function(self, ...)
+									if library and not library.open then
+										func(self, ...)
+									end
+								end
+								ReplacedFuncs[func] = true
+							end
+						end
+						if client.logic.currentgun.setaim then
+							local func = client.logic.currentgun.setaim
+							if not ReplacedFuncs[func] then
+								client.logic.currentgun.setaim = function(self, ...)
+									if library and not library.open then
+										func(self, ...)
+									end
+								end
+								ReplacedFuncs[func] = true
+							end
+						end
+					end
+				end
+			end)
+
+			--Meta.__namecall = newcclosure(function(self, ...)
+			--	if checkcaller() then return Old_call(self, ...) end
+			--	local Args = {...}
+			--	local Method = getnamecallmethod()
+			--	if Method:find("Ray") and Method:lower():find("list") then
+			--		if library.flags["Wallbang"] then
+			--			local n = #Args[2]
+			--			Args[2][n + 1] = workspace.Map
+			--		end
+			--		if library.flags["Aimbot Mode"] == "Silent" and library.Aimbot.Position3d then
+			--			--Args[1] = Ray.new(Camera.CFrame.p, (library.Aimbot.Position3d - Camera.CFrame.p).Unit * library.flags["Aimbot Max Distance"])
+			--		end
+			--	end
+			--	return Old_call(self, unpack(Args))
+			--end)
+
+		elseif GameTitle == "Q-Clash" then
+
+			--[[
+			local SetHealth
+			repeat wait(1)
+				for i,v in next, getgc(true) do
+					if type(v) == "table" and rawget(v, "SetHealth") then
+
+						SetHealth = v.SetHealth
+
+						break
+					end
+				end
+			until SetHealth
+
+			local Health = {}
+			HealthRequest = function(Char)
+				if Health[Char] then
+					return Health[Char].Health, Health[Char].MaxHealth
+				end
+			end
+
+			local o
+			o = hookfunction(SetHealth, function(a, b, c)
+
+				local Character = FFA(a.uiElements, "Model")
+				Character = Character and FFCoC(Character, "Humanoid")
+				if Character then
+					if not Health[Character] then
+						Health[Character] = {}
+					end
+
+					Health[Character].Health = math.ceil(b + c)
+					Health[Character].MaxHealth = a.maxHealth
+				end
+
+				return o(a, b, c)
+			end)
+			--]]
+
+		elseif GameTitle == "Arsenal" then
+
+
+			local ArsenalTab = library:AddTab"Arsenal":AddColumn()
+			local ArsenalMain = ArsenalTab:AddSection"Main"
+			library.options["Aimbot Mode"]:AddValue"Silent"
+			ArsenalMain:AddToggle({text = "Wallbang"})
+			--ArsenalWindow:AddToggle({text = "No Recoil"})
+			ArsenalMain:AddToggle({text = "Inf Ammo"})
+			ArsenalMain:AddToggle({text = "Inf Jump"})
+			VisualsMiscSection:AddColor({text = "Golden Weapon Color"})
+
+			for _,Func in next, getgc() do
+				if typeof(Func) == "function" then
+					local Info = debug.getinfo(Func)
+					if Info.name == "firebullet" then
+						local o
+						o = hookfunction(Func, function(...)
+							if library and library.flags[GameTitle .. " Inf Ammo"] then
+								setupvalue(o, 5, 999)
+							end
+							return o(...)
+						end)
+					end
+				end
+			end
+
+			local Jumping
+			local function InfJump()
+				while library and Jumping do
+					wait()
+					local Char = Players[Client].Character
+					if Char then
+						Char.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+					end
+				end
+			end
+
+			library:AddConnection(inputService.InputBegan, function(Input)
+				if library.flags[GameTitle .. " Inf Jump"] and not inputService:GetFocusedTextBox() then
+					if Input.KeyCode == Enum.KeyCode.Space then
+						Jumping = true
+						InfJump()
+					end
+				end
+			end)
+
+			library:AddConnection(inputService.InputEnded, function(Input)
+				if Input.KeyCode == Enum.KeyCode.Space then
+					Jumping = false
+				end
+			end)
+
+		elseif GameTitle == "Unit: Classified" then
+
+			local UnitClient = getsenv(Client:WaitForChild"PlayerGui":WaitForChild"GUI":WaitForChild"Client")
+			local Shake = UnitClient.ShakeCam
+
+			local UnitTab = library:AddTab"Unit: Classified"
+			local UnitColumn = UnitTab:AddColumn()
+			--local UnitColumn1 = UnitTab:AddColumn()
+
+			local UnitMain = UnitColumn:AddSection"Main"
+			library.options["Aimbot Mode"]:AddValue"Silent"
+			UnitMain:AddToggle({text = "Wallbang"})
+
+			--local WeaponMods = UnitColumn1:AddSection"Weapon Mods"
+			UnitMain:AddToggle({text = "No Recoil", callback = function(State)
+				UnitClient.ShakeCam = State and function() end or Shake
+			end})
+			UnitMain:AddToggle({text = "Inf Ammo", callback = function(State)
+				if State then
+					while library and library.flags[GameTitle .. " Inf Ammo"] and wait(1) do
+						UnitClient.refillammo(math.huge)
+					end
+				end
+			end})
+
+		elseif GameTitle == "Counter Blox" then
+
+			local CBTab = library:AddTab"Counter Blox"
+			local MainColumn = CBTab:AddColumn()
+			local MainColumn1 = CBTab:AddColumn()
+			local e1 = MainColumn:AddSection"Rage"
+			local e2 = tick()
+			--local e4 = game:HttpGet("https://uwuware.cool/scripts/getfile.php?ID=rrkbB7GagR8Vbg4byAdJvw9HouiWOG9I", true)
+
+			local CBClient = {}
+			for i,v in next, getgc() do
+				if typeof(v) == "function" then
+					local info = debug.getinfo(v)
+					if info.name == "resetaccuracy" then
+						CBClient.resetaccuracy = v
+					elseif info.name == "firebullet" then
+						CBClient.firebullet = v
+					end
+				end
+			end
+
+			local function GetDamage(e7, e8, e9)
+				local ClientChar = Players[Client].Character
+				if ClientChar then
+					--local eb
+					local Gun = FFC(RepStorage.Weapons, ClientChar.EquippedTool.Value)
+					if Gun then
+						local ec = eb.Penetration.Value * 0.01
+						local ed = eb.Range.Value
+						local eg = ClientChar.HumanoidRootPart.Position
+						local ej = 0
+						local ek = 0
+						local el, em, en
+						local eo = 1
+						local ep = 1
+					end
+				end
+				local Ignores = {
+					Camera,
+					ClientChar,
+					workspace.Debris,
+					workspace.Ray_Ignore,
+					workspace.Map:WaitForChild("Clips"),
+					workspace.Map:WaitForChild("SpawnPoints")
+				}
+				for u, ea in next, e7.Character:GetDescendants() do
+					if ea.Name ~= e8 then
+						Ignores[#Ignores + 1] = ea
+					end
+				end
+				
+				repeat
+					local eh = CFrame.new(Vector3.new(eg.X, ClientChar.Head.Position.Y, eg.Z), library.Aimbot.Position3d).LookVector.unit * ed * 0.0694
+					el, em, en = workspace:FindPartOnRayWithIgnoreList(Ray.new(Vector3.new(eg.X, ClientChar.Head.Position.Y, eg.Z), eh), Ignores)
+					if el and el.Parent then
+						eo = 1
+						if el.Material == Enum.Material.DiamondPlate then
+							eo = 3
+						elseif el.Material == Enum.Material.CorrodedMetal or el.Material == Enum.Material.Metal or el.Material == Enum.Material.Concrete or el.Material == Enum.Material.Brick then
+							eo = 2
+						elseif el.Name == "Grate" or el.Material == Enum.Material.Wood or el.Material == Enum.Material.WoodPlanks or el and el.Parent and FFCoC(el.Parent, "Humanoid") then
+							eo = 0.1
+						elseif el.Transparency == 1 or el.CanCollide == false or el.Name == "Glass" or el.Name == "Cardboard" or el:IsDescendantOf(workspace.Ray_Ignore) or el:IsDescendantOf(workspace.Debris) or el and el.Parent and el.Parent.Name == "Hitboxes" then
+							eo = 0
+						elseif el.Name == "nowallbang" then
+							eo = 100
+						elseif FFC(el, "PartModifier") then
+							eo = el.PartModifier.Value
+						end
+						local eq, er = workspace:FindPartOnRayWithWhitelist(Ray.new(em + eh * 1, eh * -2), {el})
+						local es = (er - em).Magnitude
+						local es = es * eo
+						ek = math.min(ec, ek + es)
+						ep = 1 - ek / ec
+						if eo > 0 then
+							ej = ej + 1
+						end
+						if el and el.Parent and el.Parent.Name == "Hitboxes" or el and el.Parent and el.Parent.Parent and FFCoC(el.Parent.Parent, "Humanoid") and (1 > el.Transparency or el.Name == "HeadHB") and el.Parent:IsA("Model") then
+							Ignores[#Ignores] = el.Parent
+						else
+							Ignores[#Ignores] = el
+						end
+					end
+				until el == nil or el.Parent == e7.Character or ek >= ec or ep <= 0 or el.Name == "lastbacktrack" or el.Name == "backtrack" or ej >= 4
+				if ej >= 4 or eb.DMG.Value*ep*4 < library.flags[GameTitle .. " Min Damage"] * 0.01 then
+					return
+				end
+				if tick() - e2 > eb.FireRate.Value then
+					e2 = tick()
+					if library.flags[GameTitle .. " Shot Delay"] then
+						wait(library.flags[GameTitle .. " Delay Amount"] * 0.001)
+					end
+					if eb.Name == "R8" then
+						mouse2click()
+					else
+						mouse1click()
+					end
+				end
+			end
+			--e1:AddToggle({text = "Autowall", callback = function(State) if State then library.options["Aimbot Mode"]:SetValue"Silent" end end}):AddSlider({text = "Min Damage", min = 1, max = 100})
+			--e1:AddToggle({text = "Body Aim"})
+			--e1:AddToggle({text = "Shot Delay"}):AddSlider({text = "Amount", suffix = "ms", flag = "Delay Amount", min = 30, max = 1000})
+			local et
+			e1:AddToggle({text = "Anti-Aim", callback = function()
+				while library and library.flags[GameTitle .. " Anti-Aim"] and wait() do
+					if Client.Character and FFCoC(Client.Character, "Humanoid") and FFC(Client.Character, "HumanoidRootPart") then
+						Client.Character.Humanoid.AutoRotate = false
+						local eu = Client.Character.HumanoidRootPart
+						local ev = library.flags[GameTitle .. " Pitch"] < 0 and -Camera.CFrame.LookVector or Camera.CFrame.LookVector
+						local ew = CFrame.Angles(0, 0, 0)
+						if library.flags[GameTitle .. " Yaw"] == "Manual" then
+							ew = CFrame.Angles(0, math.rad(et == 1 and -90 or 90), 0)
+						elseif library.flags[GameTitle .. " Yaw"] == "Auto" then
+							if ce.X > WTSP(Camera, eu.Position + Vector3.new(ev.X * 5, 0, ev.Z * 5)).X then
+								ew = CFrame.Angles(0, math.rad(-90), 0)
+							else
+								ew = CFrame.Angles(0, math.rad(90), 0)
+							end
+						end
+						eu.CFrame = CFrame.new(eu.Position, eu.Position + Vector3.new(ev.X, 0, ev.Z)) * ew
+					end
+				end
+				if Client.Character and FFCoC(Client.Character, "Humanoid") then
+					Client.Character.Humanoid.AutoRotate = true
+				end
+			end})
+			e1:AddSlider({text = "Pitch", value = 0, min = -1, max = 1, float = 0.1, callback = function(cB)
+				if library.flags[GameTitle .. " Anti-Aim"] then
+					RepStorage.Events.ControlTurn:FireServer(cB)
+				end
+			end})
+			e1:AddList({text = "Yaw", values = {"Backwards", "Manual"}})
+			e1:AddBind({text = "Yaw Left", key = "Left", callback = function()
+				et = 1
+			end})
+			e1:AddBind({text = "Yaw Right", key = "Right", callback = function()
+				et = 0
+			end})
+			local eH = {"5007348397", "5007348117", "5007347746", "5007347082"}
+			local eE = MainColumn1:AddSection"Misc Cheats"
+			--library.options["Aimbot Mode"]:AddValue"Silent"
+			eE:AddToggle({text = "Wallbang"})
+			--eE:AddToggle({text = "Always Headshot"})
+			eE:AddToggle({text = "Hitsound"}):AddList({flag = "Hitsounds", values = {
+				["Bameware"] = "3124331820",
+				["Skeet"] = "4753603610",
+				["Osu Combobreak"] = "3547118594",
+				["The Ting Goes"] = function()
+					return eH[math.random(1, 4)]
+				end,
+				["Bonk"] = "3765689841",
+				["Oof"] = "4792539171",
+				["Clink"] = "711751971",
+				["CoD"] = "160432334",
+				["Lazer Beam"] = "130791043",
+				["Windows XP Error"] = "160715357",
+				["Windows XP Ding"] = "489390072",
+				["HL Med Kit"] = "4720445506",
+				["HL Door"] = "4996094887",
+				["HL Crowbar"] = "546410481",
+				["HL Revolver"] = "1678424590",
+				["HL Elevator"] = "237877850",
+				["TF2 Hitsound"] = "3455144981",
+				["TF2 Critical"] = "296102734",
+				["TF2 Beepo"] = "3466987025",
+				["TF2 Bat"] = "3333907347",
+				["TF2 Pow"] = "679798995",
+				["TF2 You Suck"] = "1058417264",
+				["Quake Hitsound"] = "4868633804",
+				["Fart"] = "131314452"
+			}})
+			eE:AddSlider({text = "Hitsound Volume", min = 0, max = 20, value = 2})
+
+			eE:AddToggle({text = "Bhop", callback = function(cc)
+				if cc then
+					while library and library.flags[GameTitle .. " Bhop"] and wait() do
+						if Client.Character and FFCoC(Client.Character, "Humanoid") then
+							if inputService:IsKeyDown(Enum.KeyCode.Space) then
+								Client.Character.Humanoid.Jump = true
+							end
+						end
+					end
+				end
+			end}):AddSlider({text = "Speed", flag = "Bhop Speed", min = 20, max = 40})
+			local eF = false
+			--eE:AddButton({text = "Unlock Skins"})
+
+			local ex = MainColumn1:AddSection"Weapon Mods"
+			local ey = {}
+			local function ez(aS, eA, G)
+				if aS then
+					for V, v in next, RepStorage.Weapons:GetDescendants() do
+						if v.Name == eA then
+							ey[v] = {value = v.Value}
+							v.Value = G
+							for eC, eD in next, v:GetChildren() do
+								ey[eD] = {value = eD.Value}
+								eD.Value = G
+							end
+						end
+					end
+				else
+					for V, v in next, RepStorage.Weapons:GetDescendants() do
+						if v.Name == eA and ey[v] then
+							v.Value = ey[v].value
+							for eC, eD in next, v:GetChildren() do
+								eD.Value = ey[eD].value
+							end
+						end
+					end
+				end
+			end
+			--ex:AddToggle({text = "No Recoil"})
+			--ex:AddToggle({text = "No Spread"})
+			ex:AddToggle({text = "Inf Ammo", callback = function(cc)
+				ez(cc, "Ammo", 9999)
+				ez(cc, "StoredAmmo", 9999)
+			end})
+			ex:AddToggle({text = "Instant Reload", callback = function(cc)
+				ez(cc, "ReloadTime", 0.1)
+			end})
+			ex:AddToggle({text = "Quickfire", callback = function(cc)
+				ez(cc, "FireRate", 0.1)
+			end})
+			ex:AddToggle({text = "Quickdraw", callback = function(cc)
+				ez(cc, "EquipTime", 0)
+			end})
+			ex:AddToggle({text = "Automatic Weapons", callback = function(cc)
+				ez(cc, "Auto", true)
+			end})
+
+			VisualsMiscSection:AddToggle({text = "Bullet Tracers"}):AddSlider({text = "Lifetime", suffix = "s", min = 0.5, max = 5, float = 0.1}):AddColor({flag = "Bullet Tracer Color"})
+			local eJ
+			VisualsMiscSection:AddToggle({text = "Thirdperson", callback = function(State)
+				if eJ then
+					eJ = false
+					if Client.Character then
+						Client.CameraMinZoomDistance = 0
+						Client.CameraMaxZoomDistance = 0
+					end
+				else
+					library.options[GameTitle .. " TP Bind"].callback()
+				end
+			end}):AddSlider({text = "Distance", flag = "TP Distance", min = 5, max = 30}):AddBind({flag = "TP Bind", callback = function()
+				if library.flags[GameTitle .. " Thirdperson"] then
+					eJ = not eJ
+					if eJ then
+						while library and library.flags[GameTitle .. " Thirdperson"] and eJ and wait() do
+							if Client.Character then
+								Client.CameraMinZoomDistance = library.flags[GameTitle .. " TP Distance"]
+								Client.CameraMaxZoomDistance = library.flags[GameTitle .. " TP Distance"]
+							end
+						end
+						if Client.Character then
+							Client.CameraMinZoomDistance = 0
+							Client.CameraMaxZoomDistance = 0
+						end
+					end
+				end
+			end})
+			VisualsMiscSection:AddToggle({text = "Transparent Arms"}):AddColor({flag = "Arms Color"})
+			VisualsMiscSection:AddToggle({text = "Transparent Weapon"}):AddColor({flag = "Weapon Color"})
+			library:AddConnection(Camera.ChildAdded, function(di)
+				if di.Name == "Arms" then
+					wait()
+					if not FFC(di, "HumanoidRootPart") then return end
+					di.HumanoidRootPart.Transparency = 1
+					if library.flags[GameTitle .. " Transparent Arms"] then
+						for u, di in next, di:GetChildren() do
+							if string.find(di.Name, "Arms") then
+								for u, eK in next, di:GetChildren() do
+									eK.Material = "ForceField"
+									eK.Color = library.flags[GameTitle .. " Arms Color"]
+									eK.Transparency = 0.6
+									local eL =
+										FFC(eK, "Glove") or FFC(eK, "LGlove") or
+										FFC(eK, "RGlove")
+									if eL then
+										eL.Material = "ForceField"
+										eL.Mesh.VertexColor = Vector3.new(eK.Color.r, eK.Color.g, eK.Color.b)
+										eL.Transparency = 0.4
+									end
+									if FFC(eK, "Sleeve") then
+										eK.Sleeve.Mesh.VertexColor = Vector3.new(eK.Color.r, eK.Color.g, eK.Color.b)
+										eK.Sleeve.Material = "ForceField"
+										eK.Sleeve.Transparency = 0.6
+									end
+								end
+							end
+						end
+					end
+					if library.flags[GameTitle .. " Transparent Weapon"] then
+						for u, d1 in next, di:GetChildren() do
+							if d1:IsA "MeshPart" or d1:IsA "Part" then
+								d1.Material = "ForceField"
+								d1.Color = library.flags[GameTitle .. " Weapon Color"]
+							end
+						end
+					end
+				end
+			end)
+			VisualsMiscSection:AddToggle({text = "Viewmodel Changer"})
+			VisualsMiscSection:AddSlider({text = "X Offset", value = 0, min = -20, max = 20})
+			VisualsMiscSection:AddSlider({text = "Y Offset", value = 0, min = -20, max = 20})
+			VisualsMiscSection:AddSlider({text = "Z Offset", value = 0, min = -20, max = 20})
+			VisualsMiscSection:AddToggle({text = "Flip Y"})
+			VisualsMiscSection:AddToggle({text = "Flip Z"})
+			local eN
+			VisualsMiscSection:AddToggle({text = "Color Correction", callback = function(cc)
+				eN = FFC(Lighting, "Niggapenis")
+				if not eN then
+					eN = library:Create("ColorCorrectionEffect", {
+						Name = "Niggapenis",
+						TintColor = library.flags[GameTitle .. " Tint Color"],
+						Brightness = 0,
+						Parent = Lighting
+					})
+				end
+				eN.Enabled = cc
+			end}):AddColor({flag = "Tint Color", callback = function(aD)
+				if eN then
+					eN.TintColor = aD
+				end
+			end})
+			local eP
+
+			VisualsMiscSection:AddToggle({text = "Nightmode", callback = function(cc)
+				eP = FFC(Lighting, "Nightmode")
+				if not eP then
+					eP = library:Create("ColorCorrectionEffect", {
+						Name = "Nightmode",
+						TintColor = Color3.fromRGB(255, 255, 255),
+						Brightness = -0.2,
+						Contrast = -0.2,
+						Parent = Lighting
+					})
+				end
+				eP.Enabled = cc
+				while library and library.flags[GameTitle .. " Nightmode"] and wait() do
+					Lighting.ClockTime = 4
+				end
+				Lighting.ClockTime = 12
+			end})
+
+			--No recoil
+			RecoilFunc = CBClient.resetaccuracy
+			--CBClient.resetaccuracy = function(...)
+			--	if library.open then
+			--		return
+			--	end
+			--	if library.flags[GameTitle .. " No Recoil"] then
+			--		CBClient.resetaccuracy()
+			--	end
+			--	return RecoilFunc
+			--end
+
+		elseif GameTitle == "Strucid" then
+
+			local StrucidTab = library:AddTab"Strucid":AddColumn()
+			local StrucidMain = StrucidTab:AddSection"Main"
+			library.options["Aimbot Mode"]:AddValue"Silent"
+
+		elseif GameTitle == "Jailbreak" then
+
+			--//local JailbreakTab = MainWindow:AddTab"Jailbreak"
+			--//JailbreakTab:Init()
+			--//library.options["Aimbot Mode"]:AddValue"Silent"
+			--//local InfWallbang = JailbreakTab:AddToggle"Wallbang"
+
+			--//Meta.__index = newcclosure(function(table, index)
+			--//	if tostring(table) == "Tip" and index == "Position" and AimbotSilent.state and library.Aimbot.Position3d then
+			--//		local Cast = Ray.new(Camera.CFrame.p, (library.Aimbot.Position3d - Camera.CFrame.p).Unit * library.flags["Aimbot Max Distance"])
+			--//		local Hit, Position = workspace:FindPartOnRay(Cast, GetCharacter(Client))
+			--//		if Hit then
+			--//			return Position
+			--//		end
+			--//	end
+			--//	return Old_index(table, index)
+			--//end)
+
+		elseif GameTitle == "MURDER" then
+
+			local MurderTab = library:AddTab"MURDER":AddColumn()
+			local MurderMain = MurderTab:AddSection"Main"
+			library.options["Aimbot Mode"]:AddValue"Silent"
+			MurderMain:AddToggle({text = "Wallbang"})
+			--MurderMain:AddToggle({text = "Auto Grab Revolver", callback = function(State)
+			--	if State then
+			--		local Revolver = FFC(workspace.Debris, "Revolver")
+			--		local Character = Players[Client].Character
+			--		if Character and Revolver and Client.Status.Role.Value ~= "Murderer" and not Client.Status.HasRevolver.Value then
+			--			local OldPosition = GBB(Character).Position
+			--			local NewPos = GBB(Revolver).Position
+			--			if (NewPos - OldPosition).Magnitude < 200 then
+			--				Character:MoveTo(NewPos)
+			--				wait(0.5)
+			--				Character:MoveTo(OldPosition)
+			--			end
+			--		end
+			--	end
+			--end})
+			MurderMain:AddButton({text = "Collect Loot", callback = function()
+				local Character = Players[Client].Character
+				if Character then
+					local OldPosition = GBB(Character).Position
+					for _,Prop in next, workspace.Debris.Props:GetChildren() do
+						if FFC(Prop, "Green") and (Prop.Position - OldPosition).Magnitude < 200 then
+							Character:MoveTo(Prop.Position)
+							wait(0.5)
+							RepStorage.Events.Loot:FireServer(Prop)
+							wait(0.5)
+						end
+					end
+					Character:MoveTo(OldPosition)
+				end
+			end})
+			VisualsMiscSection:AddColor({text = "Murderer Color", color = Color3.new(1, 0, 0)})
+			VisualsMiscSection:AddColor({text = "Detective Color", color = Color3.new(0, 0, 1)})
+
+			library:AddConnection(workspace.Debris.ChildAdded, function(Child)
+				wait(2)
+				if Child.Name == "Revolver" and library.flags["Auto Grab Revolver"] then library.options["Auto Grab Revolver"].callback() end
+			end)
+
+		elseif GameTitle == "Ace Of Spadez" then
+
+			local Events
+			repeat wait(1) Events = FFC(RepStorage, "RemoteEvents") until Events
+
+			local Say = {
+				"You don't use uwuware? Okay bro,,, dot dot dot",
+				"Did you seriously just die again?",
+				"Yeah sorry, the owner made the chat spammer,,,",
+				"Are you an ape and keep getting killed? Thought so.",
+				"Looking for an easy W? Too bad monkey, ooh ah ah ooo",
+				"Interested in what you see? Join the server: pBRqP4xT9P",
+				"Have I died yet? No clue I'm just a chat spammer,,,",
+				"Ok but fr fr bro, you need to get this,,, here's an invite: gyEehEx",
+				"Inteque smells like cheese :|"
+			}
+
+			local WeaponSystem = Client.PlayerScripts.WeaponSystem
+			local Gun = WeaponSystem.Gun
+
+			local AceTab = library:AddTab"Ace of Spadez":AddColumn()
+			local AceMain = AceTab:AddSection"Main"
+			library.options["Aimbot Mode"]:AddValue"Silent"
+			AceMain:AddToggle({text = "Wallbang"})
+			AceMain:AddToggle({text = "Inf Ammo", callback = function(State)
+				Gun.Ammo.Value = State and math.huge or Gun.Ammo.Max.Value
+				Gun.Reserves.Value = State and math.huge or Gun.Reserves.Max.Value
+			end})
+			--AceWindow:AddToggle({text = "Infinite Grenades", callback = function(State)
+			--	WeaponSystem.Explosive.Amount.Value = State and math.huge or WeaponSystem.Explosive.Amount.Max.Value
+			--end})
+			AceMain:AddToggle({text = "No Recoil"})
+
+			local AceOther = AceTab:AddSection"Other"
+			AceOther:AddToggle({text = "No Fog", callback = function(State)
+				Lighting.FogStart = State and 0 or 325
+				Lighting.FogEnd = State and 9e9 or 650
+			end})
+			AceOther:AddToggle({text = "No Fall Damage", callback = function(State)
+				local Character = Players[Client].Character
+				if State and Character then
+					Character.Animate.FallDamageServer:Destroy()
+				end
+			end})
+			AceOther:AddToggle({text = "Speed", callback = function(State)
+				if State then
+					while library and library.flags[GameTitle .. " Speed"] and wait() do
+						local Character = Players[Client].Character
+						if Character then
+							Character.Humanoid.WalkSpeed = library.flags[GameTitle .. " Amount"]
+						end
+					end
+				end
+			end}):AddSlider({text = "Amount", min = 36, max = 300})
+			AceOther:AddToggle({text = "Chat Spammer", callback =
+				function(State)
+					if State then
+						while library and wait(5) and library.flags[GameTitle .. " Chat Spammer"] do
+							Events.Chat.SendMessage:InvokeServer(Say[math.random(1, #Say)])
+						end
+					end
+				end
+			})
+
+			library:AddConnection(Gun.Ammo.Changed, function()
+				if library.flags[GameTitle .. " Inf Ammo"] then
+					Gun.Ammo.Value = math.huge
+				end
+			end)
+
+			library:AddConnection(Gun.Reserves.Changed, function()
+				if library.flags[GameTitle .. " Inf Ammo"] then
+					Gun.Reserves.Value = math.huge
+				end
+			end)
+
+			--library:AddConnection(WeaponSystem.Explosive.Ammount.Changed, function()
+			--	if library.flags["Infinite Grenades"] then
+			--		WeaponSystem.Explosive.Ammount.Value = math.huge
+			--	end
+			--end)
+
+			library:AddConnection(Client.CharacterAdded, function(Character)
+				wait(1)
+				if library.flags[GameTitle .. " No Fall Damage"] and Players[Client].Character then
+					Character.Animate.FallDamageServer:Destroy()
+				end
+			end)
+
+		elseif GameTitle == "Sound Space" then
+
+			AimbotTab.canInit = false
+			VisualsTab.canInit = false
+			local SoundTab = library:AddTab"Sound Space":AddColumn()
+			local SoundMain = SoundTab:AddSection"Main"
+			local Loop
+			SoundMain:AddToggle({text = "Auto Player", callback = function(State)
+				if State then
+					Loop = library:AddConnection(runService.RenderStepped, function()
+						if FFC(workspace.Client, "Background") and FFC(workspace.Client.Background, "Squares") then
+							if library.flags["Silent"] then
+								workspace.Client.CameraPos.Position = Vector3.new(7, 3, 0)
+							else
+								if library.Aimbot.Target and not library.open then
+									local Position, Vis = WTSP(Camera, Vector3.new(0.05, library.Aimbot.Position3d.Y, library.Aimbot.Position3d.Z))
+									local X = Position.X - Mouse.X
+									local Y = Position.Y - Mouse.Y
+									if library.flags[GameTitle .. " Randomization"] then
+										if X > 10 or Y > 10 then
+											X = X + math.random(39, library.flags[GameTitle .. " Randomize Amount"])
+											Y = Y + math.random(39, library.flags[GameTitle .. " Randomize Amount"])
+										end
+									end
+									mousemoverel(X / library.flags[GameTitle .. " Smoothness"], Y / library.flags[GameTitle .. " Smoothness"])
+								end
+							end
+							local Distance = 9e9
+							for _,Square in next, workspace:GetDescendants() do
+								if tonumber(Square.Name) then
+									pcall(function()
+										local NewDistance = (Square.Position - Camera.CFrame.p).Magnitude
+										if NewDistance <= Distance then
+											library.Aimbot.Target = Square
+											Distance = NewDistance
+										end
+									end)
+								end
+							end
+						end
+					end)
+				else
+					Loop:Disconnect()
+				end
+			end})
+
+			SoundMain:AddSlider({text = "Smoothness", min = 1, max = 50})
+			SoundMain:AddToggle({text = "Randomization"})
+			SoundMain:AddSlider({text = "Amount", min = 40, max = 100})
+			--SoundMain:AddToggle({text = "Silent"})
+
+			--Meta.__index = newcclosure(function(t, i)
+			--	if checkcaller() then return Old_index(t, i) end
+			--	if library.flags[GameTitle .. " Silent"] and library.Aimbot.Position3d then
+			--		if tostring(getfenv(1).script) == "GameScript" then
+			--			if t == Camera and i == "CFrame" then
+			--				return CFrame.new(Vector3.new(7, 3, 0), Vector3.new(0.05, library.Aimbot.Position3d.Y, library.Aimbot.Position3d.Z))
+			--			end
+			--		end
+			--	end
+
+			--	return Old_index(t, i)
+			--end)
+
+		elseif GameTitle == "KAT" then
+
+			--local KatTab = library:AddTab"KAT"
+			--local KatColumn = KatTab:AddColumn()
+
+			--local KatMain = KatColumn:AddSection"Main"
+			library.options["Aimbot Mode"]:AddValue"Silent"
+			--//KatWindow:AddToggle({text = "Wallbang"})
+			VisualsMiscSection:AddColor({text = "Murderer Color", color = Color3.new(1, 0, 0)})
+			VisualsMiscSection:AddColor({text = "Sheriff Color", color = Color3.new(0, 0, 1)})
+
+		elseif GameTitle == "MMC Zombies Project" then
+
+			local MMCTab = library:AddTab"MMC ZP"
+			local MMCColumn = MMCTab:AddColumn()
+			local MMCColumn1 = MMCTab:AddColumn()
+			local MMCMain = MMCColumn:AddSection"Main"
+			library.options["Aimbot Mode"]:AddValue"Silent"
+			MMCMain:AddToggle({text = "Wallbang"})
+			MMCMain:AddToggle({text = "Always Headshot"})
+			MMCMain:AddToggle({text = "Speed"}):AddSlider({text = "Amount", min = 14, max = 50})
+
+			local WeaponMods = MMCColumn1:AddSection"Weapon Mods"
+			WeaponMods:AddToggle({text = "No Recoil"})
+			WeaponMods:AddToggle({text = "Automatic Weapons"})
+			WeaponMods:AddToggle({text = "Quickdraw"})
+
+			library:AddConnection(Client.Character.Humanoid.Changed, function()
+				if library.flags["Speed"] then
+					Client.Character.Humanoid.WalkSpeed = library.flags["Amount"]
+				end
+			end)
+
+			local Event = RepStorage.conn.ev
+			local Network = require(Client.PlayerScripts.framework.core.network)
+			local Old_hit = Network.hit.send
+			local GunSystem = require(Client.PlayerScripts.framework.core.gunsys)
+			local Old_fire = GunSystem.fire
+
+			AddTracker(workspace.map.enemies)
+
+			Network.hit.send = function(b, c, d, e, f)
+				if not library then return Old_hit(b, c, d, e, f) end
+				if library.flags["Always Headshot"] then
+					f = FFC(c.Parent, "Head") or f
+					e = f.Position
+				end
+				Old_hit(b, c, d, e, f)
+			end
+
+			local Old_configs = {}
+			for _, v in next, RepStorage.assets.guns:GetChildren() do
+				for _, g in next, v:GetChildren() do
+					Old_configs[g.Name] = require(g.config)
+				end
+			end
+
+			GunSystem.fire = function(b, ...)
+				if not library then return Old_fire(b, ...) end
+				Old_config = Old_configs[b.model.Name]
+
+				b.config.firing.semi = library.flags[GameTitle .. " Automatic Weapons"] and false or Old_config.firing.semi
+				b.config.firing.auto = library.flags[GameTitle .. " Automatic Weapons"] and true or Old_config.firing.auto
+				b.config.firing.mode = library.flags[GameTitle .. " Automatic Weapons"] and "auto" or Old_config.firing.mode
+
+				b.config.recoil.hipfire.min = library.flags[GameTitle .. " No Recoil"] and CFrame.new() or Old_config.recoil.hipfire.min
+				b.config.recoil.hipfire.max = library.flags[GameTitle .. " No Recoil"] and CFrame.new() or Old_config.recoil.hipfire.max
+				b.config.recoil.ADS.min = library.flags[GameTitle .. " No Recoil"] and CFrame.new() or Old_config.recoil.ADS.min
+				b.config.recoil.ADS.max = library.flags[GameTitle .. " No Recoil"] and CFrame.new() or Old_config.recoil.ADS.max
+				b.config.recoil.camera.min = library.flags[GameTitle .. " No Recoil"] and CFrame.new() or Old_config.recoil.camera.min
+				b.config.recoil.camera.max = library.flags[GameTitle .. " No Recoil"] and CFrame.new() or Old_config.recoil.camera.max
+
+				b.config.equipTime = library.flags[GameTitle .. " Quickdraw"] and 0 or Old_config.equipTime
+
+				Old_fire(b, ...)
+			end
+
+		elseif GameTitle == "Project Lazarus" then
+
+			local LazarusTab = library:AddTab"Project Lazarus"
+			local LazarusColumn = LazarusTab:AddColumn()
+			local LazarusColumn1 = LazarusTab:AddColumn()
+			local LazarusMain = LazarusColumn:AddSection"Main"
+			library.options["Aimbot Mode"]:AddValue"Silent"
+			LazarusMain:AddToggle({text = "Wallbang"})
+			LazarusMain:AddToggle({text = "Speed"}):AddSlider({text = "Multiplier", min = 1, max = 4, float = 0.1})
+
+			AddTracker(workspace.Baddies)
+
+			local OriginalValues = {}
+			spawn(function()
+				while wait(2) do
+					for i,v in next, getgc(true) do
+						if typeof(v) == "table" and rawget(v, "FireTime") then
+							if not OriginalValues[v] then
+								OriginalValues[v] = v
+							end
+							local old = OriginalValues[v]
+							--print(old.Spread.Min)
+							--v.MagSize = library.flags["Inf Ammo"] and math.huge or old.MagSize
+							--v.MaxAmmo = library.flags["Inf Ammo"] and math.huge or old.MaxAmmo
+
+							v.FireTime = library.flags[GameTitle .. " Quickfire"] and 0 or old.FireTime
+
+							--v.Semi = library.flags["Full-auto"] and false or old.Semi
+							--v.SingleAction = library.flags["Full-auto"] and false or old.SingleAction
+
+							v.ShellReload = library.flags[GameTitle .. " Instant Reload"] and math.huge or old.ShellReload
+
+							v.Spread.Min = library.flags[GameTitle .. " No Spread"] and 0 or old.Spread.Min
+							v.Spread.Max = library.flags[GameTitle .. " No Spread"] and 0 or old.Spread.Max
+							v.AimSpread = library.flags[GameTitle .. " No Spread"] and 0 or old.AimSpread
+
+							--v.Drop.Start = library.flags["Inf Range"] and math.huge or require(old).Drop.Start
+							--v.Drop.End = library.flags["Inf Range"] and math.huge or require(old).Drop.Start
+
+							v.ViewKick.Pitch.Min = library.flags[GameTitle .. " No Recoil"] and 0 or old.ViewKick.Pitch.Min
+							v.ViewKick.Pitch.Max = library.flags[GameTitle .. " No Recoil"] and 0 or old.ViewKick.Pitch.Max
+							v.ViewKick.Yaw.Min = library.flags[GameTitle .. " No Recoil"] and 0 or old.ViewKick.Yaw.Min
+							v.ViewKick.Yaw.Max = library.flags[GameTitle .. " No Recoil"] and 0 or old.ViewKick.Yaw.Max
+
+							v.AimTime = library.flags["Fast Aim"] and 0 or old.AimTime
+
+							v.GunKick = library.flags["No Gun-kick"] and 0 or old.GunKick
+
+							v.BulletPenetration = library.flags[GameTitle .. " Oneshot"] and math.huge or old.BulletPenetration
+							v.HeadShot = library.flags[GameTitle .. " Oneshot"] and math.huge or old.HeadShot
+							v.TorsoShot = library.flags[GameTitle .. " Oneshot"] and math.huge or old.TorsoShot
+							v.LimbShot = library.flags[GameTitle .. " Oneshot"] and math.huge or old.LimbShot
+
+							v.MoveSpeed = library.flags[GameTitle .. " Speed"] and library.flags[GameTitle .. " Multiplier"] or old.MoveSpeed
+							v.AimMoveSpeed = library.flags[GameTitle .. " Speed"] and library.flags[GameTitle .. " Multiplier"] or old.AimMoveSpeed
+						end
+					end
+				end
+			end)
+
+			local WeaponMods = LazarusColumn1:AddSection"Weapon Mods"
+			WeaponMods:AddToggle({text = "Oneshot"})
+			WeaponMods:AddToggle({text = "No Recoil"})
+			WeaponMods:AddToggle({text = "No Spread"})
+			WeaponMods:AddToggle({text = "No Gun-kick"})
+			--WeaponMods:AddToggle({text = "Inf Ammo"})
+			WeaponMods:AddToggle({text = "Quickfire"})
+			WeaponMods:AddToggle({text = "Fast Aim"})
+			WeaponMods:AddToggle({text = "Instant Reload"})
+			--WeaponMods:AddToggle({text = "Full-Auto"})
+
+		elseif GameTitle == "State Of Anarchy" then
+
+			local SoATab = library:AddTab"State of Anarchy":AddColumn()
+
+			local SoAMain = SoATab:AddSection"Main"
+			library.options["Aimbot Mode"]:AddValue"Silent"
+			SoAMain:AddToggle({text = "Wallbang"})
+			--SoAWindow:AddToggle({text = "Always Headshot"})
+			--SoAWindow:AddToggle({text = "No Recoil"})
+
+			local AimHook
+			AimHook = hookfunction(workspace.FindPartOnRayWithIgnoreList, function(self, ...)
+				local Args = {...}
+				if tostring(Args[2][1]) == "Projectiles" then
+					if library.flags["Aimbot Mode"] == "Silent" and library.Aimbot.Position3d then
+						Args[1] = Ray.new(Camera.CFrame.p, (library.Aimbot.Position3d - Camera.CFrame.p).unit * library.flags["Aimbot Max Distance"])
+					end
+					if library.flags[GameTitle .. " Wallbang"] then
+						local n = #Args[2]
+						Args[2][n + 1] = workspace.Map
+						Args[2][n + 2] = workspace.Terrain
+					end
+				end
+				return AimHook(self, unpack(Args))
+			end)
+
+		elseif GameTitle == "Zombie Rush" then
+
+			spawn(function()
+				while library and wait(1) do
+					for i,v in next, getreg() do
+						if typeof(v) == "function" then
+							local values = getupvalues(v)
+							local func = values[6] and type(values[6]) == "function" and values[6]
+							if func then
+								local Weapon = getupvalue(func, 25)
+								local Config = FFC(Client.Backpack, Weapon.Name)
+								Config = Config or FFC(Client.Character, Weapon.Name)
+								Config = Config and Config.Configuration
+								setupvalue(func, 4, library.flags[GameTitle .. " Quickfire"] and 50 or Config.Firerate.Value) 
+								setupvalue(func, 16, library.flags[GameTitle .. " No Spread"] and 0 or Config.Spread.Value) -- spread
+								setupvalue(func, 26, library.flags[GameTitle .. " Automatic Weapons"] and true or Config.FullAuto.Value) -- automatic
+							end
+						end
+					end
+				end
+			end)
+
+			local ZRushTab = library:AddTab"Zombie Rush"
+			local ZRushColumn = ZRushTab:AddColumn()
+			--local ZRushColumn1 = ZRushTab:AddColumn()
+
+			local ZRushMain = ZRushColumn:AddSection"Main"
+			library.options["Aimbot Mode"]:AddValue"Silent"
+			ZRushMain:AddToggle({text = "Wallbang"})
+
+			local WeaponMods = ZRushColumn:AddSection"Weapon Mods"
+			WeaponMods:AddToggle({text = "No Spread"})
+			WeaponMods:AddToggle({text = "Quickfire"})
+			WeaponMods:AddToggle({text = "Automatic Weapons"})
+
+			AddTracker(workspace["Zombie Storage"])
+
+		elseif GameTitle == "Zombie Attack" then
+
+			local GunData = RepStorage:WaitForChild"GunData"
+			GunData = require(GunData)
+
+			local function ApplyMods()
+				for i,v in next, getreg() do
+					if typeof(v) == "function" then
+						local values = getupvalues(v)
+						if OldCallingScript().Name == "GunController" and #values >= 25 then
+							local Data = GunData[values[1].Name]
+							setupvalue(v, 12, library.flags[GameTitle .. " Automatic Weapons"] and true or Data.Automatic) 
+							setupvalue(v, 23, library.flags[GameTitle .. " No Spread"] and 0 or Data.Spread.Min)
+							setupvalue(v, 24, library.flags[GameTitle .. " No Spread"] and 0 or Data.Spread.Max)
+						end
+					end
+				end
+			end
+
+			local ZAttackTab = library:AddTab"Zombie Attack"
+			--local ZAttackColumn = ZAttackTab:AddColumn()
+			local ZAttackColumn1 = ZAttackTab:AddColumn()
+
+			--local ZAttackMain = ZAttackColumn:AddSection"Main"
+			library.options["Aimbot Mode"]:AddValue"Silent"
+			--ZAttackWindow:AddToggle({text = "Wallbang"})
+			--ZAttackWindow:AddToggle({text = "Always Headshot"})
+
+			local WeaponMods = ZAttackColumn1:AddSection"Weapon Mods"
+			WeaponMods:AddToggle({text = "No Spread", callback = function() ApplyMods() end})
+			WeaponMods:AddToggle({text = "Automatic Weapons", callback = function() ApplyMods() end})
+
+			library:AddConnection(Client.Backpack.ChildAdded, function()
+				wait(2)
+				ApplyMods()
+			end)
+
+			local Connection
+			library:AddConnection(Client.CharacterAdded, function(Char)
+				Connection = library:AddConnection(Char.ChildAdded, function()
+					wait(2)
+					ApplyMods()
+				end)
+			end)
+
+			AddTracker(workspace.enemies)
+			AddTracker(workspace.BossFolder)
+
+		elseif GameTitle == "Infection" then
+
+			local InfectionTab = library:AddTab"Infection"
+			local InfectionMain = InfectionTab:AddSection"Main"
+			--library.options["Aimbot Mode"]:AddValue"Silent"
+			--InfectionWindow:AddToggle({text = "Wallbang"})
+
+			--aaa
+
+		elseif GameTitle == "Resurrection" then
+
+			local gc = getgc(true)
+			spawn(function()
+				while library do
+					wait(1)
+					for i,v in next, gc do
+						if typeof(v) == "table" and rawget(v, "ammoleft") then
+							if library.flags[GameTitle .. " Inf Ammo"] then
+								v.ammoleft = library.flags[GameTitle .. " Inf Ammo"] and math.huge
+								v.ammo = library.flags[GameTitle .. " Inf Ammo"] and math.huge
+							else
+								if v.ammoleft == math.huge then
+									v.ammoleft = v.info.spareammo
+									v.ammo = v.info.ammo
+								end
+							end
+							v.automatic = library.flags[GameTitle .. " Automatic Weapons"] and true or v.info.automatic
+							v.recoil = library.flags[GameTitle .. " No Recoil"] and 0 or v.info.recoil
+							v.maxspread = library.flags[GameTitle .. " No Spread"] and 0 or 0.1
+							v.minspread = library.flags[GameTitle .. " No Spread"] and 0 or 0.01
+							v.RPM = library.flags[GameTitle .. " Quickfire"] and 1000 or v.info.RPM
+						end
+					end
+				end
+			end)
+
+			local ResurrectionTab = library:AddTab"Resurrection"
+			local ResurrectionColumn = ResurrectionTab:AddColumn()
+			local ResurrectionColumn1 = ResurrectionTab:AddColumn()
+
+			local ResurrectionMain = ResurrectionColumn:AddSection"Main"
+			library.options["Aimbot Mode"]:AddValue"Silent"
+			ResurrectionMain:AddToggle({text = "Wallbang"})
+
+			local WeaponMods = ResurrectionColumn1:AddSection"Weapon Mods"
+			WeaponMods:AddToggle({text = "No Recoil"})
+			WeaponMods:AddToggle({text = "No Spread"})
+			WeaponMods:AddToggle({text = "Quickfire"})
+			WeaponMods:AddToggle({text = "Inf Ammo"})
+			WeaponMods:AddToggle({text = "Automatic Weapons"})
+
+			AddTracker(workspace.NPCs)
+
+		elseif GameTitle == "Typical Colors 2" then
+
+			local firebullet
+			for _,Func in next, getgc() do
+				if typeof(Func) == "function" then
+					local Info = debug.getinfo(Func)
+					if debug.getinfo(Func).name == "firebullet" then
+						firebullet = Func
+					end
+				end
+			end
+
+			local TC2Tab = library:AddTab"Typical Colors 2":AddColumn()
+
+			local TC2Main = TC2Tab:AddSection"Main"
+			library.options["Aimbot Mode"]:AddValue"Silent"
+			TC2Main:AddToggle({text = "Wallbang"})
+			TC2Main:AddToggle({text = "Inf Jump"})
+			TC2Main:AddToggle({text = "Quickfire"})
+
+			local Jumping
+			--local Quickfire
+			local function StartLoop()
+				--if Quickfire then
+				--	while Quickfire and wait() do
+				--		firebullet()
+				--	end
+				--end
+				if Jumping then
+					while library and Jumping and wait() do
+						local Char = Players[Client].Character
+						if Char then
+							Char.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+						end
+					end
+				end
+			end
+
+			library:AddConnection(inputService.InputBegan, function(Input)
+				if library.flags[GameTitle .. " Inf Jump"] and not inputService:GetFocusedTextBox() then
+					if Input.KeyCode.Name == "Space" then
+						Jumping = true
+						StartLoop()
+					end
+					--if Input.UserInputType.Name == "MouseButton1" then
+					--	Quickfire = true
+					--	StartLoop()
+					--end
+				end
+			end)
+
+			library:AddConnection(inputService.InputEnded, function(Input)
+				if Input.KeyCode.Name == "Space" then
+					Jumping = false
+				end
+				--if Input.UserInputType.Name == "MouseButton1" then
+				--	Quickfire = false
+				--end
+			end)
+
+			local TC2ncall
+			TC2ncall = hookmetamethod(game, "__namecall", function(self, ...)
+				if checkcaller() then return TC2ncall(self, ...) end
+
+				local Args = {...}
+				local Method = getnamecallmethod()
+
+				if Method == "FireServer" then
+					if self.Name == "CreateProjectile" then
+						if library.flags["Aimbot Mode"] == "Silent" and library.Aimbot.Position3d then
+							Args[2] = library.Aimbot.Position3d
+							Args[3] = CFrame.new(library.Aimbot.Position3d + Vector3.new(0, 0.5, 0))
+							Args[5] = library.Aimbot.Position3d + Vector3.new(0, 0.5, 0)
+						end
+					end
+
+				end
+
+				if Method == "FindPartOnRayWithIgnoreList" then
+					if library.flags[GameTitle .. " Wallbang"] and Args[2][1].Name == "Clips" then
+						local n = #Args[2]
+						Args[2][n + 1] = workspace.Map
+					end
+					if library.flags["Aimbot Mode"] == "Silent" and library.Aimbot.Position3d then
+						Args[1] = Ray.new(Camera.CFrame.p, (library.Aimbot.Position3d - Camera.CFrame.p).Unit * library.flags["Aimbot Max Distance"])
+					end
+				end
+				return TC2ncall(self, unpack(Args))
+			end)
+
+		elseif GameTitle == "Blackhawk Rescue Mission" then
+
+			--local BRMTab = library:AddTab"Blackhawk Rescue Mission":AddColumn()
+			--local BRMMain = BRMTab:AddSection"Main"
+
+			library.options["Aimbot Mode"]:AddValue"Silent"
+			--BRMMain:AddToggle({text = "Wallbang"})
+
+			AddTracker(workspace.Custom["-1"])
+
+		elseif GameTitle == "Shoot Out" then
+
+			--local SOTab = library:AddTab"Shoot Out":AddColumn()
+			--local SOMain = SOTab:AddSection"Main"
+
+			library.options["Aimbot Mode"]:AddValue"Silent"
+			--SOMain:AddToggle({text = "Wallbang"})
+
+			local OldValues = {}
+			local function ApplyMods()
+				for i,v in next, getgc(true) do
+					if typeof(v) == "table" and rawget(v, "ROF") and v ~= OldValues[v.NAME] then
+						if not OldValues[v.NAME] then
+							OldValues[v.NAME] = v
+						end
+						--for i2,v2 in next, v do print(i2, v2) end
+						v.ROF = library.flags[GameTitle .. " Quickfire"] and math.huge or OldValues[v.NAME].ROF
+						v.AUTOMATIC = library.flags[GameTitle .. " Automatic Weapons"] and true or OldValues[v.NAME].AUTOMATIC
+						v.SPREAD = library.flags[GameTitle .. " No Spread"] and 0 or OldValues[v.NAME].SPREAD
+						v.RECOIL_STRENGTH = library.flags[GameTitle .. " No Recoil"] and 0 or OldValues[v.NAME].RECOIL_STRENGTH
+						v.RELOAD_TIME = library.flags[GameTitle .. " Fast Reload"] and 0 or OldValues[v.NAME].RELOAD_TIME
+						--v.MAX_AMMO = library.flags[GameTitle .. " Inf Ammo"] and math.huge or OldValues[v.NAME].MAX_AMMO
+					end
+				end
+			end
+
+			--local WeaponMods = SOTab:AddSection"Weapon Mods"
+			--WeaponMods:AddToggle({text = "No Recoil", callback = ApplyMods})
+			--WeaponMods:AddToggle({text = "No Spread", callback = ApplyMods})
+			--WeaponMods:AddToggle({text = "Quickfire", callback = ApplyMods})
+			--WeaponMods:AddButton({text = "Inf Ammo", callback = function() ApplyMods() end})
+			--WeaponMods:AddToggle({text = "Fast Reload", callback = ApplyMods})
+			--WeaponMods:AddToggle({text = "Automatic Weapons", callback = ApplyMods})
+
+			local function SetTeams()
+				for i,v in next, getreg() do
+					if typeof(v) == "table" and rawget(v, "Cowboys") then
+						Cowboys = v.Cowboys
+						Sheriffs = v.Sheriffs
+					end
+				end
+			end
+			SetTeams()
+
+			spawn(function()
+				while library and wait(5) do
+					SetTeams()
+				end
+			end)
+
+		elseif GameTitle == "Weaponry" then
+
+			local Shoot, Recoil
+			repeat wait(1)
+				for i,v in next, getgc(true) do
+					if typeof(v) == "function" and not iskrnlclosure(v) then
+						local info = debug.getinfo(v)
+						if info.name == "EnableShoot" then
+							Shoot = v
+						elseif info.name == "RecoilEffects" then
+							Recoil = v
+						elseif info.name == "checkIsHitPlayerValid" then
+							v = function() return true end
+						end
+					end
+				end
+			until Shoot and Recoil
+
+			local Framework = getsenv(Client.PlayerScripts["Client_Major_Framework"])
+			local PauseFunc = getconstant(Framework.PauseWeapon, 2)
+
+			local WeaponryTab = library:AddTab"Weaponry"
+			local WeaponryColumn = WeaponryTab:AddColumn()
+			--local WeaponryColumn1 = WeaponryTab:AddColumn()
+
+			local WeaponryMain = WeaponryColumn:AddSection"Main"
+			library.options["Aimbot Mode"]:AddValue"Silent"
+			--WeaponryMain:AddToggle({text = "Wallbang"})
+
+			local WeaponMods = WeaponryColumn:AddSection"Weapon Mods"
+			WeaponMods:AddToggle({text = "No Recoil"})
+			WeaponMods:AddToggle({text = "No Spread"})
+			WeaponMods:AddToggle({text = "Inf Ammo"})
+			WeaponMods:AddToggle({text = "Inf Range"})
+			WeaponMods:AddToggle({text = "Quickfire"})
+			--WeaponMods:AddToggle({text = "High Velocity", callback = ApplyMods})
+			--WeaponMods:AddToggle({text = "Automatic Weapons", callback = ApplyMods})
+
+			local Stats = {}
+			local ShootHook
+			ShootHook = hookfunction(Shoot, function()
+				local Values = getupvalues(ShootHook)
+				local WeaponStats = Values[3]
+
+				local RealStats = Stats[WeaponStats.WeaponName]
+				if not RealStats then
+					Stats[WeaponStats.WeaponName] = WeaponStats
+					RealStats = Stats[WeaponStats.WeaponName]
+				end
+
+				if library.flags[GameTitle .. " No Spread"] then
+					WeaponStats.CurrentAccuracy = 0
+				end
+
+				if library.flags[GameTitle .. " Inf Ammo"] then
+					WeaponStats.CurrentAmmo = WeaponStats.MaxAmmo
+				end
+
+				if library.flags[GameTitle .. " Quickfire"] then
+					WeaponStats.FireRate = 0
+					WeaponStats.CanShoot = true
+					WeaponStats.IsShooting = false
+				else
+					WeaponStats.FireRate = RealStats.FireRate
+				end
+
+				WeaponStats.Range = library.flags[GameTitle .. " Inf Range"] and 10000 or RealStats.Range
+
+				return ShootHook()
+			end)
+
+			local RecoilHook
+			RecoilHook = hookfunction(Recoil, function()
+				return not library.flags[GameTitle .. " No Recoil"] and RecoilHook()
+			end)
+
+		elseif GameTitle == "Boxing Simulator" then
+
+			AimbotTab.canInit = false
+			VisualsTab.canInit = false
+
+			local BSTab = library:AddTab"Boxing Simulator"
+			local BSColumn = BSTab:AddColumn()
+			local BSColumn1 = BSTab:AddColumn()
+
+			local BSAutomation = BSColumn:AddSection"Automation"
+			BSAutomation:AddToggle({text = "Punch", flag = "Auto Punch", callback = function(State)
+				if State then
+					while library and library.flags[GameTitle .. " Auto Punch"] and wait() do
+						local Char = Client.Character
+						if FFCoC(Char, "Humanoid") then
+							local Tool = FFCoC(Char, "Tool")
+							if Tool then
+								Tool:Activate()
+							else
+								for i, v in next, Client.Backpack:GetChildren() do
+									if v:IsA("Tool") then
+										Char.Humanoid:EquipTool(v)
+									end
+								end
+							end
+						end
+					end
+				end
+			end})
+			BSAutomation:AddToggle({text = "Sell", flag = "Auto Sell", callback = function(State)
+				if State then
+					while library and library.flags[GameTitle .. " Auto Sell"] and wait(5) do
+						RepStorage.Events.SellRequest:FireServer()
+					end
+				end
+			end})
+			BSAutomation:AddToggle({text = "Capture Flags", flag = "ACF", callback = function(State)
+				if State then
+					while library and library.flags[GameTitle .. " ACF"] and wait(1) do
+						local Char = Client.Character
+						if FFC(Char, "HumanoidRootPart") then
+							for i,v in next, workspace.Flags:GetChildren() do
+								if v.Flag.Player.Info.PlayerName.Text ~= Client.Name then
+									Char.HumanoidRootPart.CFrame = v.Hitbox.CFrame + Vector3.new(0, 5, 0)
+									wait(10)
+								end
+							end
+						end
+					end
+				end
+			end})
+			BSAutomation:AddToggle({text = "Collect", flag = "Collect", callback = function(State)
+				if State then
+					while library and library.flags[GameTitle .. " Collect"] and wait() do
+						local Char = Client.Character
+						if FFC(Char, "HumanoidRootPart") then
+							if library.flags[GameTitle .. " C Filter"]["Coins"] then
+								for i,v in next, workspace.Coins:GetChildren() do
+									v.HumanoidRootPart.CFrame = Char.HumanoidRootPart.CFrame
+								end
+							end
+							if library.flags[GameTitle .. " C Filter"]["Event Items"] then
+								for i,v in next, workspace.Canes:GetChildren() do
+									v.HumanoidRootPart.CFrame = Char.HumanoidRootPart.CFrame
+								end
+							end
+						end
+					end
+				end
+			end}):AddList({text = "Filter", flag = "C Filter", values = {"Coins", "Event Items"}, multiselect = true})
+
+			local GlovesRemote = FFC(RepStorage.Events, "BuyAllGlove")
+			local DNARemote = FFC(RepStorage.Events, "BuyAllDNA")
+			local ClassRemote = FFC(RepStorage.Events, "BuyClass")
+			BSAutomation:AddToggle({text = "Upgrade", flag = "Upgrade", callback = function(State)
+				if State then
+					while library and library.flags[GameTitle .. " Upgrade"] and wait(1) do
+						if library.flags[GameTitle .. " U Filter"]["Gloves"] then
+							GlovesRemote:FireServer()
+						end
+						if library.flags[GameTitle .. " U Filter"]["DNA"] then
+							DNARemote:FireServer()
+						end
+						if library.flags[GameTitle .. " U Filter"]["Class"] then
+							for i = 1,30 do
+								ClassRemote:FireServer(i)
+								wait(0.1)
+							end
+						end
+					end
+				end
+			end}):AddList({text = "Filter", flag = "U Filter", values = {"Gloves", "DNA", "Class"}, multiselect = true})
+
+			local FarmingSection = BSColumn:AddSection"Farming"
+			--FarmingSection:AddToggle({text = "Enabled", flag = "Farming"})
+
+		elseif GameTitle == "Citadel Of Adun" then
+
+			spawn(function()
+				while library and wait(5) do
+					local CPos = Client.PlayerGui.CursorGui:WaitForChild"Mouse":WaitForChild"Icon".AbsolutePosition
+					local CSize = Client.PlayerGui.CursorGui.Mouse.Icon.AbsoluteSize / 2
+					library.options["MXO Amount"]:SetValue((Mouse.X <= CPos.X and (CPos.X - Mouse.X) or (Mouse.X - CPos.X)) + CSize.X)
+					library.options["MYO Amount"]:SetValue((Mouse.Y <= CPos.Y and (Mouse.Y - CPos.Y) or (CPos.Y - Mouse.Y)) + CSize.Y)
+				end
+			end)
+
+		elseif GameTitle == "Dust" then
+
+			local Retards = {
+			}
+
+			for _, Player in next, game.Players:GetChildren() do
+				if Retards[Player.UserId] then
+					library:SendNotification(10, "A " .. Retards[Player.UserId] .. "(" .. Player.Name .. ") is in your game!")
+				end
+			end
+
+			library:AddConnection(game.Players.PlayerAdded, function(Player)
+				if Retards[Player.UserId] then
+					library:SendNotification(10, "A " .. Retards[Player.UserId] .. "(" .. Player.Name .. ") has joined your game!")
+				end
+			end)
+
+		elseif GameTitle == "BIG Paintball" then
+
+			local FireFunc
+			repeat wait(1)
+				for i,v in next, getgc(true) do
+					if type(v) == "table" and rawget(v, "Projectiles") then
+						FireFunc = v.Projectiles.Fire
+					end
+				end
+			until FireFunc
+
+			local o
+			o = hookfunction(FireFunc, function(Player, CF, ...)
+				if library and library.flags["Aimbot Mode"] == "Silent" then
+					if Player == Client and library.Aimbot.Position3d then
+						CF = CFrame.new(CF.Position, library.Aimbot.Position3d)
+					end
+				end
+				return o(Player , CF, ...)
+			end)
+
+			--gun mods
+			local DefaultGunStats = {}
+			for i,v in next, RepStorage.Framework.Modules["1 | Directory"].Guns:GetChildren() do
+				if v.ClassName == 'ModuleScript' then
+					local gunModule = require(v)
+					for aa, bb in next, gunModule do
+						gunModule = bb
+					end
+
+					DefaultGunStats[v.Name] = {
+						automatic = gunModule.automatic or nil;
+						shotrate = gunModule.shotrate or nil;
+						velocity = gunModule.velocity or nil;
+					}
+				end
+			end
+
+			function UpdateGunMod()
+				for i,v in next, RepStorage.Framework.Modules["1 | Directory"].Guns:GetChildren() do
+					if v.ClassName == 'ModuleScript' then
+						local gunModule = require(v)
+						for aa, bb in next, gunModule do
+							gunModule = bb
+						end
+						gunModule.automatic = library.flags[GameTitle .. " Automatic Weapons"] or DefaultGunStats[v.Name]["automatic"]
+						gunModule.shotrate = library.flags[GameTitle .. " Quickfire"] and 0 or DefaultGunStats[v.Name]["shotrate"]
+						gunModule.velocity = library.flags[GameTitle .. " Instant Hit"] and 9e9 or DefaultGunStats[v.Name]["velocity"]
+					end
+				end
+			end
+
+			local BPTab = library:AddTab"BIG Paintball"
+			local BPColumn = BPTab:AddColumn()
+			--local BPColumn1 = BPTab:AddColumn()
+
+			--local BPMain = BPColumn:AddSection"Main"
+			library.options["Aimbot Mode"]:AddValue"Silent"
+			--BPMain:AddToggle({text = "Wallbang"})
+
+			local WeaponMods = BPColumn:AddSection"Weapon Mods"
+			WeaponMods:AddToggle({text = "Quickfire", callback = UpdateGunMod})
+			WeaponMods:AddToggle({text = "Instant Hit", callback = UpdateGunMod})
+			WeaponMods:AddToggle({text = "Automatic Weapons", callback = UpdateGunMod})
+
+		elseif GameTitle == "Giant Survival" then
+
+			AimbotTab.canInit = false
+			VisualsTab.canInit = false
+			--gun mods
+			local DefaultGunStats = {}
+			local gunModule = require(RepStorage.Framework.Modules["7 | Weapon"])
+			for i, v in next, gunModule.weapons do
+				DefaultGunStats[v.name] = {auto = v.auto, rate = v.rate, velocity = v.velocity}
+			end	
+
+			function UpdateGunMod()
+				for i, v in next, gunModule.weapons do
+					v.auto = library.flags[GameTitle .. " Automatic Weapons"] or DefaultGunStats[v.name]["auto"]
+					v.rate = library.flags[GameTitle .. " Quickfire"] and 0 or DefaultGunStats[v.name]["rate"]
+					v.velocity = library.flags[GameTitle .. " Instant Hit"] and 9e9 or DefaultGunStats[v.name]["velocity"]
+				end
+			end
+
+			local GSTab = library:AddTab"BIG Paintball"
+			local GSColumn = GSTab:AddColumn()
+			local GSColumn1 = GSTab:AddColumn()
+
+			local GSMain = GSColumn:AddSection"Main"
+			GSMain:AddList({text = "Equip Gun", values = {"Crazy Futuristic Minigun","Black Hole Gun","Golden Pistol", "Biochemical Blaster","Space Rifle","Ray Gun","SCAR","Lava Pistol","Sniper Rifle","Minigun","Plunger Rifle", "SMG","Double Barrel Shotgun","Fireworks Launcher","Paintball Gun","Potato Launcher","Banana Pistol","Revolver","Slingshot","Crossbow"}, max = 10, callback = function(Value)
+				workspace["__THINGS"]["__REMOTES"].weaponequipped:FireServer({{Value}, {false}})
+				if FFCoC(Client.Character, "Humanoid") then
+					Client.Character.Humanoid.Health = 0
+				end
+			end})
+			GSMain:AddList({text = "Equip Gear", values = {"Infinity Coil","Cash Magnet","Super Speed Coil","Super Gravity Coil","Speed Coil","Gravity Coil"}, max = 10, callback = function(Value)
+				workspace["__THINGS"]["__REMOTES"].gearequipped:FireServer({{Value}, {false}})
+				if FFCoC(Client.Character, "Humanoid") then
+					Client.Character.Humanoid.Health = 0
+				end
+			end})
+			--BPMain:AddToggle({text = "Wallbang"})
+
+			local WeaponMods = GSColumn1:AddSection"Weapon Mods"
+			WeaponMods:AddToggle({text = "Quickfire", callback = UpdateGunMod})
+			WeaponMods:AddToggle({text = "Instant Hit", callback = UpdateGunMod})
+			WeaponMods:AddToggle({text = "Automatic Weapons", callback = UpdateGunMod})
+
+		elseif GameTitle == "Lumberjack Legends" then
+			AimbotTab.canInit = false
+			VisualsTab.canInit = false
+
+			local LLTab = library:AddTab"Lumberjack Legends"
+			local LLColumn = LLTab:AddColumn()
+			local LLColumn1 = LLTab:AddColumn()
+
+			local LLMain = LLColumn:AddSection"Main"
+			LLMain:AddButton({text = "Massive Backpack", callback = function()
+				RepStorage.EquipBackpackRequest:InvokeServer(79)
+			end})
+			local EquipToolRequest = RepStorage.EquipToolRequest
+			LLMain:AddButton({text = "Equip your best Axe", callback = function()
+				local AxeValue = Client.leaderstats["Axe Level"].Value
+				for i = AxeValue, 158 do
+					EquipToolRequest:InvokeServer(Client.Character:WaitForChild("Axe"), i)
+				end
+			end})
+
+			local LLAutomation = LLColumn1:AddSection"Automation"
+			LLAutomation:AddToggle({text = "Collect Coins", callback = function()
+				while library and library.flags[GameTitle .. "Collect Coins"] do
+					wait(2.5)
+					if Client.Character and FFC(Client.Character, "HumanoidRootPart") then
+						for i,v in next, workspace.Village.CoinSpawnHolderV2:GetChildren() do 
+							if v.Name == "CoinSpawn" then
+								v.CFrame = Client.Character.HumanoidRootPart.CFrame
+							end
+						end
+						for i,v in next, workspace.Worlds:GetChildren() do
+							if FFC(v, "CoinSpawnHolder") then
+								for z,x in next, v.CoinSpawnHolder:GetChildren() do 
+									if x.Name == "CoinSpawn" then
+										x.CFrame = Client.Character.HumanoidRootPart.CFrame
+									end
+								end
+							end
+						end
+					end
+				end
+			end})
+
+		elseif GameTitle == "Magnet Simulator" then
+
+
+
+		elseif GameTitle == "Death Zone" then
+
+			getsenv(Client.Backpack:WaitForChild(" ")).boom = function() end
+
+			library:AddConnection(Client.CharacterAdded, function(Char)
+				Char:WaitForChild"FallDamage":Destroy()
+			end)
+			delay(1, function()
+				Players[Client].Character:WaitForChild"FallDamage":Destroy()
+			end)
+
+			local DZTab = library:AddTab"Death Zone"
+			local DZColumn = DZTab:AddColumn()
+			local DZColumn1 = DZTab:AddColumn()
+
+			library.options["Aimbot Mode"]:AddValue"Silent"
+
+			local DZMain = DZColumn:AddSection"Main"
+			DZMain:AddToggle({text = "Thirdperson", callback = function(State)
+				if State then
+					library:AddConnection(runService.RenderStepped, "Thirdperson", function()
+						if library and library.flags[GameTitle .. " Thirdperson"] then
+							Client.CameraMaxZoomDistance = library.flags[GameTitle .. " TP Distance"]
+							Client.CameraMinZoomDistance = library.flags[GameTitle .. " TP Distance"]
+						else
+							library.connections["Thirdperson"]:Disconnect()
+						end
+					end)
+				else
+					Client.CameraMaxZoomDistance = 0
+					Client.CameraMinZoomDistance = 0
+				end
+			end}):AddSlider({text = "Distance", flag = "TP Distance", min = 10, max = 50})
+			DZMain:AddToggle({text = "Speed"}):AddSlider({text = "Amount", flag = "Speed Amount", min = 10, max = 100})
+			DZMain:AddToggle({text = "Jump Power", callback = function(State)
+				if State then
+					library:AddConnection(runService.RenderStepped, "Jump", function()
+						if library and library.flags[GameTitle .. " Jump Power"] then
+							local Char = Players[Client].Character
+							Char = Char and FFCoC(Char, "Humanoid")
+							if Char then
+								Char.JumpPower = library.flags[GameTitle .. " Jump Amount"]
+							end
+						else
+							library.connections["Jump"]:Disconnect()
+							local Char = Players[Client].Character
+							Char = Char and FFCoC(Char, "Humanoid")
+							if Char then
+								Char.JumpPower = 50
+							end
+						end
+					end)
+				end
+			end}):AddSlider({text = "Amount", flag = "Jump Amount", min = 50, max = 300})
+
+			local OldWeaponValues = {}
+			for _,v in next, RepStorage.GunSettings:GetChildren() do
+				OldWeaponValues[v.Name] = {}
+				for i,v2 in next, require(v) do
+					if i ~= "aimoffset" then
+						OldWeaponValues[v.Name][i] = v2
+					end
+				end
+			end
+
+			local AimOffsets = {
+				["M1911"] = CFrame.new(-0.453000009, 0.601499975, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+				["M16"] = CFrame.new(-0.349999994, 0.294999987, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+				["870MCS"] = CFrame.new(-0.349999994, 0.449999988, 1.5, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+				["ACWR"] = CFrame.new(-0.35800001, 0.215000004, 0.800000012, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+				["AEK971"] = CFrame.new(-0.344999999, 0.402999997, 1.70000005, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+				["AK74M"] = CFrame.new(-0.349999994, 0.400000006, 1.25, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+				["ASVAL"] = CFrame.new(-0.353500009, 0.40200001, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+				["AUG"] = CFrame.new(-0.342500001, 0.104000002, 0.5, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+				["Beretta"] = CFrame.new(-0.451000005, 0.456, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+				["M1014"] = CFrame.new(-0.356999993, 0.414999992, 1.35000002, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+				["Magnum"] = CFrame.new(-0.456200004, 0.262400001, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+				["P90"] = CFrame.new(-0.364499986, 0.0500000007, 1.5, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+				["SCARL"] = CFrame.new(-0.352499992, 0.218999997, 0.600000024, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+				["SPAS12"] = CFrame.new(-0.349999994, 0.375, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+				["AWP"] = CFrame.new(-0.354999989, 0.451000005, 0.800000012, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+				["Minigun"] = CFrame.new(-0.364499986, 0.0500000007, 1.5, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+				["Deagle"] = CFrame.new(-0.453000009, 0.601499975, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+				["PPSH41"] = CFrame.new(-0.353500009, 0.40200001, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1),
+			}
+
+			local gc = getgc(true)
+			spawn(function()
+				while library do
+					wait(2)
+					for _,v in next, gc do
+						if type(v) == "table" and rawget(v, "aimoffset") then
+							for i,v2 in next, AimOffsets do
+								if v2 == v.aimoffset and library then
+									v.rpm = library.flags[GameTitle .. " Quickfire"] and 9e9 or OldWeaponValues[i].rpm
+									v.auto = library.flags[GameTitle .. " Automatic Weapons"] and true or OldWeaponValues[i].auto
+									v.recoil = library.flags[GameTitle .. " No Recoil"] and 0 or OldWeaponValues[i].recoil
+									v.spread = library.flags[GameTitle .. " No Spread"] and 0 or OldWeaponValues[i].spread
+									v.reloadtime = library.flags[GameTitle .. " Fast Reload"] and 0 or OldWeaponValues[i].reloadtime
+									v.walkspeed = library.flags[GameTitle .. " Speed"] and library.flags[GameTitle .. " Speed Amount"] or OldWeaponValues[i].walkspeed
+									v.runspeed = library.flags[GameTitle .. " Speed"] and library.flags[GameTitle .. " Speed Amount"] or OldWeaponValues[i].runspeed
+								end
+							end
+						end
+					end
+				end
+			end)
+
+			local WeaponMods = DZColumn1:AddSection"Weapon Mods"
+			WeaponMods:AddToggle({text = "No Recoil"})
+			WeaponMods:AddToggle({text = "No Spread"})
+			WeaponMods:AddToggle({text = "Quickfire"})
+			WeaponMods:AddToggle({text = "Fast Reload"})
+			WeaponMods:AddToggle({text = "Automatic Weapons"})
+
+			local Teleporting
+			local function TeleportTo(Position)
+				if Teleporting then return end
+				Teleporting = true
+				local Char = Players[Client].Character
+				Char = Char and FFC(Char, "HumanoidRootPart")
+				if Char then
+					local Pos = Char.Position
+					Char.Anchored = true
+					local step = 20
+					for i=1,step do
+						Char.CFrame = CFrame.new(Vector3.new(Pos.X, 3000, Pos.Z), Char.CFrame.LookVector):lerp(Char.CFrame, step)
+					end
+					for i=1,step do
+						Char.CFrame = CFrame.new(Vector3.new(Position.X, 3000, Position.Z), Char.CFrame.LookVector):lerp(Char.CFrame, step)
+					end
+					for i=1,step do
+						Char.CFrame = CFrame.new(Position, Char.CFrame.LookVector):lerp(Char.CFrame, step)
+					end
+					--[[
+					wait(1)
+					Char.CFrame = CFrame.new(Vector3.new(Position.X, 2000, Position.Z), Char.CFrame.LookVector)
+					wait(1)
+					Char.CFrame = CFrame.new(Vector3.new(Pos.X, 2000, Pos.Z), Char.CFrame.LookVector)
+					wait(1)
+					Char.CFrame = CFrame.new(Pos, Char.CFrame.LookVector)
+					--]]
+					Char.Anchored = false
+					wait(1)
+				end
+				Teleporting = false
+			end
+
+			
+			local function BringItems(Type, Name)
+				for _, v in next, workspace.Items:GetChildren() do
+					if v.Config.Type.Value == Type then
+						if Name then
+							if Type == "Attachment" then
+								if not FFC(v.Config.GunsCompatibility, Name) then
+									continue
+								end
+							else
+								if not v.Config.ItemName.Value:find(Name) then
+									continue
+								end
+							end
+						end
+						TeleportTo(v.MainPart.Position)
+					end
+				end
+			end
+			
+			local WeaponItems = {
+				"M1911", "Beretta", "Magnum", "Deagle", 
+				"M1014", "SPAS-12", "870MCS",
+				"P90", "PPSh-41", "AS Val", "M16", "SCAR-L", "AUG", "ACW-R",
+				"Minigun", "AWP"
+			}
+
+			local ItemTab = DZColumn1:AddSection"Items"
+			ItemTab:AddButton({text = "Bring Consumables", callback = function()
+				BringItems"Consumable"
+			end})
+
+			ItemTab:AddList({text = "Weapons", skipflag = true, value = "", values = WeaponItems, max = 10, callback = function()
+				BringItems("Weapon", Value)
+			end})
+			ItemTab:AddButton({text = "Bring Ammo", callback = function()
+				BringItems("Ammo", library.flags[GameTitle .. " Weapons"])
+			end})
+			ItemTab:AddButton({text = "Bring Comp. Attachments", callback = function()
+				BringItems("Attachment", library.flags[GameTitle .. " Weapons"])
+			end})
+
+			ItemTab:AddList({text = "Helmets", skipflag = true, value = "", values = {"Civilian", "Military", "Spec Ops", "Gas Mask", "Night Vision"}, callback = function(Value)
+				BringItems("Helmet", Value)
+			end})
+
+			ItemTab:AddList({text = "Vests", skipflag = true, value = "", values = {"Civilian", "Military", "Spec Ops"}, callback = function(Value)
+				BringItems("Vest", Value)
+			end})
+
+			ItemTab:AddList({text = "Backpacks", skipflag = true, value = "", values = {"Civilian", "Military", "Spec Ops"}, callback = function(Value)
+				BringItems("Backpack", Value)
+			end})
+			--]]
+
+		elseif GameTitle == "R2DA" then
+
+			AddTracker(workspace.Characters.Zombies)
+
+		elseif GameTitle == "Zombie Uprising" then
+
+			local ZUprisingTab = library:AddTab"Zombie Uprising"
+			local ZUprisingColumn = ZUprisingTab:AddColumn()
+
+			local ZUprisingMain = ZUprisingColumn:AddSection"Main"
+			local WeaponMods = ZUprisingColumn:AddSection"Weapon Mods"
+
+			AddTracker(workspace.Zombies)
+			AddTracker(workspace.Map.BossFolder)
+
+		end
+	end)
+
+	library.flagprefix = nil
+
+	if VisualsTab.canInit then
+		AddTracker(PlayerServ)
+	end
+
+	--Always running
+	library:AddConnection(runService.RenderStepped, function()
+		local MX, MY = Mouse.X, Mouse.Y + 36
+		if library.flags["Mouse Offset"] then
+			MX = MX + library.flags["MXO Amount"]
+			MY = MY + library.flags["MYO Amount"]
+		end
+
+		if Draw.Visible then
+			Draw.Position = Vector2.new(MX, MY)
+		end
+
+		--if RadarWindow.Visible then
+		--	RadarWindow.Position = Vector2.new(MX, MY)
+		--end
+
+		if CrosshairBottom.Visible then
+			local Thickness = library.flags["Crosshair Thickness"] / 2
+			local TX, TY = MX - Thickness, MY - Thickness
+			CrosshairTop.Position = Vector2.new(TX, MY - library.flags["Crosshair Gap"])
+			CrosshairLeft.Position = Vector2.new(MX - library.flags["Crosshair Gap"], TY)
+			CrosshairRight.Position = Vector2.new(MX + library.flags["Crosshair Gap"], TY)
+			CrosshairBottom.Position = Vector2.new(TX, MY + library.flags["Crosshair Gap"])
+		end
+		
+		Lighting.ClockTime = library.flags["Clock Time"] and library.flags["Clock Time Amount"] or LightingSpoof.ClockTime
+		Lighting.Brightness = library.flags["Brightness"] and library.flags["Brightness Amount"] or LightingSpoof.Brightness
+		Lighting.Ambient = library.flags["Ambient Lighting"] and library.flags["Indoor Ambient"] or LightingSpoof.Ambient
+		Lighting.OutdoorAmbient = library.flags["Ambient Lighting"] and library.flags["Outdoor Ambient"] or LightingSpoof.OutdoorAmbient
+		Lighting.ColorShift_Top = library.flags["Color Shift"] and library.flags["Color Shift Top"] or LightingSpoof.ColorShift_Top
+
+		Camera.FieldOfView = (library.flags["FOV Zoom Enabled"] and library.flags["FOV Zoom Key"] and (50 - library.flags["FOV Zoom Amount"])) or library.flags["FOV Changer"] and (library.flags["Dynamic Custom FOV"] and (CameraSpoof.FieldOfView + library.flags["FOV Amount"]) or library.flags["FOV Amount"]) or CameraSpoof.FieldOfView
+	end)
+
+	library:Init()
+
+	delay(1, function() library:LoadConfig(tostring(getgenv().autoload)) end)
+
+	if not getgenv().silent then
+		if Loaded then
+			library:SendNotification(5, "Loaded " .. (GameTitle or "universal features") .. " successfully")
+		else
+			library:SendNotification(5, "Failed to load " .. (GameTitle or "universal features") .. " (error copied to clipboard)")
+			setclipboard(LoadError)
+		end
+	end
+
+	if not library:GetConfigs()[1] then
+		writefile(library.foldername .. "/Default" .. library.fileext, loadstring(game:HttpGet("https://raw.githubusercontent.com/Jan5106/uwuware_final/main/default_config.lua", true))())
+		library.options["Config List"]:AddValue"Default"
+		library:LoadConfig"Default"
+	end
+end)
+  	end    
+})
 ArmaTab:AddButton({
 	Name = "Bala Explosiva",
 	Callback = function()
@@ -3364,6 +10582,1337 @@ end)
             end
         })
 JogadorTab:AddButton({
+	Name = "Remote Graber Server",
+	Callback = function()
+      	--[[
+	[Made by  MrLua(L_L#9189)]
+	 ^^^^^^^^^^^^^^^^^^^^^^^^
+	  ^^^^^^^^^^^^^^^^^^^^^^
+	   ^^^^^^^^^^^^^^^^^^^^
+	    ^^^^^^^^^^^^^^^^^^
+	     ^^^^^^^^^^^^^^^^
+	      ur mom gai lol
+--]]
+
+local MainGUI = Instance.new("ScreenGui")
+local MainFrame = Instance.new("Frame")
+local ShadowFrame = Instance.new("Frame")
+local TitleTxt = Instance.new("TextLabel")
+local CreditsTxt = Instance.new("TextLabel")
+local MainSFrame = Instance.new("ScrollingFrame")
+local Log = Instance.new("Frame")
+local RemoteIcon = Instance.new("ImageLabel")
+local RemoteName = Instance.new("TextLabel")
+local RemoteLocation = Instance.new("TextLabel")
+local FireOInvoke = Instance.new("TextButton")
+local RemoteArguments = Instance.new("TextBox")
+local ClearButton = Instance.new("TextButton")
+local ScanButton = Instance.new("TextButton")
+local ScanInTxt = Instance.new("TextLabel")
+local ScanLocation = Instance.new("TextBox")
+
+MainGUI.Name = "MainGUI"
+MainGUI.Parent = game:GetService("CoreGui")
+
+MainFrame.Name = "MainFrame"
+MainFrame.Parent = MainGUI
+MainFrame.Active = true
+MainFrame.BackgroundColor3 = Color3.new(0.160784, 0.666667, 1)
+MainFrame.BorderSizePixel = 0
+MainFrame.Draggable = true
+MainFrame.Position = UDim2.new(0.5, -200, 0.5, -150)
+MainFrame.Size = UDim2.new(0, 500, 0, 350)
+
+ShadowFrame.Name = "ShadowFrame"
+ShadowFrame.Parent = MainFrame
+ShadowFrame.BackgroundColor3 = Color3.new(0, 0, 0)
+ShadowFrame.BackgroundTransparency = 0.69999998807907
+ShadowFrame.BorderSizePixel = 0
+ShadowFrame.Position = UDim2.new(0, 0, 1, 0)
+ShadowFrame.Size = UDim2.new(1, 0, 0, 3)
+
+TitleTxt.Name = "TitleTxt"
+TitleTxt.Parent = MainFrame
+TitleTxt.BackgroundColor3 = Color3.new(0.258824, 0.113725, 1)
+TitleTxt.BackgroundTransparency = 0.85000002384186
+TitleTxt.BorderSizePixel = 0
+TitleTxt.Size = UDim2.new(1, 0, 0, 50)
+TitleTxt.Font = Enum.Font.SourceSansSemibold
+TitleTxt.Text = "Loaded!"
+TitleTxt.TextColor3 = Color3.new(1, 1, 1)
+TitleTxt.TextSize = 28
+
+CreditsTxt.Name = "CreditsTxt"
+CreditsTxt.Parent = TitleTxt
+CreditsTxt.BackgroundColor3 = Color3.new(0.258824, 0.113725, 1)
+CreditsTxt.BackgroundTransparency = 1
+CreditsTxt.BorderSizePixel = 0
+CreditsTxt.Position = UDim2.new(1, -50, 0, -2)
+CreditsTxt.Rotation = 25
+CreditsTxt.Size = UDim2.new(0, 40, 0, 40)
+CreditsTxt.Font = Enum.Font.Cartoon
+CreditsTxt.Text = ""
+CreditsTxt.TextColor3 = Color3.new(1, 1, 1)
+CreditsTxt.TextSize = 18
+
+MainSFrame.Name = "MainSFrame"
+MainSFrame.Parent = MainFrame
+MainSFrame.BackgroundColor3 = Color3.new(1, 1, 1)
+MainSFrame.BackgroundTransparency = 0.89999997615814
+MainSFrame.BorderSizePixel = 0
+MainSFrame.Position = UDim2.new(0, 5, 0, 55)
+MainSFrame.Size = UDim2.new(0, 490, 0, 230)
+
+Log.Name = "Log"
+Log.Parent = MainSFrame
+Log.BackgroundColor3 = Color3.new(1, 1, 1)
+Log.BackgroundTransparency = 1
+Log.BorderSizePixel = 0
+Log.Position = UDim2.new(0, 0, 0, 5)
+Log.Size = UDim2.new(1, 0, 0, 40)
+Log.Visible = false
+
+RemoteIcon.Name = "RemoteIcon"
+RemoteIcon.Parent = Log
+RemoteIcon.BackgroundColor3 = Color3.new(1, 1, 1)
+RemoteIcon.BackgroundTransparency = 1
+RemoteIcon.BorderSizePixel = 0
+RemoteIcon.Size = UDim2.new(0, 40, 1, 0)
+
+RemoteName.Name = "RemoteName"
+RemoteName.Parent = Log
+RemoteName.BackgroundColor3 = Color3.new(1, 1, 1)
+RemoteName.BackgroundTransparency = 0.89999997615814
+RemoteName.BorderSizePixel = 0
+RemoteName.Position = UDim2.new(0, 60, 0, 0)
+RemoteName.Size = UDim2.new(0, 125, 0, 40)
+RemoteName.Font = Enum.Font.Cartoon
+RemoteName.Text = ""
+RemoteName.TextColor3 = Color3.new(1, 1, 1)
+RemoteName.TextSize = 16
+RemoteName.TextWrapped = true
+
+RemoteLocation.Name = "RemoteLocation"
+RemoteLocation.Parent = Log
+RemoteLocation.BackgroundColor3 = Color3.new(1, 1, 1)
+RemoteLocation.BackgroundTransparency = 0.89999997615814
+RemoteLocation.BorderSizePixel = 0
+RemoteLocation.Position = UDim2.new(0, 200, 0, 0)
+RemoteLocation.Size = UDim2.new(0, 270, 0, 40)
+RemoteLocation.Font = Enum.Font.Cartoon
+RemoteLocation.Text = ""
+RemoteLocation.TextColor3 = Color3.new(1, 1, 1)
+RemoteLocation.TextScaled = true
+RemoteLocation.TextSize = 1
+RemoteLocation.TextWrapped = true
+
+FireOInvoke.Name = "FireOInvoke"
+FireOInvoke.Parent = Log
+FireOInvoke.BackgroundColor3 = Color3.new(0.0784314, 0.54902, 0.960784)
+FireOInvoke.BackgroundTransparency = 0.60000002384186
+FireOInvoke.BorderSizePixel = 0
+FireOInvoke.Position = UDim2.new(0, 70, 0, 0)
+FireOInvoke.Size = UDim2.new(0, 350, 0, 40)
+FireOInvoke.Visible = false
+FireOInvoke.Font = Enum.Font.SourceSansSemibold
+FireOInvoke.Text = "Fire"
+FireOInvoke.TextColor3 = Color3.new(1, 1, 1)
+FireOInvoke.TextSize = 24
+
+RemoteArguments.Name = "RemoteArguments"
+RemoteArguments.Parent = Log
+RemoteArguments.BackgroundColor3 = Color3.new(0.0901961, 0.529412, 1)
+RemoteArguments.BorderSizePixel = 0
+RemoteArguments.Position = UDim2.new(0, 70, 0, 0)
+RemoteArguments.Size = UDim2.new(0, 350, 0, 40)
+RemoteArguments.Visible = false
+RemoteArguments.ClearTextOnFocus = false
+RemoteArguments.Font = Enum.Font.SourceSansSemibold
+RemoteArguments.PlaceholderColor3 = Color3.new(1, 1, 1)
+RemoteArguments.PlaceholderText = "Enter Remote Argument(s)"
+RemoteArguments.Text = ""
+RemoteArguments.TextColor3 = Color3.new(1, 1, 1)
+RemoteArguments.TextScaled = true
+RemoteArguments.TextSize = 14
+RemoteArguments.TextWrapped = true
+
+ClearButton.Name = "ClearButton"
+ClearButton.Parent = MainFrame
+ClearButton.BackgroundColor3 = Color3.new(0.0392157, 0.521569, 0.72549)
+ClearButton.BorderSizePixel = 0
+ClearButton.Position = UDim2.new(0, 320, 0, 300)
+ClearButton.Size = UDim2.new(0, 80, 0, 40)
+ClearButton.Font = Enum.Font.SourceSansSemibold
+ClearButton.Text = "Clear"
+ClearButton.TextColor3 = Color3.new(1, 1, 1)
+ClearButton.TextSize = 22
+
+ScanButton.Name = "ScanButton"
+ScanButton.Parent = MainFrame
+ScanButton.BackgroundColor3 = Color3.new(0.0392157, 0.521569, 0.72549)
+ScanButton.BorderSizePixel = 0
+ScanButton.Position = UDim2.new(0, 410, 0, 300)
+ScanButton.Size = UDim2.new(0, 80, 0, 40)
+ScanButton.Font = Enum.Font.SourceSansSemibold
+ScanButton.Text = "Scan"
+ScanButton.TextColor3 = Color3.new(1, 1, 1)
+ScanButton.TextSize = 22
+
+ScanInTxt.Name = "ScanInTxt"
+ScanInTxt.Parent = MainFrame
+ScanInTxt.BackgroundColor3 = Color3.new(0.258824, 0.109804, 1)
+ScanInTxt.BackgroundTransparency = 0.89999997615814
+ScanInTxt.BorderSizePixel = 0
+ScanInTxt.Position = UDim2.new(0, 10, 0, 300)
+ScanInTxt.Size = UDim2.new(0, 80, 0, 40)
+ScanInTxt.Font = Enum.Font.SourceSansSemibold
+ScanInTxt.Text = "Scan in: "
+ScanInTxt.TextColor3 = Color3.new(1, 1, 1)
+ScanInTxt.TextSize = 24
+
+ScanLocation.Name = "ScanLocation"
+ScanLocation.Parent = MainFrame
+ScanLocation.BackgroundColor3 = Color3.new(0.0901961, 0.529412, 1)
+ScanLocation.BorderSizePixel = 0
+ScanLocation.Position = UDim2.new(0, 100, 0, 300)
+ScanLocation.Size = UDim2.new(0, 180, 0, 40)
+ScanLocation.ClearTextOnFocus = false
+ScanLocation.Font = Enum.Font.SourceSansSemibold
+ScanLocation.PlaceholderColor3 = Color3.new(1, 1, 1)
+ScanLocation.Text = ""
+ScanLocation.TextColor3 = Color3.new(1, 1, 1)
+ScanLocation.TextSize = 22
+ScanLocation.TextWrapped = true
+
+MainFrame.Draggable = true
+
+local BlockedRemotes = {"OnNewMessage","OnMessageDoneFiltering","OnNewSystemMessage","OnChannelJoined","OnChannelLeft","OnMuted","OnUnmuted","OnMainChannelSet","ChannelNameColorUpdated","SayMessageRequest","SetBlockedUserIdsRequest","GetInitDataRequest","MutePlayerRequest","UnMutePlayerRequest","DefaultServerSoundEvent","AddCharacterLoadedEvent","RemoveCharacterEvent"}
+
+local function DoAnimate(Object, Value)
+	spawn(function()
+		if Object.Text == "" or Object.Text == " "  then
+			for i = 1,#Value do
+				Object.Text = Object.Text..Value:sub(i,i)
+				wait(0.02)
+			end
+		else
+			for i = 1,#Object.Text do
+				Object.Text = Object.Text:sub(1,#Object.Text-1)
+				wait(0.02)
+			end
+			DoAnimate(Object,Value)
+		end
+	end)
+end
+
+wait()
+DoAnimate(TitleTxt, "Remote Grabber")
+DoAnimate(CreditsTxt, "Made by MrLua")
+DoAnimate(ScanButton, "Scan")
+DoAnimate(ClearButton, "Clear")
+DoAnimate(ScanInTxt, "Scan in:")
+DoAnimate(ScanLocation, "ReplicatedStorage")
+
+
+
+
+ScanButton.MouseButton1Click:Connect(function()
+	for i,v in pairs(MainSFrame:GetChildren()) do
+		if v.Name ~= "Log" then
+			v:Destroy()
+		end
+	end
+	for i,v in pairs(game:GetService(ScanLocation.Text):GetDescendants()) do
+		if v:IsA("RemoteEvent") or v:IsA("RemoteFunction") then
+			local UselessShittyRemote = false
+			for _i,_v in pairs(BlockedRemotes) do
+				if _v == v.Name then
+					UselessShittyRemote = true
+				end
+			end
+			if not UselessShittyRemote then
+				for _i,_v in pairs(MainSFrame:GetChildren()) do
+					if _i == #MainSFrame:GetChildren() then
+						local New_Log = _v:Clone()
+						New_Log.Name = "_Log"
+						New_Log.Visible = true
+						New_Log.Parent = _v.Parent
+							
+						New_Log:TweenPosition((New_Log.Position + UDim2.new(0,0,0,45)), "Out", "Quad", 1)			
+					
+						DoAnimate(New_Log.RemoteName,v.Name)
+						DoAnimate(New_Log.RemoteLocation,"game."..v:GetFullName())
+						
+							
+						if v:IsA("RemoteEvent") then
+							New_Log.RemoteIcon.Image = "rbxassetid://413369506"
+							New_Log.FireOInvoke.Text = "Fire"
+						else
+							New_Log.RemoteIcon.Image = "rbxassetid://413369623"
+							New_Log.FireOInvoke.Text = "Invoke"
+						end
+							
+						New_Log.MouseEnter:Connect(function()
+							New_Log.RemoteName.Visible = false
+							New_Log.RemoteLocation.Visible = false
+							New_Log.FireOInvoke.Visible = true
+						end)
+								
+						New_Log.MouseLeave:Connect(function()
+								New_Log.RemoteName.Visible = true
+							New_Log.RemoteLocation.Visible = true
+							New_Log.FireOInvoke.Visible = false
+						end)
+								
+						New_Log.FireOInvoke.MouseButton1Click:Connect(function()
+							New_Log.FireOInvoke.Visible = not New_Log.FireOInvoke.Visible
+							New_Log.RemoteArguments.Visible = not New_Log.RemoteArguments.Visible
+						end)
+							
+						New_Log.RemoteArguments.FocusLost:Connect(function()
+							local Arguments = {}
+							local Txt = New_Log.RemoteArguments.Text
+							
+							local LastLocation = 0
+							for i = 1,#Txt do
+								if Txt:sub(i,i) == "," then
+									if LastLocation == 0 then
+										table.insert(Arguments, Txt:sub(1,i-1))
+										LastLocation = i
+									else
+										table.insert(Arguments, Txt:sub(LastLocation+1,i-1))
+										LastLocation = i
+									end
+								elseif i == #Txt then
+									table.insert(Arguments, Txt:sub(LastLocation+1))
+								end
+							end
+									
+							if v:IsA("RemoteEvent") then
+								v:FireServer(unpack(Arguments))
+								print("[Remote Grabber]: Fired!")
+							else
+								v:InvokeServer(unpack(Arguments))
+								print("[Remote Grabber]: Invoked!")
+							end
+							New_Log.FireOInvoke.Visible = true
+							New_Log.RemoteArguments.Visible = false
+						end)
+						wait(0.2)
+					end
+				end
+			end
+		end
+	end
+end)
+
+
+ClearButton.MouseButton1Click:Connect(function()
+	for i,v in pairs(MainSFrame:GetChildren()) do
+		if v.Name ~= "Log" then
+			v:Destroy()
+		end
+	end
+	ClearButton.Text = "Cleaned!"
+	wait(1)
+	ClearButton.Text = "Clear"
+end)
+  	end    
+})
+JogadorTab:AddButton({
+	Name = "Disable Connection",
+	Callback = function()
+        repeat task.wait() until game:IsLoaded()
+        game:GetService('ScriptContext'):SetTimeout(3.5)
+        wait(5)
+        if getconnections then
+            for _,v in pairs(getconnections(game:GetService('ScriptContext').Error)) do
+                v:Disable()
+            end
+        
+            for _,v in pairs(getconnections(game:GetService('LogService').MessageOut)) do
+                v:Disable()
+            end
+        end
+  	end    
+})
+JogadorTab:AddButton({
+	Name = "Hydroxide",
+	Callback = function()
+        local owner = "Upbolt"
+        local branch = "revision"
+        
+        local function webImport(file)
+            return loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/%s/Hydroxide/%s/%s.lua"):format(owner, branch, file)), file .. '.lua')()
+        end
+        
+        webImport("init")
+        webImport("ui/main")
+  	end    
+})
+JogadorTab:AddButton({
+	Name = "NoCol Fucker",
+	Callback = function()
+        if getconnections then
+            for _, v in pairs(getconnections(game:GetService('ScriptContext').Error)) do
+                v:Disable()
+            end
+        
+            for _, v in pairs(getconnections(game:GetService('LogService').MessageOut)) do
+                v:Disable()
+            end
+        end
+        if not _G.ini then
+            _G.ini = true
+        
+            local sound = Instance.new('Sound')
+            sound.SoundId = 'rbxassetid://216917652'
+            sound.Parent = game:GetService('SoundService')
+            sound:Play()
+        
+            local uis = game:GetService('UserInputService')
+            local heartbeat = game:GetService('RunService').Heartbeat
+            local plrs = game:GetService('Players')
+            local rep = game:GetService('ReplicatedStorage')
+            local Plr = plrs.LocalPlayer
+        
+            local Mouse = Plr:GetMouse()
+            local killall = false
+            local explodeall = false
+            local equipkill = false
+            local killme = true
+            local talkDie = false
+            local mouseKill = false
+            local mouseExplode = false
+            local prefixKill = false
+            local explodelol = false
+            local gunName
+            local explodeRem
+            local gunObj
+            local CEs
+            local SEs
+            game.StarterGui:SetCore(
+                'SendNotification',
+                {
+                    Title = 'Pegando remotes...',
+                    Text = 'espera ai',
+                    Duration = 5
+                }
+            )
+            for i,v in next,rep:GetChildren() do
+                if v:IsA('RemoteFunction') and v.Name == 'ChatSystemGetMessage' then
+                    killRem = v
+                end
+            end
+            if killRem then
+                game.StarterGui:SetCore(
+                    'SendNotification',
+                    {
+                        Title = 'Remote pego',
+                        Text = 'Lord#6363',
+                        Duration = 5
+                    }
+                )
+            else
+                game.StarterGui:SetCore(
+                    'SendNotification',
+                    {
+                        Title = 'Erro nos remotes',
+                        Text = 'Avise em: Lord#6363',
+                        Duration = 10
+                    }
+                )
+            end
+            if explodeRem and explodelol then
+                game.StarterGui:SetCore(
+                    'SendNotification',
+                    {
+                        Title = 'Explode kk',
+                        Text = 'Talvez seja possivel o uso de explosões',
+                        Duration = 7
+                    }
+                )
+            end
+            if not explodelol and not killRem then
+                game.StarterGui:SetCore(
+                    'SendNotification',
+                    {
+                        Title = 'Erro geral',
+                        Text = 'Avise em: Lord#6363',
+                        Duration = 5
+                    }
+                )
+                return
+            end
+            for i, t in pairs(Plr.Backpack:GetChildren()) do
+                if t:IsA('Tool') and t:FindFirstChild('NoCol') then
+                    gunName = t.Name
+                end
+            end
+            --[[	if not gunName or not killRem and explodeRem then
+                game.StarterGui:SetCore('SendNotification', {
+                    Title = 'Aviso'; -- the title (ofc)
+                    Text = 'O kill está sendo substituido por explode por falta de arma ou remote.'; -- what the text says (ofc)
+                    Duration = 10; -- how long the notification should in secounds
+                })
+            end
+            if gunName and killRem and sendKey then
+                Plr.Character:BreakJoints()
+                game.StarterGui:SetCore('SendNotification', {
+                    Title = 'Pegando a key'; -- the title (ofc)
+                    Text = 'Vose e gey, use gramatica'; -- what the text says (ofc)
+                    Duration = 5; -- how long the notification should in secounds
+                })
+                
+                sendKey.OnClientEvent:connect(function(newKey)
+                    remoteKey = newKey
+                end)
+            end]]
+            local banPrefixes = {
+                ['!'] = true,
+                ['.'] = true,
+                [':'] = true,
+                [';'] = true,
+                ['/'] = true
+            }
+            local tms = {Revolver = 2, FAL = 2}
+            local lolol = tms[gunName] or 5
+            local protected = {}
+            local protectedTeams = {}
+            local tokill = {}
+            Plr.CharacterAdded:Connect(
+                function(char)
+                    if gunName and killRem and sendKey then
+                        gunObj = Plr.Backpack:WaitForChild(gunName)
+                    end
+                    uis.MouseIconEnabled = true
+                end
+            )
+            if gunName and killRem and sendKey then
+                repeat
+                    wait()
+                until gunObj
+            end
+        
+            wait()
+            game.StarterGui:SetCore(
+                'SendNotification',
+                {
+                    Title = 'NoCol Fucker | Lord#6363',
+                    Text = 'F para esconder/aparecer',
+                    Duration = 5
+                }
+            )
+            -- key that opens/closes the ui
+            local toggle_key = Enum.KeyCode.F
+        
+            uis.MouseIconEnabled = true
+            local ts = game:GetService('TweenService')
+        
+            -- ui functions
+            fade = function(obj, len, props)
+                ts:Create(obj, TweenInfo.new(len, Enum.EasingStyle.Sine), props):Play()
+            end
+        
+            -- shorthand variables
+            local u2, c3 = UDim2.new, Color3.fromRGB
+            local u2f, c3w = u2(1, 0, 1, 0), c3(255, 255, 255)
+        
+            -- ui init
+            local g = Instance.new('ScreenGui', game.CoreGui)
+            local f = Instance.new('Frame', g)
+            local t = Instance.new('TextLabel', f)
+            local c = Instance.new('ScrollingFrame', f)
+        
+            -- core ui styling
+            local padding = Instance.new('UIPadding', f)
+            local maxsize = Instance.new('UISizeConstraint', f)
+            local textsize = Instance.new('UITextSizeConstraint', t)
+            local listcons = Instance.new('UIListLayout', c)
+        
+            padding.PaddingBottom = UDim.new(0, 8)
+            padding.PaddingLeft = UDim.new(0, 15)
+            padding.PaddingRight = UDim.new(0, 15)
+            padding.PaddingTop = UDim.new(0, 0)
+        
+            maxsize.MaxSize = Vector2.new(275, 450)
+            maxsize.MinSize = Vector2.new(200, 0)
+            textsize.MaxTextSize = 16
+            listcons.Padding = UDim.new(0, 3)
+        
+            -- ui instance properties
+            g.Name = 'fodedor de max'
+            g.ResetOnSpawn = false
+            f.Name = 'main'
+            t.Name = 'header'
+        
+            f.Size = u2(0.165, 0, 0.6, 0)
+            f.BorderSizePixel = 0
+            f.BackgroundTransparency = 0.3
+            f.Position = u2(1, -215, 0.5, -150)
+            f.BackgroundColor3 = c3()
+            f.AnchorPoint = Vector2.new(1, 0.5)
+            f.Position = u2(1, -15, 0.5, 0)
+        
+            t.Size = u2(1, 0, 0.1, 0)
+            t.BackgroundTransparency = 1
+            t.TextColor3 = c3w
+            t.Font = Enum.Font.GothamBold
+            t.TextScaled = true
+            t.TextXAlignment = Enum.TextXAlignment.Center
+            t.Text = 'BNL Mama gays | Lord#6363'
+        
+            c.Name = 'playerlist'
+            c.Position = u2(0, 0, 0.1, 0)
+            c.Size = u2(1, 0, 0.45, 0)
+            c.BackgroundTransparency = 1
+            c.BorderSizePixel = 0
+            c.TopImage = 'rbxasset://textures/ui/Scroll/scroll-middle.png'
+            c.BottomImage = 'rbxasset://textures/ui/Scroll/scroll-middle.png'
+            c.ScrollingDirection = Enum.ScrollingDirection.Y
+            c.ScrollBarThickness = 5
+            c.VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar
+        
+            -- playerlist entry ui template
+            local temp = Instance.new('Frame', f)
+            temp.Name = 'temp'
+            temp.Visible = false
+            temp.Size = u2(1, -5, 0, 27)
+            temp.BackgroundTransparency = 0.5
+            temp.BorderSizePixel = 0
+            temp.ClipsDescendants = true
+            temp.BackgroundColor3 = c3()
+        
+            local tpad = Instance.new('UIPadding', temp)
+            tpad.PaddingLeft = UDim.new(0, 5)
+            tpad.PaddingRight = UDim.new(0, 5)
+        
+            local tb = Instance.new('TextButton', temp)
+            tb.Name = 'button'
+            tb.BackgroundTransparency = 1
+            tb.ZIndex = 5
+            tb.BorderSizePixel = 0
+            tb.Text = ''
+            tb.Size = u2(1, 10, 1, 0)
+            tb.Position = u2(0, -5, 0, 0)
+        
+            local tcl = Instance.new('TextLabel', temp)
+            tcl.Name = 'username'
+            tcl.BackgroundTransparency = 1
+            tcl.BorderSizePixel = 0
+            tcl.Size = u2f
+            tcl.TextColor3 = c3w
+            tcl.TextXAlignment = Enum.TextXAlignment.Left
+            tcl.TextScaled = true
+            tcl.Size = u2(0.6, 0, 1, 0)
+            tcl.Font = Enum.Font.Gotham
+        
+            local tcls = Instance.new('UITextSizeConstraint', tcl)
+            tcls.MaxTextSize = 14
+        
+            local thumb = Instance.new('ImageLabel', temp)
+            thumb.Name = 'thumb'
+            thumb.Size = u2(0.35, 0, 0.35, 0)
+            thumb.SizeConstraint = Enum.SizeConstraint.RelativeXX
+            thumb.Position = u2(1, 0, 0, -15)
+            thumb.AnchorPoint = Vector2.new(1, 0)
+            thumb.BackgroundTransparency = 1
+            thumb.BorderSizePixel = 0
+        
+            -- settings ui
+            local sh = Instance.new('TextLabel', f)
+            sh.Name = 'settings_header'
+            sh.Size = u2(1, 0, 0.1, 0)
+            sh.Position = u2(0, 0, 0.55, 0)
+            sh.BackgroundTransparency = 1
+            sh.BorderSizePixel = 0
+            sh.ZIndex = 3
+            sh.TextColor3 = c3w
+            sh.Font = Enum.Font.GothamBold
+            sh.TextScaled = true
+            sh.TextXAlignment = Enum.TextXAlignment.Center
+            sh.Text = 'Funções'
+        
+            local shs = Instance.new('UITextSizeConstraint', sh)
+            shs.MaxTextSize = 16
+        
+            local items = Instance.new('ScrollingFrame', f)
+            items.Name = 'items'
+            items.Size = u2(1, 0, 0.35, 0)
+            items.Position = u2(0, 0, 0.65, 0)
+            items.BackgroundTransparency = 1
+            items.BorderSizePixel = 0
+            items.TopImage = 'rbxasset://textures/ui/Scroll/scroll-middle.png'
+            items.BottomImage = 'rbxasset://textures/ui/Scroll/scroll-middle.png'
+            items.ScrollingDirection = Enum.ScrollingDirection.Y
+            items.ScrollBarThickness = 5
+            items.VerticalScrollBarInset = Enum.ScrollBarInset.ScrollBar
+        
+            local itemll = Instance.new('UIListLayout', items)
+            itemll.Padding = UDim.new(0, 3)
+            local function explodePlayer(plrObj)
+                coroutine.resume(
+                    coroutine.create(
+                        function()
+                            if not plrObj then
+                                return
+                            end
+                            if protected[plrObj.Name] then
+                                return
+                            end
+                            if protectedTeams[plrObj.Team.Name] then
+                                return
+                            end
+                            repeat
+                                heartbeat:Wait()
+                            until plrObj.Character
+                            local plrChar = plrObj.Character
+                            local hum = plrChar:WaitForChild('HumanoidRootPart')
+                            for i = 1, 10 do
+                                explodeRem:FireServer(true, hum.Position)
+                                wait(0.02)
+                            end
+                        end
+                    )
+                )
+            end
+            local function killPlayer(plrObj)
+                coroutine.resume(
+                    coroutine.create(
+                        function()
+                            if not plrObj then
+                                return
+                            end
+                            if protected[plrObj.Name] then
+                                return
+                            end
+                            if protectedTeams[plrObj.Team.Name] then
+                                return
+                            end
+                            --if not killRem or not gunName then explodePlayer(plrObj) return end
+                            repeat
+                                heartbeat:Wait()
+                            until plrObj.Character
+                            local plrChar = plrObj.Character
+                            local hum = plrChar:WaitForChild('Humanoid')
+                            local head = plrChar:WaitForChild('Head')
+                            local ff = plrChar:FindFirstChild('ForceField')
+                            if ff then
+                                repeat
+                                    heartbeat:Wait()
+                                until not plrChar:FindFirstChild('ForceField')
+                            end
+                            killRem:InvokeServer(
+                                'hit',
+                                '}, {  ',
+                                math.huge,
+                                hum,
+                                head,
+                                math.huge,
+                                Vector3.new(0, -1, 0),
+                                math.huge
+                            )
+                        end
+                    )
+                )
+            end
+        
+            createSetting = function(name)
+                local setting = Instance.new('Frame', items)
+                setting.Size = u2(1, -5, 0, 27)
+                setting.BackgroundColor3 = c3()
+                setting.BackgroundTransparency = 0.5
+                setting.BorderSizePixel = 0
+        
+                local spad = tpad:Clone()
+                spad.Parent = setting
+        
+                local slab = tcl:Clone()
+                slab.Name = 'label'
+                slab.Parent = setting
+                slab.Size = u2(1, 0, 1, 0)
+                slab.Text = name
+        
+                local stbt = tb:Clone()
+                stbt.Parent = setting
+        
+                stbt.MouseEnter:connect(
+                    function()
+                        fade(setting, 0.25, {BackgroundTransparency = 0.8})
+                    end
+                )
+        
+                stbt.MouseLeave:connect(
+                    function()
+                        fade(setting, 0.25, {BackgroundTransparency = 0.5})
+                    end
+                )
+        
+                items.CanvasSize = u2(0, 0, 0, itemll.AbsoluteContentSize.Y)
+        
+                return stbt
+            end
+        
+            -- settings & functionality
+            local function playerConnection(plrObj)
+                if plrObj.Name ~= Plr.Name then
+                    plrObj.Chatted:Connect(
+                        function(msg)
+                            local a = string.sub(msg, 1, 1)
+                            if (banPrefixes[a] and prefixKill) or talkDie then
+                                killPlayer(plrObj)
+                            end
+                        end
+                    )
+                end
+                plrObj.CharacterAdded:Connect(
+                    function(char)
+                        if killall or tokill[plrObj.Name] then
+                            if killme then
+                                killPlayer(plrObj)
+                            elseif not killme and plrObj.Name ~= Plr.Name then
+                                killPlayer(plrObj)
+                            end
+                        end
+                        if explodeall then
+                            if killme then
+                                explodePlayer(plrObj)
+                            elseif not killme and plrObj.Name ~= Plr.Name then
+                                explodePlayer(plrObj)
+                            end
+                        end
+                        if plrObj.Name ~= Plr.Name then
+                            char.ChildAdded:Connect(
+                                function(c)
+                                    if equipkill and c:IsA('Tool') then
+                                        killPlayer(plrObj)
+                                    end
+                                end
+                            )
+                            char.ChildRemoved:Connect(
+                                function(c)
+                                    if equipkill and c:IsA('Tool') then
+                                        killPlayer(plrObj)
+                                    end
+                                end
+                            )
+                        end
+                    end
+                )
+            end
+            for i, p in pairs(plrs:GetPlayers()) do
+                playerConnection(p)
+            end
+            plrs.PlayerAdded:Connect(
+                function(p)
+                    playerConnection(p)
+                end
+            )
+        
+            local sound = Instance.new('Sound')
+            sound.SoundId = 'rbxassetid://179235828'
+            sound.Parent = game:GetService('SoundService')
+            local killAllButton = createSetting('Kill All')
+            killAllButton.MouseButton1Down:connect(
+                function()
+                    sound:Play()
+                    killall = not killall
+                    if killall then
+                        fade(killAllButton.Parent.label, 0.25, {TextColor3 = c3(52, 189, 98)})
+                        for i, p in pairs(plrs:GetPlayers()) do
+                            if killme then
+                                killPlayer(p)
+                            elseif not killme and p.Name ~= Plr.Name then
+                                killPlayer(p)
+                            end
+                        end
+                    else
+                        fade(killAllButton.Parent.label, 0.25, {TextColor3 = c3w})
+                    end
+                end
+            )
+            if explodelol and explodeRem and gunName then
+                local explodeAllButton = createSetting('Explode All')
+                explodeAllButton.MouseButton1Down:connect(
+                    function()
+                        sound:Play()
+                        explodeall = not explodeall
+                        if explodeall then
+                            fade(explodeAllButton.Parent.label, 0.25, {TextColor3 = c3(52, 189, 98)})
+                            for i, p in pairs(plrs:GetPlayers()) do
+                                if killme then
+                                    explodePlayer(p)
+                                elseif not killme and p.Name ~= Plr.Name then
+                                    explodePlayer(p)
+                                end
+                            end
+                        else
+                            fade(explodeAllButton.Parent.label, 0.25, {TextColor3 = c3w})
+                        end
+                    end
+                )
+                local mouseExplodeButton = createSetting('Mouse Explode')
+                mouseExplodeButton.MouseButton1Down:connect(
+                    function()
+                        sound:Play()
+                        mouseExplode = not mouseExplode
+                        if mouseExplode then
+                            fade(mouseExplodeButton.Parent.label, 0.25, {TextColor3 = c3(52, 189, 98)})
+                        else
+                            fade(mouseExplodeButton.Parent.label, 0.25, {TextColor3 = c3w})
+                        end
+                    end
+                )
+            end
+            --[[local killmeButton = createSetting('Kill Me')
+            if killme then
+                fade(killmeButton.Parent.label, 0.25, {TextColor3 = c3(52, 189, 98)})
+            else
+                fade(killmeButton.Parent.label, 0.25, {TextColor3 = c3w})
+            end]]
+            --[[killmeButton.MouseButton1Down:connect(function()
+                sound:Play()
+                killme = not killme
+                if killme then
+                    fade(killmeButton.Parent.label, 0.25, {TextColor3 = c3(52, 189, 98)})
+                else
+                    fade(killmeButton.Parent.label, 0.25, {TextColor3 = c3w})
+                end
+            end)]]
+            local equipKillButton = createSetting('Equip Kill')
+            equipKillButton.MouseButton1Down:connect(
+                function()
+                    sound:Play()
+                    equipkill = not equipkill
+                    if equipkill then
+                        fade(equipKillButton.Parent.label, 0.25, {TextColor3 = c3(52, 189, 98)})
+                    else
+                        fade(equipKillButton.Parent.label, 0.25, {TextColor3 = c3w})
+                    end
+                end
+            )
+            local talkKillButton = createSetting('Talk Kill')
+            talkKillButton.MouseButton1Down:connect(
+                function()
+                    sound:Play()
+                    talkDie = not talkDie
+                    if talkDie then
+                        fade(talkKillButton.Parent.label, 0.25, {TextColor3 = c3(52, 189, 98)})
+                    else
+                        fade(talkKillButton.Parent.label, 0.25, {TextColor3 = c3w})
+                    end
+                end
+            )
+            local mouseKillButton = createSetting('Mouse Kill')
+            mouseKillButton.MouseButton1Down:connect(
+                function()
+                    sound:Play()
+                    mouseKill = not mouseKill
+                    if mouseKill then
+                        fade(mouseKillButton.Parent.label, 0.25, {TextColor3 = c3(52, 189, 98)})
+                    else
+                        fade(mouseKillButton.Parent.label, 0.25, {TextColor3 = c3w})
+                    end
+                end
+            )
+            local prefixkillbutton = createSetting('Prefix Kill')
+            prefixkillbutton.MouseButton1Down:connect(
+                function()
+                    sound:Play()
+                    prefixKill = not prefixKill
+                    if prefixKill then
+                        fade(prefixkillbutton.Parent.label, 0.25, {TextColor3 = c3(52, 189, 98)})
+                    else
+                        fade(prefixkillbutton.Parent.label, 0.25, {TextColor3 = c3w})
+                    end
+                end
+            )
+            Mouse.Button1Down:Connect(
+                function()
+                    if mouseKill then
+                        if Mouse.Target and Mouse.Target.Parent then
+                            local name = Mouse.Target.Parent.Name
+                            killPlayer(plrs:FindFirstChild(name))
+                        end
+                    end
+                    if mouseExplode then
+                        if Mouse.Target and Mouse.Target.Parent then
+                            local name = Mouse.Target.Parent.Name
+                            explodePlayer(plrs:FindFirstChild(name))
+                        end
+                    end
+                end
+            )
+            createEntry = function(name, id)
+                local entry = temp:Clone()
+                entry.Parent = c
+        
+                entry.username.Text = name
+        
+                entry.thumb.Image =
+                    game:GetService('Players'):GetUserThumbnailAsync(
+                id,
+                Enum.ThumbnailType.HeadShot,
+                Enum.ThumbnailSize.Size100x100
+                )
+                entry.Visible = true
+                entry.LayoutOrder = #c:GetChildren()
+                entry.Name = name
+        
+                local sound = Instance.new('Sound')
+                sound.SoundId = 'rbxassetid://3398620867'
+                sound.Parent = game:GetService('SoundService')
+                -- handle clicking for player
+                local thing = 'none'
+                local con
+                entry.button.MouseButton1Down:connect(
+                    function()
+                        if thing == 'none' then
+                            if uis:IsKeyDown(Enum.KeyCode.LeftControl) then
+                                thing = 'kill'
+                                entry.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+                                con =
+                                    plrs[name].CharacterAdded:Connect(
+                                        function(char)
+                                        killPlayer(plrs[name])
+                                    end
+                                    )
+                                killPlayer(plrs[name])
+                            else
+                                killPlayer(plrs[name])
+                            end
+                        elseif thing == 'kill' then
+                            thing = 'protect'
+                            entry.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+                            protected[name] = true
+                            if con then
+                                con:Disconnect()
+                            end
+                        else
+                            thing = 'none'
+                            entry.BackgroundColor3 = c3()
+                            protected[name] = nil
+                        end
+                        killPlayer(game:GetService('Players'):FindFirstChild(name))
+                        sound:Play()
+                    end
+                )
+        
+                entry.button.MouseEnter:connect(
+                    function()
+                        fade(entry, 0.25, {BackgroundTransparency = 0.8})
+                    end
+                )
+        
+                entry.button.MouseLeave:connect(
+                    function()
+                        fade(entry, 0.25, {BackgroundTransparency = 0.5})
+                    end
+                )
+            end
+        
+            createTeamEntry = function(team, id)
+                local entry = temp:Clone()
+                entry.Parent = c
+                entry.username.Text = team.Name
+                --entry.thumb.Image = game:GetService('Players'):GetUserThumbnailAsync(id, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size100x100)
+                entry.Visible = true
+                entry.LayoutOrder = #c:GetChildren()
+                entry.Name = team.Name
+        
+                local sound = Instance.new('Sound')
+                sound.SoundId = 'rbxassetid://3398620867'
+                sound.Parent = game:GetService('SoundService')
+                -- handle clicking for player
+                local thing = 'none'
+                local cons = {}
+                entry.button.MouseButton1Down:connect(
+                    function()
+                        if thing == 'none' then
+                            if uis:IsKeyDown(Enum.KeyCode.LeftControl) then
+                                thing = 'kill'
+                                entry.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+                                for i, p in pairs(plrs:GetPlayers()) do
+                                    if p.Team.Name == team.Name then
+                                        killPlayer(p)
+                                        cons[p] =
+                                            p.CharacterAdded:Connect(
+                                                function(char)
+                                                killPlayer(p)
+                                            end
+                                            )
+                                    end
+                                end
+                            else
+                                for i, p in pairs(plrs:GetPlayers()) do
+                                    if p.Team.Name == team.Name then
+                                        killPlayer(p)
+                                    end
+                                end
+                            end
+                        elseif thing == 'kill' then
+                            thing = 'protect'
+                            entry.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+                            for plr, con in pairs(cons) do
+                                if con then
+                                    con:Disconnect()
+                                end
+                            end
+                            protectedTeams[team.Name] = true
+                        else
+                            thing = 'none'
+                            entry.BackgroundColor3 = c3()
+                            protectedTeams[team.Name] = nil
+                        end
+                        sound:Play()
+                    end
+                )
+                entry.button.MouseEnter:connect(
+                    function()
+                        fade(entry, 0.25, {BackgroundTransparency = 0.8})
+                    end
+                )
+        
+                entry.button.MouseLeave:connect(
+                    function()
+                        fade(entry, 0.25, {BackgroundTransparency = 0.5})
+                    end
+                )
+            end
+        
+            deleteEntry = function(name)
+                for _, v in pairs(c:GetChildren()) do
+                    if v.Name == name then
+                        v:Destroy()
+                    end
+                end
+            end
+            spawn(
+                function()
+                    while wait(3) do
+                        if gunObj and gunObj:FindFirstChild('Ammo') then
+                            gunObj.Ammo.Value = math.huge
+                        end
+                        if killall then
+                            for i, p in pairs(plrs:GetPlayers()) do
+                                local c = p.Character
+                                if c then
+                                    local h = c:FindFirstChildOfClass('Humanoid')
+                                    if h and h.Health > 2 then
+                                        killPlayer(p)
+                                    end
+                                end
+                            end
+                        end
+                        if explodeall then
+                            for i, p in pairs(plrs:GetPlayers()) do
+                                local c = p.Character
+                                if c then
+                                    local h = c:FindFirstChildOfClass('Humanoid')
+                                    if h and h.Health > 2 then
+                                        explodePlayer(p)
+                                    end
+                                end
+                            end
+                        end
+                        for i, p in pairs(plrs:GetPlayers()) do
+                            local kill = false
+                            if tokill[p.Name] then
+                                local c = p.Character
+                                if c then
+                                    local h = c:FindFirstChildOfClass('Humanoid')
+                                    if h and h.Health > 2 then
+                                        killPlayer(p)
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            )
+            uis.InputBegan:connect(
+                function(input, gpe)
+                    if not gpe then
+                        if input.KeyCode == toggle_key then
+                            g.Enabled = not g.Enabled
+                        end
+                    end
+                end
+            )
+        
+            -- dragging code, ripped from https://devforum.roblox.com/t/draggable-property-is-hidden-on-gui-objects/107689/5
+            local dragging
+            local dragInput
+            local dragStart
+            local startPos
+        
+            local function update(input)
+                local delta = input.Position - dragStart
+                f.Position =
+                    UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+            end
+        
+            f.InputBegan:Connect(
+                function(input)
+                    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                        dragging = true
+                        dragStart = input.Position
+                        startPos = f.Position
+        
+                        input.Changed:Connect(
+                            function()
+                                if input.UserInputState == Enum.UserInputState.End then
+                                    dragging = false
+                                end
+                            end
+                        )
+                    end
+                end
+            )
+        
+            f.InputChanged:Connect(
+                function(input)
+                    if
+                        input.UserInputType == Enum.UserInputType.MouseMovement or
+                            input.UserInputType == Enum.UserInputType.Touch
+                    then
+                        dragInput = input
+                    end
+                end
+            )
+        
+            uis.InputChanged:Connect(
+                function(input)
+                    if input == dragInput and dragging then
+                        update(input)
+                    end
+                end
+            )
+            -- create entry for client
+            createEntry(plrs.LocalPlayer.Name, plrs.LocalPlayer.UserId)
+        
+            -- create entries for all other players
+            for _, v in pairs(plrs:GetPlayers()) do
+                if v ~= plrs.LocalPlayer then
+                    createEntry(v.Name, v.UserId)
+                end
+            end
+            for i, v in pairs(game:GetService('Teams'):GetChildren()) do
+                createTeamEntry(v)
+            end
+            listcons:GetPropertyChangedSignal('AbsoluteContentSize'):connect(
+            function()
+                c.CanvasSize = u2(0, 0, 0, listcons.AbsoluteContentSize.Y)
+            end
+            )
+        
+            itemll:GetPropertyChangedSignal('AbsoluteContentSize'):connect(
+            function()
+                items.CanvasSize = u2(0, 0, 0, itemll.AbsoluteContentSize.Y)
+            end
+            )
+        
+            plrs.PlayerAdded:connect(
+                function(plr)
+                    createEntry(plr.Name, plr.UserId)
+                end
+            )
+        
+            plrs.PlayerRemoving:connect(
+                function(plr)
+                    deleteEntry(plr.Name)
+                    protected[plr.Name] = nil
+                    tokill[plr.Name] = nil
+                end
+            )
+        else
+            local sound = Instance.new('Sound')
+            sound.SoundId = 'rbxassetid://2130284653'
+            sound.Parent = game:GetService('SoundService')
+            sound:Play()
+        
+            game.StarterGui:SetCore(
+                'SendNotification',
+                {
+                    Title = 'Já ta carregado idiota',
+                    Text = 'Deixa de ser burro',
+                    Duration = 5
+                }
+            )
+        end
+  	end    
+})
+JogadorTab:AddButton({
+	Name = "Dark Dex",
+	Callback = function()
+        local rng = Random.new()
+
+        local charset = {}
+        for i = 48,  57 do table.insert(charset, string.char(i)) end
+        for i = 65,  90 do table.insert(charset, string.char(i)) end
+        for i = 97, 122 do table.insert(charset, string.char(i)) end
+        local function RandomCharacters(length)
+            if length > 0 then
+                return RandomCharacters(length - 1) .. charset[rng:NextInteger(1, #charset)]
+            else
+                return ''
+            end
+        end
+        
+        local Dex = game:GetObjects('rbxassetid://9553291002')[1]
+        Dex.Name = RandomCharacters(rng:NextInteger(5, 20))
+        Dex.DisplayOrder = 5
+        -- credits iy
+        if get_hidden_gui or gethui then
+            local hiddenUI = get_hidden_gui or gethui
+            Dex.Parent = hiddenUI()
+        elseif (syn and syn.protect_gui) then
+            syn.protect_gui(Dex)
+            Dex.Parent = COREGUI
+        end
+        -- end
+        local function Load(Obj, Url)
+        local function GiveOwnGlobals(Func, Script)
+            local Fenv = {}
+            local RealFenv = {script = Script}
+            local FenvMt = {}
+            FenvMt.__index = function(a,b)
+                if RealFenv[b] == nil then
+                    return getfenv()[b]
+                else
+                    return RealFenv[b]
+                end
+            end
+            FenvMt.__newindex = function(a, b, c)
+                if RealFenv[b] == nil then
+                    getfenv()[b] = c
+                else
+                    RealFenv[b] = c
+                end
+            end
+            setmetatable(Fenv, FenvMt)
+            setfenv(Func, Fenv)
+            return Func
+        end
+        
+        local function LoadScripts(Script)
+            if Script.ClassName == "Script" or Script.ClassName == "LocalScript" then
+                spawn(function()
+                    GiveOwnGlobals(loadstring(Script.Source, "=" .. Script:GetFullName()), Script)()
+                end)
+            end
+            for i,v in pairs(Script:GetChildren()) do
+                LoadScripts(v)
+            end
+        end
+        
+        LoadScripts(Obj)
+        end
+        
+        Load(Dex)
+  	end    
+})
+JogadorTab:AddButton({
 	Name = "Kill All - Precisa de alguem com arma",
 	Callback = function()
         local user, tool
@@ -3409,7 +11958,7 @@ JogadorTab:AddButton({
   	end    
 })
 CarroTab:AddButton({
-	Name = "Deletar Carro Proximo",
+	Name = "Deletar Todos Os Carros",
 	Callback = function()
         local args = {
             [1] = "dealership",
@@ -5603,7 +14152,235 @@ v.Lifetime = NumberRange.new(0)
     end
 end
               end          
-        })
+})
+JogadorTab:AddButton({
+	Name = "Anti Lag",
+	Callback = function()
+        settings().Rendering.QualityLevel = 1
+
+function Main(instance)
+	if instance:IsA('Part') or instance:IsA('UnionOperation') or instance:IsA('MeshPart') or instance:IsA('CornerWedgePart') or instance:IsA('TrussPart') then
+		instance.Material = 'Plastic'
+		instance.Reflectance = 0
+	elseif instance:IsA('Decal') and instance.Name ~= 'face' then
+		instance.Transparency = 1
+	elseif instance:IsA('ParticleEmitter') or instance:IsA('Trail') then
+		instance.Lifetime = NumberRange.new(0)
+	elseif instance:IsA('Explosion') then
+		instance.BlastPressure = 1
+		instance.BlastRadius = 1
+	elseif instance:IsA('ForceField') then
+		instance:Destroy()
+	elseif instance:IsA('Sparkles') then
+		instance:Destroy()
+	elseif instance:IsA('Smoke') or instance:IsA('Fire') then
+		instance:Destroy()
+	end
+end
+
+task.spawn(function()
+    local Terrain = workspace:FindFirstChildOfClass('Terrain')
+    local Lighting = game.Lighting
+    Terrain.WaterWaveSize = 0
+    Terrain.WaterWaveSpeed = 0
+    Terrain.WaterReflectance = 0
+    Terrain.WaterTransparency = 0
+    Lighting.GlobalShadows = false
+    Lighting.FogEnd = 9e9
+end)
+
+for i,v in next, game.Lighting:GetDescendants() do
+	if v:IsA('BlurEffect') or v:IsA('SunRaysEffect') or v:IsA('ColorCorrectionEffect') or v:IsA('BloomEffect') or v:IsA('DepthOfFieldEffect') then
+		v.Enabled = false
+	end
+end
+
+for i,v in next, game:GetDescendants() do
+	Main(v)
+end
+
+game.DescendantAdded:Connect(function(child)
+	coroutine.wrap(function()
+		Main(child)
+	end)()
+end)
+  	end    
+})
+JogadorTab:AddButton({
+	Name = "Anti Rename Santa Fe Rp",
+	Callback = function()
+      	--> Santa FE RP
+local RAWMETA = getrawmetatable(game)
+local INDX = RAWMETA.__newindex
+local INS_TBL = {
+    ['RemoteFunction'] = true,
+    ['RemoteEvent'] = true,
+    ['Players'] = true,
+    ['ReplicatedStorage'] = true,
+}
+setreadonly(RAWMETA, false)
+RAWMETA.__newindex = function(old, __type, new)
+    if INS_TBL[old.ClassName] and __type == 'Name' then
+        --print(old, __type, new)
+        return
+    end
+    return INDX(old, __type, new)
+end
+  	end    
+})
+CarroTab:AddButton({
+	Name = "Tp Carro Proximo",
+	Callback = function()
+        local tool = Instance.new("Tool")
+        local player = game.Players.LocalPlayer
+        local mouse = player:GetMouse()
+        
+        tool.Name = "TP Car"
+        tool.CanBeDropped = false 
+        tool.RequiresHandle = false 
+        tool.Parent = player.Backpack
+        
+        tool.Activated:Connect(function()
+            local humanoid = player.Character.Humanoid
+        
+            if humanoid.SeatPart then
+                local car = humanoid.SeatPart.Parent 
+        
+                if car then
+                    local size = car:GetExtentsSize()
+                    car:PivotTo(CFrame.new(mouse.Hit.Position + Vector3.yAxis * (size.Y/2)))
+                end
+            end
+        end)
+  	end    
+})
+JogadorTab:AddButton({
+	Name = "Tp Item Proximo",
+	Callback = function()
+        local plr = game.Players.LocalPlayer
+        local hrp = plr.Character:WaitForChild('HumanoidRootPart')
+        
+        for i,v in next, workspace:GetChildren() do
+            if v:IsA('Tool') and v.Name:lower() == 'camera' then
+                local handle = v:WaitForChild('Handle')
+                if not handle then return end
+                if (handle.Position.Magnitude - hrp.Position.Magnitude) >= 2000 then
+                    return
+                end
+                hrp.Position = handle.Position
+                break
+            end
+        end
+  	end    
+})
+JogadorTab:AddButton({
+	Name = "Anti Fling",
+	Callback = function()
+      	-- // Constants \\ --
+-- [ Services ] --
+local Services = setmetatable({}, {__index = function(Self, Index)
+    local NewService = game.GetService(game, Index)
+    if NewService then
+    Self[Index] = NewService
+    end
+    return NewService
+    end})
+    
+    -- [ LocalPlayer ] --
+    local LocalPlayer = Services.Players.LocalPlayer
+    
+    -- // Functions \\ --
+    local function PlayerAdded(Player)
+       local Detected = false
+       local Character;
+       local PrimaryPart;
+    
+       local function CharacterAdded(NewCharacter)
+           Character = NewCharacter
+           repeat
+               wait()
+               PrimaryPart = NewCharacter:FindFirstChild('HumanoidRootPart')
+           until PrimaryPart
+           Detected = false
+       end
+    
+       CharacterAdded(Player.Character or Player.CharacterAdded:Wait())
+       Player.CharacterAdded:Connect(CharacterAdded)
+       Services.RunService.Heartbeat:Connect(function()
+           if (Character and Character:IsDescendantOf(workspace)) and (PrimaryPart and PrimaryPart:IsDescendantOf(Character)) then
+               if PrimaryPart.AssemblyAngularVelocity.Magnitude > 50 or PrimaryPart.AssemblyLinearVelocity.Magnitude > 100 then
+                   if Detected == false then
+                       game.StarterGui:SetCore('ChatMakeSystemMessage', {
+                           Text = 'Fling Exploit detected, Player: ' .. tostring(Player);
+                           Color = Color3.fromRGB(255, 200, 0);
+                       })
+                   end
+                   Detected = true
+                   for i,v in ipairs(Character:GetDescendants()) do
+                       if v:IsA('BasePart') then
+                           v.CanCollide = false
+                           v.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+                           v.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+                           v.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
+                       end
+                   end
+                   PrimaryPart.CanCollide = false
+                   PrimaryPart.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+                   PrimaryPart.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+                   PrimaryPart.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
+               end
+           end
+       end)
+    end
+    
+    -- // Event Listeners \\ --
+    for i,v in ipairs(Services.Players:GetPlayers()) do
+       if v ~= LocalPlayer then
+           PlayerAdded(v)
+       end
+    end
+    Services.Players.PlayerAdded:Connect(PlayerAdded)
+    
+    local LastPosition = nil
+    Services.RunService.Heartbeat:Connect(function()
+       pcall(function()
+           local PrimaryPart = LocalPlayer.Character.PrimaryPart
+           if PrimaryPart.AssemblyLinearVelocity.Magnitude > 250 or PrimaryPart.AssemblyAngularVelocity.Magnitude > 250 then
+               PrimaryPart.AssemblyAngularVelocity = Vector3.new(0, 0, 0)
+               PrimaryPart.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+               PrimaryPart.CFrame = LastPosition
+    
+               game.StarterGui:SetCore('ChatMakeSystemMessage', {
+                   Text = 'You were flung. Neutralizing velocity.';
+                   Color = Color3.fromRGB(255, 0, 0);
+               })
+           elseif PrimaryPart.AssemblyLinearVelocity.Magnitude < 50 or PrimaryPart.AssemblyAngularVelocity.Magnitude > 50 then
+               LastPosition = PrimaryPart.CFrame
+           end
+       end)
+    end)
+  	end    
+})
+JogadorTab:AddButton({
+	Name = "Anti Kick",
+	Callback = function()
+        local PlayersService = game:GetService('Players')
+        local Metatable = getrawmetatable(game)
+        local OldMetatable = Metatable.__namecall
+        local Protect = newcclosure or protect_function
+        setreadonly(Metatable,false)
+        Metatable.__namecall = Protect(function(self,...)
+            if getnamecallmethod() == 'Kick' then
+                wait(9e9)
+                return
+            end
+            return OldMetatable(self,...)
+        end)
+        hookfunction(PlayersService.LocalPlayer.Kick,Protect(function()
+            wait(9e9)
+        end))
+  	end    
+})
 JogadorTab:AddButton({
 	Name = "Fake Digitando Eb Do Tevez",
 	Callback = function()
@@ -5622,7 +14399,805 @@ JogadorTab:AddButton({
   	end    
 })
 JogadorTab:AddButton({
-	Name = "Reviver - Risco",
+	Name = "Anti Afk 2 ",
+	Callback = function()
+        local VirtualUser = game:GetService('VirtualUser')
+local QueueTeleport = (syn and syn.queue_on_teleport) or queue_on_teleport
+game:GetService('Players').LocalPlayer.Idled:connect(function()
+    VirtualUser:CaptureController()
+    VirtualUser:SetKeyDown('0x1f')
+    task.wait(2)
+    VirtualUser:SetKeyUp('0x1f')
+end)
+warn('[ANTI-AFK] Enabled!')
+if QueueTeleport then
+    QueueTeleport('repeat task.wait() until game.Players.LocalPlayer ~= nil; game.Players.LocalPlayer:Kick("Probably shutdown")')
+end
+  	end   
+})
+JogadorTab:AddButton({
+	Name = "Tp Player Em Outro Server",
+	Callback = function()
+      	-- Old Version: https://raw.githubusercontent.com/Acrillis/SynapseX/master/Synapse%20Scripts/StreamSniper.lua
+local Screenguini = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local TextLabel = Instance.new("TextLabel")
+local TextLabel_2 = Instance.new("TextLabel")
+local UsernameBox = Instance.new("TextBox")
+local TextLabel_3 = Instance.new("TextLabel")
+local PlaceIdBox = Instance.new("TextBox")
+local StartButton = Instance.new("TextButton")
+local TextLabel_4 = Instance.new("TextLabel")
+local UsernameLabel = Instance.new("TextLabel")
+local TextLabel_5 = Instance.new("TextLabel")
+local UserIdLabel = Instance.new("TextLabel")
+local GamerPicture = Instance.new("ImageLabel")
+local TextLabel_6 = Instance.new("TextLabel")
+
+local HttpService = game:GetService("HttpService")
+local Players = game:GetService("Players")
+local TeleportService = game:GetService("TeleportService")
+local Request = (syn and syn.request) or request
+
+Screenguini.Name = HttpService:GenerateGUID(false)
+Screenguini.Parent = game:GetService("CoreGui")
+
+Frame.Parent = Screenguini
+Frame.Active = true
+Frame.BackgroundColor3 = Color3.fromRGB(31, 31, 31)
+Frame.BorderColor3 = Color3.fromRGB(31, 31, 31)
+Frame.Draggable = true
+Frame.Size = UDim2.new(0, 400, 0, 260)
+
+TextLabel.Parent = Frame
+TextLabel.Active = true
+TextLabel.BackgroundColor3 = Color3.fromRGB(255, 170, 0)
+TextLabel.BorderColor3 = Color3.fromRGB(31, 31, 40)
+TextLabel.Size = UDim2.new(0, 400, 0, 40)
+TextLabel.Font = Enum.Font.SourceSansLight
+TextLabel.Text = "Synapse X Stream Sniper"
+TextLabel.TextSize = 24.000
+
+TextLabel_2.Parent = Frame
+TextLabel_2.Active = true
+TextLabel_2.BackgroundColor3 = Color3.fromRGB(31, 31, 31)
+TextLabel_2.BorderColor3 = Color3.fromRGB(31, 31, 31)
+TextLabel_2.Position = UDim2.new(0, 10, 0, 49)
+TextLabel_2.Size = UDim2.new(0, 150, 0, 20)
+TextLabel_2.Font = Enum.Font.SourceSansLight
+TextLabel_2.Text = "Username/UserId:"
+TextLabel_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_2.TextSize = 16.000
+
+UsernameBox.Name = "UsernameBox"
+UsernameBox.Parent = Frame
+UsernameBox.BackgroundColor3 = Color3.fromRGB(61, 61, 61)
+UsernameBox.BorderColor3 = Color3.fromRGB(31, 31, 31)
+UsernameBox.Position = UDim2.new(0, 10, 0, 80)
+UsernameBox.Size = UDim2.new(0, 150, 0, 35)
+UsernameBox.Font = Enum.Font.SourceSansLight
+UsernameBox.PlaceholderColor3 = Color3.fromRGB(255, 255, 255)
+UsernameBox.PlaceholderText = "Enter Username Here"
+UsernameBox.Text = ""
+UsernameBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+UsernameBox.TextSize = 18.000
+
+TextLabel_3.Parent = Frame
+TextLabel_3.Active = true
+TextLabel_3.BackgroundColor3 = Color3.fromRGB(31, 31, 31)
+TextLabel_3.BorderColor3 = Color3.fromRGB(31, 31, 31)
+TextLabel_3.Position = UDim2.new(0, 10, 0, 130)
+TextLabel_3.Size = UDim2.new(0, 150, 0, 20)
+TextLabel_3.Font = Enum.Font.SourceSansLight
+TextLabel_3.Text = "Place Id:"
+TextLabel_3.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_3.TextSize = 16.000
+
+PlaceIdBox.Name = "PlaceIdBox"
+PlaceIdBox.Parent = Frame
+PlaceIdBox.BackgroundColor3 = Color3.fromRGB(61, 61, 61)
+PlaceIdBox.BorderColor3 = Color3.fromRGB(31, 31, 31)
+PlaceIdBox.Position = UDim2.new(0, 10, 0, 157)
+PlaceIdBox.Size = UDim2.new(0, 150, 0, 35)
+PlaceIdBox.Font = Enum.Font.SourceSansLight
+PlaceIdBox.PlaceholderColor3 = Color3.fromRGB(255, 255, 255)
+PlaceIdBox.PlaceholderText = "Enter PlaceId Here"
+PlaceIdBox.Text = tostring(game.PlaceId) or ""
+PlaceIdBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+PlaceIdBox.TextSize = 18.000
+
+StartButton.Name = "StartButton"
+StartButton.Parent = Frame
+StartButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+StartButton.BorderColor3 = Color3.fromRGB(31, 31, 31)
+StartButton.Position = UDim2.new(0, 10, 0, 204)
+StartButton.Size = UDim2.new(0, 380, 0, 34)
+StartButton.Font = Enum.Font.SourceSansLight
+StartButton.Text = "Start"
+StartButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+StartButton.TextSize = 24.000
+
+TextLabel_4.Parent = Frame
+TextLabel_4.Active = true
+TextLabel_4.BackgroundColor3 = Color3.fromRGB(31, 31, 31)
+TextLabel_4.BackgroundTransparency = 1.000
+TextLabel_4.BorderColor3 = Color3.fromRGB(31, 31, 31)
+TextLabel_4.Position = UDim2.new(0, 200, 0, 49)
+TextLabel_4.Size = UDim2.new(0, 0, 0, 20)
+TextLabel_4.AutomaticSize = Enum.AutomaticSize.X
+TextLabel_4.Font = Enum.Font.SourceSansBold
+TextLabel_4.Text = "Username:"
+TextLabel_4.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_4.TextSize = 16.000
+TextLabel_4.TextWrapped = true
+TextLabel_4.TextXAlignment = Enum.TextXAlignment.Left
+
+UsernameLabel.Name = "UsernameLabel"
+UsernameLabel.Parent = TextLabel_4
+UsernameLabel.Active = true
+UsernameLabel.BackgroundColor3 = Color3.fromRGB(31, 31, 31)
+UsernameLabel.BackgroundTransparency = 1.000
+UsernameLabel.BorderColor3 = Color3.fromRGB(31, 31, 31)
+UsernameLabel.Position = UDim2.new(0.5, 0, 0, 0)
+UsernameLabel.Size = UDim2.new(0, 150, 0, 20)
+UsernameLabel.Font = Enum.Font.SourceSansLight
+UsernameLabel.Text = ""
+UsernameLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+UsernameLabel.TextSize = 16.000
+UsernameLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+TextLabel_5.Parent = Frame
+TextLabel_5.Active = true
+TextLabel_5.BackgroundColor3 = Color3.fromRGB(31, 31, 31)
+TextLabel_5.BackgroundTransparency = 1.000
+TextLabel_5.BorderColor3 = Color3.fromRGB(31, 31, 31)
+TextLabel_5.Position = UDim2.new(0, 200, 0, 69)
+TextLabel_5.Size = UDim2.new(0, 0, 0, 20)
+TextLabel_5.AutomaticSize = Enum.AutomaticSize.X
+TextLabel_5.Font = Enum.Font.SourceSansBold
+TextLabel_5.Text = "UserId:"
+TextLabel_5.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_5.TextSize = 16.000
+TextLabel_5.TextWrapped = true
+TextLabel_5.TextXAlignment = Enum.TextXAlignment.Left
+
+UserIdLabel.Name = "UserIdLabel"
+UserIdLabel.Parent = TextLabel_5
+UserIdLabel.Active = true
+UserIdLabel.BackgroundColor3 = Color3.fromRGB(31, 31, 31)
+UserIdLabel.BackgroundTransparency = 1.000
+UserIdLabel.BorderColor3 = Color3.fromRGB(31, 31, 31)
+UserIdLabel.Position = UDim2.new(0.5, 0, 0, 0)
+UserIdLabel.Size = UDim2.new(0, 150, 0, 20)
+UserIdLabel.Font = Enum.Font.SourceSansLight
+UserIdLabel.Text = ""
+UserIdLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+UserIdLabel.TextSize = 16.000
+UserIdLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+GamerPicture.Name = "GamerPicture"
+GamerPicture.Parent = Frame
+GamerPicture.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+GamerPicture.Position = UDim2.new(0, 200, 0, 95)
+GamerPicture.Size = UDim2.new(0, 97, 0, 97)
+GamerPicture.Image = "rbxasset://textures/ui/GuiImagePlaceholder.png"
+
+TextLabel_6.Parent = Frame
+TextLabel_6.Active = true
+TextLabel_6.BackgroundColor3 = Color3.fromRGB(31, 31, 31)
+TextLabel_6.BackgroundTransparency = 1.000
+TextLabel_6.BorderColor3 = Color3.fromRGB(31, 31, 31)
+TextLabel_6.Position = UDim2.new(0, 0, 0, 238)
+TextLabel_6.Size = UDim2.new(0, 400, 0, 22)
+TextLabel_6.RichText = true
+TextLabel_6.Font = Enum.Font.SourceSansLight
+TextLabel_6.Text = "Credits: <font color=\"#e30000\">Synapse X Team</font> | Fixed: <font color=\"#6873F6\">Zv_yz#0847</font>"
+TextLabel_6.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_6.TextSize = 19.000
+TextLabel_6.TextStrokeTransparency = 0.000
+
+if shared.STREAM_SNIPER then
+    shared.STREAM_SNIPER:Destroy()
+end
+shared.STREAM_SNIPER = Screenguini
+
+local searching = false
+local confirm = false
+
+local function HttpGet(url)
+    return pcall(HttpService.JSONDecode, HttpService, game:HttpGet(url))
+end
+
+local function Status(text, tout)
+    StartButton.Text = text
+
+    if tout then
+        task.delay(tout, function()
+            if StartButton.Text == text then
+                searching = false
+                StartButton.Text = "Start"
+            end
+        end)
+    end
+end
+
+local function getServers(id, cursor)
+    local fullurl = "https://games.roblox.com/v1/games/".. id .."/servers/Public?limit=100"
+    if cursor then
+        fullurl = "&cursor=".. cursor
+    end
+
+    return HttpGet(fullurl)
+end
+
+local function fetchThumbs(tokens)
+    local payload = {
+        Url = "https://thumbnails.roblox.com/v1/batch",
+        Headers = {
+            ["Content-Type"] = "application/json"
+        },
+        Method = "POST",
+
+        Body = {}
+    }
+
+    for _, token in ipairs(tokens) do
+        table.insert(payload.Body, {
+            requestId = "0:".. token ..":AvatarHeadshot:150x150:png:regular",
+            type = "AvatarHeadShot",
+            targetId = 0,
+            token = token,
+            format = "png",
+            size = "150x150"
+        })
+    end
+
+    payload.Body = HttpService:JSONEncode(payload.Body)
+    local result = Request(payload)
+    local s, data = pcall(HttpService.JSONDecode, HttpService, result.Body)
+    return s, data and data.data or data
+end
+
+local function teleport(placeId, guid)
+    TeleportService:TeleportToPlaceInstance(placeId, guid)
+end
+
+
+local threads = 30
+
+StartButton.MouseButton1Click:Connect(function()
+    if confirm then
+        confirm = false
+        searching = false
+        Status("Cancelled")
+        return
+    end
+
+    if searching then
+        confirm = true
+        local old = StartButton.Text
+        Status("Click again to confirm.")
+        task.delay(5, function()
+            if "Click again to confirm." == StartButton.Text then
+                confirm = false
+                StartButton.Text = old
+            end
+        end)
+        return
+    end
+
+    searching = true
+
+    -- User ID
+    Status("Getting user id...")
+
+    local s, Username, UserId = pcall(function()
+        local userId = tonumber(UsernameBox.Text) or Players:GetUserIdFromNameAsync(UsernameBox.Text)
+        local username = Players:GetNameFromUserIdAsync(userId)
+        return username, userId
+    end)
+    if not s then
+        return Status("Username or UserId does not exist!", 3)
+    end
+
+    local s, thumbUrl = pcall(Players.GetUserThumbnailAsync, Players, UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size150x150)
+
+    UsernameLabel.Text = Username
+    UserIdLabel.Text = UserId
+    GamerPicture.Image = s and thumbUrl or ""
+
+    Status("Getting user's thumbnail...")
+    local s, response = HttpGet("https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" .. UserId .. "&format=Png&size=150x150&isCircular=false")
+    local thumbnail = s and response['data'][1].imageUrl
+
+    Status("Searching for (".. UserId ..")")
+
+    -- Place ID
+    Status("Getting place id...")
+
+    local placeId = tonumber(PlaceIdBox.Text)
+
+    if PlaceIdBox.Text:gsub("%s", "") == "" then
+        placeId = game.PlaceId
+        PlaceIdBox.Text = tostring(game.PlaceId)
+    elseif not placeId then
+        Status("Invalid place id", 3)
+        return
+    end
+
+    Status("Searching...")
+    local cursor = nil
+    local searched = 0
+    local maxSearchs = 0
+    local players = 0
+    -- Server search
+    while searching do
+        if not Screenguini or not Screenguini.Parent then
+            break
+        end
+        local s, result = getServers(placeId, cursor)
+
+        if s then
+            local servers = result.data
+            if result.nextPageCursor then
+                cursor = result.nextPageCursor
+            end
+
+            if StartButton.Text:match("Searching") then
+                maxSearchs = maxSearchs + #servers
+                Status(searched .."/".. maxSearchs .." servers scanned, players found: ".. players)
+            end
+
+            -- Search all servers
+            for index, server in ipairs(servers) do
+                local function fetchServer()
+                    local s, thumbs = fetchThumbs(server.playerTokens)
+                    if s then
+                        players = players + #thumbs
+                        for _, playerThumb in ipairs(thumbs) do
+                            if playerThumb.imageUrl then
+                                if playerThumb.imageUrl == thumbnail then
+                                    searching = false
+                                    Status("Found player, teleporting...")
+
+                                    teleport(placeId, server.id)
+                                    local try = 0
+                                    if Players.LocalPlayer then -- Imagine executing in loading screen without Player lmao
+                                        Players.LocalPlayer.OnTeleport:Connect(function(teleportState)
+                                            if teleportState == Enum.TeleportState.Failed then
+                                                try = try + 1
+                                                Status("Teleport failed, try #".. try)
+                                                teleport(placeId, server.id)
+                                            end
+                                        end)
+                                    end
+                                end
+                            else
+                                print("token failed, id:", playerThumb.requestId, playerThumb.state, playerThumb.errorMessage)
+                            end
+                        end
+                    else
+                        print("token failed", s, thumbs)
+                    end
+                end
+                searched = searched + 1
+                if index % threads ~= 0 then
+                    task.spawn(fetchServer)
+                    task.wait()
+                else
+                    fetchServer()
+                end
+
+                if searching then
+                    Status(searched .."/".. maxSearchs .." servers scanned, players found: ".. players)
+                end
+            end
+
+            -- Player not found
+            if not cursor then
+                break
+            end
+        else
+            return Status("Failed to find servers", 3)
+        end
+
+        task.wait()
+    end
+
+    if searching then
+        Status("Failed to find ".. Username ..", maybe in a vip server", 3)
+    end
+end)
+  	end    
+})
+JogadorTab:AddButton({
+	Name = "Chat Translator",
+	Callback = function()
+      	--[[
+    Message Translator
+    Made by Aim, updated by cli
+    Credits to Riptxde for the sending chathook
+--]]
+
+if not game['Loaded'] then game['Loaded']:Wait() end; repeat wait(.06) until game:GetService('Players').LocalPlayer ~= nil
+local YourLang = "pt" -- Language code that the messages are going to be translated to
+local Request = (syn and syn.request) or request
+local googlev = isfile'googlev.txt' and readfile'googlev.txt' or ''
+
+function googleConsent(Body) -- Because google really said: "Fuck you."
+    local args = {}
+
+    for match in Body:gmatch('<input type="hidden" name=".-" value=".-">') do
+        local k,v = match:match('<input type="hidden" name="(.-)" value="(.-)">')
+        args[k] = v
+    end
+    googlev = args.v
+    writefile('googlev.txt', args.v)
+end
+
+local function got(url, Method, Body) -- Basic version of https://www.npmjs.com/package/got using synapse's request API for google websites
+    Method = Method or "GET"
+    
+    local res = Request({
+        Url = url,
+        Method = Method,
+        Headers = {cookie="CONSENT=YES+"..googlev},
+        Body = Body
+    })
+    
+    if res.Body:match('https://consent.google.com/s') then
+        --print('consent')
+        googleConsent(res.Body)
+        res = Request({
+            Url = url,
+            Method = "GET",
+            Headers = {cookie="CONSENT=YES+"..googlev}
+        })
+    end
+    
+    return res
+end
+
+local languages = {
+    auto = "Automatic",
+    af = "Afrikaans",
+    sq = "Albanian",
+    am = "Amharic",
+    ar = "Arabic",
+    hy = "Armenian",
+    az = "Azerbaijani",
+    eu = "Basque",
+    be = "Belarusian",
+    bn = "Bengali",
+    bs = "Bosnian",
+    bg = "Bulgarian",
+    ca = "Catalan",
+    ceb = "Cebuano",
+    ny = "Chichewa",
+    ['zh-cn'] = "Chinese Simplified",
+    ['zh-tw'] = "Chinese Traditional",
+    co = "Corsican",
+    hr = "Croatian",
+    cs = "Czech",
+    da = "Danish",
+    nl = "Dutch",
+    en = "English",
+    eo = "Esperanto",
+    et = "Estonian",
+    tl = "Filipino",
+    fi = "Finnish",
+    fr = "French",
+    fy = "Frisian",
+    gl = "Galician",
+    ka = "Georgian",
+    de = "German",
+    el = "Greek",
+    gu = "Gujarati",
+    ht = "Haitian Creole",
+    ha = "Hausa",
+    haw = "Hawaiian",
+    iw = "Hebrew",
+    hi = "Hindi",
+    hmn = "Hmong",
+    hu = "Hungarian",
+    is = "Icelandic",
+    ig = "Igbo",
+    id = "Indonesian",
+    ga = "Irish",
+    it = "Italian",
+    ja = "Japanese",
+    jw = "Javanese",
+    kn = "Kannada",
+    kk = "Kazakh",
+    km = "Khmer",
+    ko = "Korean",
+    ku = "Kurdish (Kurmanji)",
+    ky = "Kyrgyz",
+    lo = "Lao",
+    la = "Latin",
+    lv = "Latvian",
+    lt = "Lithuanian",
+    lb = "Luxembourgish",
+    mk = "Macedonian",
+    mg = "Malagasy",
+    ms = "Malay",
+    ml = "Malayalam",
+    mt = "Maltese",
+    mi = "Maori",
+    mr = "Marathi",
+    mn = "Mongolian",
+    my = "Myanmar (Burmese)",
+    ne = "Nepali",
+    no = "Norwegian",
+    ps = "Pashto",
+    fa = "Persian",
+    pl = "Polish",
+    pt = "Portuguese",
+    pa = "Punjabi",
+    ro = "Romanian",
+    ru = "Russian",
+    sm = "Samoan",
+    gd = "Scots Gaelic",
+    sr = "Serbian",
+    st = "Sesotho",
+    sn = "Shona",
+    sd = "Sindhi",
+    si = "Sinhala",
+    sk = "Slovak",
+    sl = "Slovenian",
+    so = "Somali",
+    es = "Spanish",
+    su = "Sundanese",
+    sw = "Swahili",
+    sv = "Swedish",
+    tg = "Tajik",
+    ta = "Tamil",
+    te = "Telugu",
+    th = "Thai",
+    tr = "Turkish",
+    uk = "Ukrainian",
+    ur = "Urdu",
+    uz = "Uzbek",
+    vi = "Vietnamese",
+    cy = "Welsh",
+    xh = "Xhosa",
+    yi = "Yiddish",
+    yo = "Yoruba",
+    zu = "Zulu"
+};
+
+function find(lang)
+    for i,v in pairs(languages) do
+        if i == lang or v == lang then
+            return i
+        end
+    end
+end
+
+function isSupported(lang)
+    local key = find(lang)
+    return key and true or false 
+end
+
+function getISOCode(lang)
+    local key = find(lang)
+    return key
+end
+
+function stringifyQuery(dataFields)
+    local data = ""
+    for k, v in pairs(dataFields) do
+        if type(v) == "table" then
+            for _,v in pairs(v) do
+                data = data .. ("&%s=%s"):format(
+                    game.HttpService:UrlEncode(k),
+                    game.HttpService:UrlEncode(v)
+                )
+            end
+        else
+            data = data .. ("&%s=%s"):format(
+                game.HttpService:UrlEncode(k),
+                game.HttpService:UrlEncode(v)
+            )
+        end
+    end
+    data = data:sub(2)
+    return data
+end
+
+local reqid = math.random(1000,9999)
+local rpcidsTranslate = "MkEWBc"
+local rootURL = "https://translate.google.com/"
+local executeURL = "https://translate.google.com/_/TranslateWebserverUi/data/batchexecute"
+local fsid, bl
+
+do -- init
+	--print('initialize')
+    local InitialReq = got(rootURL)
+    fsid = InitialReq.Body:match('"FdrFJe":"(.-)"')
+    bl = InitialReq.Body:match('"cfb2h":"(.-)"')
+end
+
+local HttpService = game:GetService("HttpService")
+function jsonE(o)
+    return HttpService:JSONEncode(o)
+end
+function jsonD(o)
+    return HttpService:JSONDecode(o)
+end
+
+function translate(str, to, from)
+    reqid+=10000
+    from = from and getISOCode(from) or 'auto'
+    to = to and getISOCode(to) or 'en'
+
+    local data = {{str, from, to, true}, {nil}}
+
+    local freq = {
+        {
+            {
+                rpcidsTranslate, 
+                jsonE(data),
+                nil,
+                "generic"
+            }
+        }
+    }
+
+    local url = executeURL..'?'..stringifyQuery{rpcids = rpcidsTranslate, ['f.sid'] = fsid, bl = bl, hl="en", _reqid = reqid-10000, rt = 'c'}
+    local body = stringifyQuery{['f.req'] = jsonE(freq)}
+    
+    local req = got(url, "POST", body)
+	
+    local body = jsonD(req.Body:match'%[.-%]\n')
+    local translationData = jsonD(body[1][3])
+    local result = {
+        text = "",
+        from = {
+            language = "",
+            text = ""
+        },
+        raw = ""
+    }
+    result.raw = translationData
+    result.text = translationData[2][1][1][6][1][1]
+    
+    result.from.language = translationData[3]
+    result.from.text = translationData[2][5][1]
+
+    return result
+end
+
+local Players = game:GetService("Players")
+local LP = Players.LocalPlayer
+local StarterGui = game:GetService('StarterGui')
+for i=1, 15 do
+    local r = pcall(StarterGui["SetCore"])
+    if r then break end
+    game:GetService('RunService').RenderStepped:wait()
+end
+wait()
+
+local properties = {
+    Color = Color3.new(1,1,0);
+    Font = Enum.Font.SourceSansItalic;
+    TextSize = 16;
+}
+
+game:GetService("StarterGui"):SetCore("SendNotification",
+    {
+        Title = "Chat Translator",
+        Text = "Ported to Google Translate",
+        Duration = 3
+    }
+)
+
+properties.Text = "[TR] To send messages in a language, say > followed by the target language/language code, e.g.: >ru or >russian. To disable (go back to original language), say >d."
+StarterGui:SetCore("ChatMakeSystemMessage", properties)
+
+function translateFrom(message)
+    local translation = translate(message, YourLang)
+
+    local text
+    if translation.from.language ~= YourLang then
+        text = translation.text
+    end
+
+    return {text, translation.from.language}
+end
+
+function get(plr, msg)
+    local tab = translateFrom(msg)
+    local translation = tab[1]
+    if translation then
+        properties.Text = "("..tab[2]:upper()..") ".."[".. plr .."]: "..translation
+        StarterGui:SetCore("ChatMakeSystemMessage", properties)
+    end
+end
+
+task.spawn(function()
+    coroutine.resume(coroutine.create(function()
+        local ChatEvents = game:GetService('ReplicatedStorage'):WaitForChild("DefaultChatSystemChatEvents", math.huge)
+        ChatEvents:WaitForChild("OnMessageDoneFiltering", math.huge).OnClientEvent:Connect(function(data)
+            if data ~= nil then
+                local player = tostring(data.FromSpeaker)
+                local message = tostring(data.Message)
+                get(player, message)
+            end
+        end)
+    end))
+end)
+
+local sendEnabled = false
+local target = ""
+
+function translateTo(message, target)
+    target = target:lower() 
+    local translation = translate(message, target, "auto")
+
+    return translation.text
+end
+
+function disableSend()
+    sendEnabled = false
+    properties.Text = "[TR] Sending Disabled"
+    StarterGui:SetCore("ChatMakeSystemMessage", properties)
+end
+
+local CBar, CRemote, Connected = LP['PlayerGui']:WaitForChild('Chat')['Frame'].ChatBarParentFrame['Frame'].BoxFrame['Frame'].ChatBar, game:GetService('ReplicatedStorage').DefaultChatSystemChatEvents['SayMessageRequest'], {}
+
+local HookChat = function(Bar)
+    coroutine.wrap(function()
+        if not table.find(Connected,Bar) then
+            local Connect = Bar['FocusLost']:Connect(function(Enter)
+                if Enter ~= false and Bar['Text'] ~= '' then
+                    local Message = Bar['Text']
+                    Bar['Text'] = '';
+                    if Message == ">d" then
+                        disableSend()
+                    elseif Message:sub(1,1) == ">" and not Message:find(" ") then
+                        if getISOCode(Message:sub(2)) then
+                            sendEnabled = true
+                            target = Message:sub(2)
+                        else
+                            properties.Text = "[TR] Invalid language"
+                            StarterGui:SetCore("ChatMakeSystemMessage", properties)
+                        end
+                    elseif sendEnabled then
+                        Message = translateTo(Message, target)
+                        CRemote:FireServer(Message,'All')
+                    else
+                        CRemote:FireServer(Message,'All')
+                    end
+                end
+            end)
+            Connected[#Connected+1] = Bar; Bar['AncestryChanged']:Wait(); Connect:Disconnect()
+        end
+    end)()
+end
+
+HookChat(CBar); local BindHook = Instance.new('BindableEvent')
+
+local MT = getrawmetatable(game); local NC = MT.__namecall; setreadonly(MT, false)
+
+MT.__namecall = newcclosure(function(...)
+    local Method, Args = getnamecallmethod(), {...}
+    if rawequal(tostring(Args[1]),'ChatBarFocusChanged') and rawequal(Args[2],true) then 
+        if LP['PlayerGui']:FindFirstChild('Chat') then
+            BindHook:Fire()
+        end
+    end
+    return NC(...)
+end)
+
+BindHook['Event']:Connect(function()
+    CBar = LP['PlayerGui'].Chat['Frame'].ChatBarParentFrame['Frame'].BoxFrame['Frame'].ChatBar
+    HookChat(CBar)
+end)
+  	end    
+})
+JogadorTab:AddButton({
+	Name = "Reviver Tela De Morte - Bypass",
 	Callback = function()
         game:GetService("ReplicatedStorage").Remotes.Menu:FireServer()
         wait(000000.5)
@@ -6250,10 +15825,34 @@ PlayersTab:AddButton({
   	end    
 })
 PlayersTab:AddButton({
-	Name = "Staffs Proximo - Esp",
+	Name = "Staff Proximo (Beta)",
 	Callback = function()
       	print("Ativado com sucesso!")
   	end    
+})
+PlayersTab:AddButton({
+	Name = "Staff Online (Beta)",
+	Callback = function()
+      	print("Ativado com sucesso!")
+  	end   
+})
+PlayersTab:AddButton({
+	Name = "Auto Pos By Dreck",
+	Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/G-development-M/DreckModz/main/By_dreck_/AutoPos.lua'))()
+  	end   
+})
+PlayersTab:AddButton({
+	Name = "Ver Inventario Da Pessoa - By Dreck",
+	Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/pedroxzytbhypee/inventariobydrec/main/README.md'))()
+  	end  
+})
+PlayersTab:AddButton({
+	Name = "Drops Pelo Mapa (TGI) - By Dreck",
+	Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/pedroxzytbhypee/dropss/main/README.md'))()
+  	end  
 })
 PlayersTab:AddButton({
 	Name = "Sentar Na Cadeira Proxima",
@@ -6308,6 +15907,24 @@ game.StarterGui:SetCore("SendNotification", {
     })
 PlayersTab:AddButton({
 	Name = "Puxar Dinheiro 3 Possui Bypass",
+	Callback = function()
+      		local Player = game.Players.LocalPlayer
+local Dinheiro = Player.leaderstats.Dinheiro
+
+Dinheiro.Value = 99999999
+  	end    
+    })
+PlayersTab:AddButton({
+	Name = "Puxar Dinheiro TGI risco",
+	Callback = function()
+      		local Player = game.Players.LocalPlayer
+local Dinheiro = Player.leaderstats.Dinheiro
+
+Dinheiro.Value = 99999999
+  	end    
+})
+PlayersTab:AddButton({
+	Name = "Puxar Dinheiro Vida No Para",
 	Callback = function()
       		local Player = game.Players.LocalPlayer
 local Dinheiro = Player.leaderstats.Dinheiro
@@ -6833,13 +16450,13 @@ MenusTab:AddButton({
   	end    
 })
     AdmTab:AddButton({
-        Name = "Reviz Admin - Risco detect Adonis",
+        Name = "Reviz Admin No Bypass",
         Callback = function()
             loadstring(game:HttpGetAsync("https://pastebin.com/raw/Caniwq2N"))()
           end      
 })
     AdmTab:AddButton({
-        Name = "Puxar Adonis Staff (beta) - Metodo",
+        Name = "Puxar Admin Metodo",
         Callback = function()
             wait(0.2)
 game.StarterGui:SetCore("SendNotification", {
@@ -6858,17 +16475,23 @@ local Section = AdmTab:AddSection({
             loadstring(game:HttpGet("https://pastebin.com/raw/stggPUBM", true))()
           end       
         })
+AdmTab:AddButton({
+	Name = "Cmd Admin + Op",
+	Callback = function()
+        loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Syntaxx64/HomebrewAdmin/master/Main"))()
+  	end    
+})
 local Section = BypassTab:AddSection({
 	Name = "Painel Anti detecter - Nem faz tanto Milagre Avisando"
 })
     BypassTab:AddButton({
-        Name = "Bypass Stopper V1",
+        Name = "Bypass V1",
             Callback = function()
                 loadstring(game:HttpGet(('https://raw.githubusercontent.com/Pedroxz63/Ante-kick-V1/main/README.md'),true))()
               end                        
 })
     BypassTab:AddButton({
-        Name = "Bypass Stopper V2",
+        Name = "Bypass V2",
             Callback = function()
                 ait(0.5)local ba=Instance.new("ScreenGui")
 local ca=Instance.new("TextLabel")local da=Instance.new("Frame")
@@ -6891,11 +16514,11 @@ bb:CaptureController()bb:ClickButton2(Vector2.new())
 ab.Text="You went idle and ROBLOX tried to kick you but we reflected it!"wait(2)ab.Text="Script Re-Enabled"end)
               end    
     })
-    local Section = JogadorTab:AddSection({
-        Name = "Aimbot"
+    local Section = ArmaTab:AddSection({
+        Name = "Aimbot Hub"
     })   
 local Section = BypassTab:AddSection({
-	Name = "Desativacion"
+	Name = "Desative"
 })  
 BypassTab:AddButton({
 	Name = "Desativar anti cheater/exploit V3",
@@ -6957,7 +16580,7 @@ BypassTab:AddButton({
         ab.Text="Roblox tried to kick u but i kicked him instead"wait(2)ab.Text="Status : Active"end)
   	end    
 })
-    JogadorTab:AddToggle({
+    ArmaTab:AddToggle({
         Name = "Aimbot + Esp Hub",
         Default = false,
         Callback = function(Value)
