@@ -1154,7 +1154,7 @@ ArmaTab:AddButton({
       end    
 })
 ArmaTab:AddButton({
-	Name = "Puxar Armas 1 No Detect",
+	Name = "Puxar Armas 1 Indetectável",
 	Callback = function()
         for i,v in game.Players:GetDescendants() do
             if v:IsA("Tool") then
