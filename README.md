@@ -2486,6 +2486,17 @@ TrollTab:AddButton({
 local Section = PlayersTab:AddSection({
 	Name = "Cheat"
 })
+PlayersTab:AddButton({
+	Name = "Expulsar Geral - Risco (algums games)",
+	Callback = function()
+		gabbum = game:GetService'ReplicatedStorage'.DeleteCar
+for i, escravo in pairs(game:GetService'Players':GetPlayers()) do
+if escravo ~= game:GetService'Players'.LocalPlayer then
+gabbum:FireServer(escravo)
+end
+end
+		end
+})
     PlayersTab:AddButton({
         Name = "Filter Console",
         Callback = function()
