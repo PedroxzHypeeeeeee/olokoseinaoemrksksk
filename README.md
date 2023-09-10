@@ -16,7 +16,7 @@
     --Valores _G. Para desativar ou desativar ou parte da key/texto
     _G.Aimbot = true
     _G.Loop = true
-    _G.Key = "hubtrollphx"
+    _G.Key = "AntiTentativaDeKeyChora"
     _G.KeyInput = "string"
 
     --Funcao do Serial Killer loop by pedroxz
