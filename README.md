@@ -929,7 +929,7 @@ end
     })
     local ArmaTab = Window:MakeTab({
         Name = "Weapon",
-        Icon = "rbxassetid://4483345998",
+        Icon = "rbxassetid://14511894009",
         PremiumOnly = false     
     })
     local EspTab = Window:MakeTab({
@@ -939,7 +939,7 @@ end
     })    
     local TrollTab = Window:MakeTab({
         Name = "Destruição",
-        Icon = "rbxassetid://4483345998",
+        Icon = "rbxassetid://14511996964",
         PremiumOnly = false      
     })    
     local MenusTab = Window:MakeTab({
@@ -1003,7 +1003,7 @@ end
 
 local plrTab = Window:MakeTab({
     Name = "Farm",
-    Icon = "rbxassetid://4483345998",
+    Icon = "rbxassetid://14512014916",
     PremiumOnly = false
 })
 
