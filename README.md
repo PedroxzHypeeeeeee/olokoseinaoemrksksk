@@ -9,7 +9,7 @@
     OrionLib:MakeNotification({
         Name = "Logado!",
         Content = "Logado no Pedroxz Menu V2 EM... "..Player.Name.." ",
-        Image = "rbxassetid://4483345998",
+        Image = "rbxassetid://7733715400",
         Time = 5
     })
 
@@ -40,7 +40,7 @@
     OrionLib:MakeNotification({
         Name = "Correta key",
         Content = "Key Injetada",
-        Image = "rbxassetid://4483345998",
+        Image = "rbxassetid://7733715400",
         Time = 5
         })
     end   
