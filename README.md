@@ -16064,13 +16064,438 @@ PlayersTab:AddButton({
 PlayersTab:AddButton({
 	Name = "Staff Proximo (Beta)",
 	Callback = function()
-      	print("Ativado com sucesso!")
+      	-- Gui to Lua
+-- Version: 3.2
+
+-- Instances:
+
+local StaffsProximos = Instance.new("ScreenGui")
+local STFfundo = Instance.new("Frame")
+local TextLabel = Instance.new("TextLabel")
+local UICorner = Instance.new("UICorner")
+local UICorner_2 = Instance.new("UICorner")
+local Fundo2 = Instance.new("Frame")
+local UICorner_3 = Instance.new("UICorner")
+local TextLabel_2 = Instance.new("TextLabel")
+local UICorner_4 = Instance.new("UICorner")
+local TextLabel_3 = Instance.new("TextLabel")
+local UICorner_5 = Instance.new("UICorner")
+local TextLabel_4 = Instance.new("TextLabel")
+local UICorner_6 = Instance.new("UICorner")
+local TextLabel_5 = Instance.new("TextLabel")
+local UICorner_7 = Instance.new("UICorner")
+local TextLabel_6 = Instance.new("TextLabel")
+local UICorner_8 = Instance.new("UICorner")
+local TextLabel_7 = Instance.new("TextLabel")
+local UICorner_9 = Instance.new("UICorner")
+local TextLabel_8 = Instance.new("TextLabel")
+local UICorner_10 = Instance.new("UICorner")
+local TextLabel_9 = Instance.new("TextLabel")
+local UICorner_11 = Instance.new("UICorner")
+local TextLabel_10 = Instance.new("TextLabel")
+local UICorner_12 = Instance.new("UICorner")
+local TextLabel_11 = Instance.new("TextLabel")
+local UICorner_13 = Instance.new("UICorner")
+local Frame = Instance.new("Frame")
+local UICorner_14 = Instance.new("UICorner")
+local Frame_2 = Instance.new("Frame")
+local UICorner_15 = Instance.new("UICorner")
+local Frame_3 = Instance.new("Frame")
+local UICorner_16 = Instance.new("UICorner")
+local TextButton = Instance.new("TextButton")
+
+--Properties:
+
+StaffsProximos.Name = "Staffs Proximos"
+StaffsProximos.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+StaffsProximos.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+STFfundo.Name = "STF fundo"
+STFfundo.Parent = StaffsProximos
+STFfundo.BackgroundColor3 = Color3.fromRGB(53, 53, 53)
+STFfundo.BorderColor3 = Color3.fromRGB(0, 0, 0)
+STFfundo.BorderSizePixel = 0
+STFfundo.Position = UDim2.new(0.806286097, 0, 0.070807457, 0)
+STFfundo.Size = UDim2.new(0, 199, 0, 20)
+
+TextLabel.Parent = STFfundo
+TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.BackgroundTransparency = 1.000
+TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel.BorderSizePixel = 0
+TextLabel.Position = UDim2.new(-0.00502512557, 0, 0, 0)
+TextLabel.Size = UDim2.new(0, 200, 0, 20)
+TextLabel.Font = Enum.Font.SourceSans
+TextLabel.Text = "Staffs Proximos"
+TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.TextScaled = true
+TextLabel.TextSize = 14.000
+TextLabel.TextWrapped = true
+
+UICorner.Parent = TextLabel
+
+UICorner_2.Parent = STFfundo
+
+Fundo2.Name = "Fundo2"
+Fundo2.Parent = StaffsProximos
+Fundo2.BackgroundColor3 = Color3.fromRGB(79, 79, 79)
+Fundo2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Fundo2.BorderSizePixel = 0
+Fundo2.Position = UDim2.new(0.824887753, 0, 0.0956521705, 0)
+Fundo2.Size = UDim2.new(0, 140, 0, 343)
+
+UICorner_3.Parent = Fundo2
+
+TextLabel_2.Parent = Fundo2
+TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_2.BackgroundTransparency = 1.000
+TextLabel_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_2.BorderSizePixel = 0
+TextLabel_2.Position = UDim2.new(0.20714286, 0, 0, 0)
+TextLabel_2.Size = UDim2.new(0, 81, 0, 28)
+TextLabel_2.Font = Enum.Font.Unknown
+TextLabel_2.Text = "Adm 1"
+TextLabel_2.TextColor3 = Color3.fromRGB(255, 0, 0)
+TextLabel_2.TextScaled = true
+TextLabel_2.TextSize = 14.000
+TextLabel_2.TextWrapped = true
+
+UICorner_4.Parent = TextLabel_2
+
+TextLabel_3.Parent = TextLabel_2
+TextLabel_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_3.BackgroundTransparency = 1.000
+TextLabel_3.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_3.BorderSizePixel = 0
+TextLabel_3.Position = UDim2.new(-0.00476224907, 0, 0.97683388, 0)
+TextLabel_3.Size = UDim2.new(0, 81, 0, 33)
+TextLabel_3.Font = Enum.Font.Unknown
+TextLabel_3.Text = "Adm 1"
+TextLabel_3.TextColor3 = Color3.fromRGB(255, 0, 0)
+TextLabel_3.TextScaled = true
+TextLabel_3.TextSize = 14.000
+TextLabel_3.TextWrapped = true
+
+UICorner_5.Parent = TextLabel_3
+
+TextLabel_4.Parent = TextLabel_3
+TextLabel_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_4.BackgroundTransparency = 1.000
+TextLabel_4.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_4.BorderSizePixel = 0
+TextLabel_4.Position = UDim2.new(-0.00476224907, 0, 0.978706121, 0)
+TextLabel_4.Size = UDim2.new(0, 81, 0, 34)
+TextLabel_4.Font = Enum.Font.Unknown
+TextLabel_4.Text = "Adm 1"
+TextLabel_4.TextColor3 = Color3.fromRGB(255, 0, 0)
+TextLabel_4.TextScaled = true
+TextLabel_4.TextSize = 14.000
+TextLabel_4.TextWrapped = true
+
+UICorner_6.Parent = TextLabel_4
+
+TextLabel_5.Parent = TextLabel_4
+TextLabel_5.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_5.BackgroundTransparency = 1.000
+TextLabel_5.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_5.BorderSizePixel = 0
+TextLabel_5.Position = UDim2.new(0.00758342957, 0, 0.999205649, 0)
+TextLabel_5.Size = UDim2.new(0, 82, 0, 36)
+TextLabel_5.Font = Enum.Font.Unknown
+TextLabel_5.Text = "Adm 1"
+TextLabel_5.TextColor3 = Color3.fromRGB(255, 0, 0)
+TextLabel_5.TextScaled = true
+TextLabel_5.TextSize = 14.000
+TextLabel_5.TextWrapped = true
+
+UICorner_7.Parent = TextLabel_5
+
+TextLabel_6.Parent = TextLabel_5
+TextLabel_6.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_6.BackgroundTransparency = 1.000
+TextLabel_6.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_6.BorderSizePixel = 0
+TextLabel_6.Position = UDim2.new(0.00758342957, 0, 0.999205649, 0)
+TextLabel_6.Size = UDim2.new(0, 82, 0, 36)
+TextLabel_6.Font = Enum.Font.Unknown
+TextLabel_6.Text = "Adm 1"
+TextLabel_6.TextColor3 = Color3.fromRGB(255, 0, 0)
+TextLabel_6.TextScaled = true
+TextLabel_6.TextSize = 14.000
+TextLabel_6.TextWrapped = true
+
+UICorner_8.Parent = TextLabel_6
+
+TextLabel_7.Parent = TextLabel_6
+TextLabel_7.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_7.BackgroundTransparency = 1.000
+TextLabel_7.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_7.BorderSizePixel = 0
+TextLabel_7.Position = UDim2.new(0.00758342957, 0, 0.999205649, 0)
+TextLabel_7.Size = UDim2.new(0, 82, 0, 36)
+TextLabel_7.Font = Enum.Font.Unknown
+TextLabel_7.Text = "Adm 1"
+TextLabel_7.TextColor3 = Color3.fromRGB(255, 0, 0)
+TextLabel_7.TextScaled = true
+TextLabel_7.TextSize = 14.000
+TextLabel_7.TextWrapped = true
+
+UICorner_9.Parent = TextLabel_7
+
+TextLabel_8.Parent = TextLabel_7
+TextLabel_8.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_8.BackgroundTransparency = 1.000
+TextLabel_8.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_8.BorderSizePixel = 0
+TextLabel_8.Position = UDim2.new(0.00758342957, 0, 0.999205649, 0)
+TextLabel_8.Size = UDim2.new(0, 82, 0, 36)
+TextLabel_8.Font = Enum.Font.Unknown
+TextLabel_8.Text = "Adm 1"
+TextLabel_8.TextColor3 = Color3.fromRGB(255, 0, 0)
+TextLabel_8.TextScaled = true
+TextLabel_8.TextSize = 14.000
+TextLabel_8.TextWrapped = true
+
+UICorner_10.Parent = TextLabel_8
+
+TextLabel_9.Parent = TextLabel_8
+TextLabel_9.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_9.BackgroundTransparency = 1.000
+TextLabel_9.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_9.BorderSizePixel = 0
+TextLabel_9.Position = UDim2.new(0.00758342957, 0, 0.999205649, 0)
+TextLabel_9.Size = UDim2.new(0, 82, 0, 36)
+TextLabel_9.Font = Enum.Font.Unknown
+TextLabel_9.Text = "Adm 1"
+TextLabel_9.TextColor3 = Color3.fromRGB(255, 0, 0)
+TextLabel_9.TextScaled = true
+TextLabel_9.TextSize = 14.000
+TextLabel_9.TextWrapped = true
+
+UICorner_11.Parent = TextLabel_9
+
+TextLabel_10.Parent = TextLabel_9
+TextLabel_10.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_10.BackgroundTransparency = 1.000
+TextLabel_10.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_10.BorderSizePixel = 0
+TextLabel_10.Position = UDim2.new(0.00758342957, 0, 0.999205649, 0)
+TextLabel_10.Size = UDim2.new(0, 82, 0, 36)
+TextLabel_10.Font = Enum.Font.Unknown
+TextLabel_10.Text = "Adm 1"
+TextLabel_10.TextColor3 = Color3.fromRGB(255, 0, 0)
+TextLabel_10.TextScaled = true
+TextLabel_10.TextSize = 14.000
+TextLabel_10.TextWrapped = true
+
+UICorner_12.Parent = TextLabel_10
+
+TextLabel_11.Parent = TextLabel_10
+TextLabel_11.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_11.BackgroundTransparency = 1.000
+TextLabel_11.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_11.BorderSizePixel = 0
+TextLabel_11.Position = UDim2.new(0.00758342957, 0, 0.999205649, 0)
+TextLabel_11.Size = UDim2.new(0, 82, 0, 36)
+TextLabel_11.Font = Enum.Font.Unknown
+TextLabel_11.Text = "Adm 1"
+TextLabel_11.TextColor3 = Color3.fromRGB(255, 0, 0)
+TextLabel_11.TextScaled = true
+TextLabel_11.TextSize = 14.000
+TextLabel_11.TextWrapped = true
+
+UICorner_13.Parent = TextLabel_11
+
+Frame.Parent = Fundo2
+Frame.BackgroundColor3 = Color3.fromRGB(98, 98, 98)
+Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame.BorderSizePixel = 0
+Frame.Position = UDim2.new(-0.0500000007, 0, 0, 0)
+Frame.Size = UDim2.new(0, 7, 0, 343)
+
+UICorner_14.Parent = Frame
+
+Frame_2.Parent = Frame
+Frame_2.BackgroundColor3 = Color3.fromRGB(98, 98, 98)
+Frame_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame_2.BorderSizePixel = 0
+Frame_2.Position = UDim2.new(19.9500027, 0, 0.005830904, 0)
+Frame_2.Size = UDim2.new(0, 7, 0, 343)
+
+UICorner_15.Parent = Frame_2
+
+Frame_3.Parent = Frame_2
+Frame_3.BackgroundColor3 = Color3.fromRGB(98, 98, 98)
+Frame_3.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame_3.BorderSizePixel = 0
+Frame_3.Position = UDim2.new(-19.9500027, 0, 0.994169116, 0)
+Frame_3.Size = UDim2.new(0, 146, 0, 9)
+
+UICorner_16.Parent = Frame_3
+
+TextButton.Parent = Fundo2
+TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextButton.BackgroundTransparency = 1.000
+TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextButton.BorderSizePixel = 0
+TextButton.Position = UDim2.new(0.714285731, 0, -0.0728862956, 0)
+TextButton.Size = UDim2.new(0, 109, 0, 30)
+TextButton.Font = Enum.Font.Unknown
+TextButton.Text = "X"
+TextButton.TextColor3 = Color3.fromRGB(255, 0, 0)
+TextButton.TextScaled = true
+TextButton.TextSize = 14.000
+TextButton.TextWrapped = true
+TextButton.MouseButton1Down:Connect(function()
+	TextButton:Destroy()
+end)
   	end    
 })
 PlayersTab:AddButton({
-	Name = "Staff Online (Beta)",
+	Name = "Staff Online (Error Adonis)",
 	Callback = function()
-      	print("Ativado com sucesso!")
+		local StaffOnline = Instance.new("ScreenGui")
+		local Frame = Instance.new("Frame")
+		local UICorner = Instance.new("UICorner")
+		local Frame_2 = Instance.new("Frame")
+		local UICorner_2 = Instance.new("UICorner")
+		local TextLabel = Instance.new("TextLabel")
+		local TextLabel_2 = Instance.new("TextLabel")
+		local TextLabel_3 = Instance.new("TextLabel")
+		local TextLabel_4 = Instance.new("TextLabel")
+		local TextLabel_5 = Instance.new("TextLabel")
+		local TextButton = Instance.new("TextButton")
+		local Frame_3 = Instance.new("Frame")
+		local Frame_4 = Instance.new("Frame")
+		
+		--Config e fundo etc
+		
+		StaffOnline.Name = "Staff Online"
+		StaffOnline.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+		StaffOnline.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+		
+		Frame.Parent = StaffOnline
+		Frame.BackgroundColor3 = Color3.fromRGB(26, 26, 26)
+		Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		Frame.BorderSizePixel = 0
+		Frame.Position = UDim2.new(0.691468894, 0, 0.270807445, 0)
+		Frame.Size = UDim2.new(0, 350, 0, 369)
+		Frame.Draggable = true
+		Frame.Active = true
+		Frame.Selectable = true
+		
+		UICorner.Parent = Frame
+		
+		Frame_2.Parent = Frame
+		Frame_2.BackgroundColor3 = Color3.fromRGB(47, 47, 47)
+		Frame_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		Frame_2.BorderSizePixel = 0
+		Frame_2.Position = UDim2.new(0.0271547157, 0, 0.0290527344, 0)
+		Frame_2.Size = UDim2.new(0, 340, 0, 358)
+		
+		UICorner_2.Parent = Frame_2
+		
+		TextLabel.Parent = Frame_2
+		TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		TextLabel.BackgroundTransparency = 1.000
+		TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		TextLabel.BorderSizePixel = 0
+		TextLabel.Position = UDim2.new(0.191176474, 0, 0, 0)
+		TextLabel.Size = UDim2.new(0, 200, 0, 50)
+		TextLabel.Font = Enum.Font.SourceSansBold
+		TextLabel.Text = "Staffs OnLine"
+		TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+		TextLabel.TextScaled = true
+		TextLabel.TextSize = 14.000
+		TextLabel.TextWrapped = true
+		
+		TextLabel_2.Parent = TextLabel
+		TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		TextLabel_2.BackgroundTransparency = 1.000
+		TextLabel_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		TextLabel_2.BorderSizePixel = 0
+		TextLabel_2.Position = UDim2.new(0.136176765, 0, 0.800000012, 0)
+		TextLabel_2.Size = UDim2.new(0, 126, 0, 36)
+		TextLabel_2.Font = Enum.Font.SourceSansItalic
+		TextLabel_2.Text = "(7)"
+		TextLabel_2.TextColor3 = Color3.fromRGB(0, 255, 8)
+		TextLabel_2.TextScaled = true
+		TextLabel_2.TextSize = 14.000
+		TextLabel_2.TextWrapped = true
+		
+		TextLabel_3.Parent = TextLabel_2
+		TextLabel_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		TextLabel_3.BackgroundTransparency = 1.000
+		TextLabel_3.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		TextLabel_3.BorderSizePixel = 0
+		TextLabel_3.Position = UDim2.new(-0.00667995866, 0, 1.49444413, 0)
+		TextLabel_3.Size = UDim2.new(0, 126, 0, 36)
+		TextLabel_3.Font = Enum.Font.SourceSansItalic
+		TextLabel_3.Text = "Player"
+		TextLabel_3.TextColor3 = Color3.fromRGB(255, 0, 4)
+		TextLabel_3.TextScaled = true
+		TextLabel_3.TextSize = 14.000
+		TextLabel_3.TextWrapped = true
+		
+		TextLabel_4.Parent = TextLabel_3
+		TextLabel_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		TextLabel_4.BackgroundTransparency = 1.000
+		TextLabel_4.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		TextLabel_4.BorderSizePixel = 0
+		TextLabel_4.Position = UDim2.new(-0.00667995866, 0, 1.49444413, 0)
+		TextLabel_4.Size = UDim2.new(0, 126, 0, 36)
+		TextLabel_4.Font = Enum.Font.SourceSansItalic
+		TextLabel_4.Text = "Player"
+		TextLabel_4.TextColor3 = Color3.fromRGB(255, 0, 4)
+		TextLabel_4.TextScaled = true
+		TextLabel_4.TextSize = 14.000
+		TextLabel_4.TextWrapped = true
+		
+		TextLabel_5.Parent = TextLabel_4
+		TextLabel_5.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		TextLabel_5.BackgroundTransparency = 1.000
+		TextLabel_5.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		TextLabel_5.BorderSizePixel = 0
+		TextLabel_5.Position = UDim2.new(-0.536126971, 0, 1.63888884, 0)
+		TextLabel_5.Size = UDim2.new(0, 283, 0, 134)
+		TextLabel_5.Font = Enum.Font.Unknown
+		TextLabel_5.Text = "Encontramos Um Erro Na Busca De Procurar Staffs Online (Erro SCRIPT Adonis Detect) Protetor Anti Ban"
+		TextLabel_5.TextColor3 = Color3.fromRGB(255, 255, 255)
+		TextLabel_5.TextScaled = true
+		TextLabel_5.TextSize = 14.000
+		TextLabel_5.TextWrapped = true
+		
+		TextButton.Parent = Frame_2
+		TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		TextButton.BackgroundTransparency = 1.000
+		TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		TextButton.BorderSizePixel = 0
+		TextButton.Position = UDim2.new(0.688235283, 0, -0.00201245537, 0)
+		TextButton.Size = UDim2.new(0, 149, 0, 38)
+		TextButton.Font = Enum.Font.SourceSansBold
+		TextButton.Text = "X"
+		TextButton.TextColor3 = Color3.fromRGB(255, 0, 0)
+		TextButton.TextScaled = true
+		TextButton.TextSize = 14.000
+		TextButton.TextStrokeColor3 = Color3.fromRGB(255, 11, 44)
+		TextButton.TextWrapped = true
+		TextButton.MouseButton1Down:Connect(function()
+			Frame:Destroy()
+		end)
+		
+		Frame_3.Parent = Frame_2
+		Frame_3.BackgroundColor3 = Color3.fromRGB(53, 53, 53)
+		Frame_3.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		Frame_3.BorderSizePixel = 0
+		Frame_3.Position = UDim2.new(0.0235294122, 0, 0.0195530728, 0)
+		Frame_3.Size = UDim2.new(0, 7, 0, 337)
+		
+		Frame_4.Parent = Frame_3
+		Frame_4.BackgroundColor3 = Color3.fromRGB(53, 53, 53)
+		Frame_4.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		Frame_4.BorderSizePixel = 0
+		Frame_4.Position = UDim2.new(45.3092384, 0, -0.00715315714, 0)
+		Frame_4.Size = UDim2.new(0, 7, 0, 337)
   	end   
 })
 PlayersTab:AddButton({
