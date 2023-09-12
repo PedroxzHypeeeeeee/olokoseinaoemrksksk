@@ -17183,6 +17183,18 @@ local Section = BypassTab:AddSection({
 	Name = "Desative"
 })  
 BypassTab:AddButton({
+	Name = "Bypass Ante cheat Adonis",
+	Callback = function()
+		local notif = loadstring(game:HttpGet("https://raw.githubusercontent.com/insanedude59/notiflib/main/main"))()
+		local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/vKhonshu/intro2/main/ui2"))()
+		local NotifyLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/vKhonshu/intro/main/ui"))()
+		 NotifyLib.prompt('Adonis Anti-Cheat Disabler Bypass', 'bypassed', 1.2)
+		 NotifyLib.prompt('Adonis Anti-Cheat Disabler Bypass', 'this only works for games that have adonis in it', 1.2)
+		
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/RelkzzRebranded/Bypassed---OBFUSCATED..../main/Adonis%20BYPASS.lua"))()
+  	end    
+})
+BypassTab:AddButton({
 	Name = "Desativar anti cheater/exploit V3",
 	Callback = function()
         assert(getrawmetatable)
