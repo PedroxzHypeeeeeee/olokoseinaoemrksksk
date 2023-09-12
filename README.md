@@ -3880,28 +3880,6 @@ ArmaTab:AddButton({
                 
               end                           
 })
-JogadorTab:AddButton({
-	Name = "RCM (ACS Modded)",
-	Callback = function()
-        local l = {
-            NumberValue = -math.huge,
-            IntValue = -math.huge,
-            BoolValue = true,
-            StringValue = "Pedroxz"
-        }
-        
-        local r = game:GetService('ReplicatedStorage')['ACS_Engine'].Events.RepAmmo
-        for i,v in next, game:GetDescendants() do
-            if v.ClassName:match("Value") then
-                r:FireServer({
-                    RepValues = {
-                       StoredAmmo = v
-                    }
-                }, nil, l[v.ClassName])
-            end
-        end
-  	end    
-})
 ArmaTab:AddButton({
 	Name = "Aimbot Mobile",
 	Callback = function()
