@@ -10815,11 +10815,19 @@ local Section = JogadorTab:AddSection({
 	Name = "Geral"
 })
     JogadorTab:AddButton({
-        Name = "Banir Player Proximo",
+        Name = "Efect Mapa Sangue Troll",
         Callback = function()
             local UIS = game:GetService("UserInputService")
             end
         })
+JogadorTab:AddTextbox({
+	Name = "Banir Player",
+	Default = "Coloque o Nome Do Player Aqui",
+	TextDisappear = true,
+	Callback = function(Value)
+		print(Value)
+	end	  
+})
 JogadorTab:AddButton({
 	Name = "Remote Graber Server",
 	Callback = function()
