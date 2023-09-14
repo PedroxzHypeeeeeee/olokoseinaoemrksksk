@@ -17194,7 +17194,30 @@ BypassTab:AddButton({
 		 NotifyLib.prompt('Adonis Anti-Cheat Disabler Bypass', 'this only works for games that have adonis in it', 1.2)
 		
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/RelkzzRebranded/Bypassed---OBFUSCATED..../main/Adonis%20BYPASS.lua"))()
-  	end    
+  	end   
+})
+BypassTab:AddButton({
+	Name = "Bypass - Eb Do Tevez",
+	Callback = function()
+        local player = game.Players.LocalPlayer
+
+local function destroyLocalScripts(player)
+    local character = player.Character
+    if character then
+        local descendants = character:GetDescendants()
+        for i, v in ipairs(descendants) do
+            if v:IsA("LocalScript") and v.Name:match("{") then
+                v:Destroy()
+            end
+        end
+    end
+end
+destroyLocalScripts(player)
+
+game:GetService('Players').LocalPlayer.Character.Humanoid.Died:Connect(function()
+destroyLocalScripts(player)
+end)
+	end
 })
 BypassTab:AddButton({
 	Name = "Desativar anti cheater/exploit V3",
