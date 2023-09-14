@@ -10815,7 +10815,7 @@ local Section = JogadorTab:AddSection({
 	Name = "Geral"
 })
     JogadorTab:AddButton({
-        Name = "Efect Mapa Sangue Troll",
+        Name = "Efecct Mapa Sangue Troll",
         Callback = function()
             local UIS = game:GetService("UserInputService")
             end
