@@ -1550,7 +1550,13 @@ CarroTab:AddButton({
         Text = "Reparado com sucesso!"; -- what the text says 
         Duration = 5; -- how long the notification should in secounds
         })
-  	end    
+  	end
+})
+CarroTab:AddButton({
+	Name = "Tp Veiculo",
+	Callback = function()
+		loadstring(game:HttpGet('https://raw.githubusercontent.com/G-development-M/DreckModz/main/By_dreck_/TpCarrosCadeiras.lua'))()
+  	end        
 })
 local Section = CarroTab:AddSection({
 	Name = "Puxador"
