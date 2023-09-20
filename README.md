@@ -1546,7 +1546,7 @@ CarroTab:AddButton({
 	Callback = function()
         wait(0.2)
         game.StarterGui:SetCore("SendNotification", {
-        Title = "Veiculo Reperado!"; -- the title 
+        Title = "Veiculo Reparado!"; -- the title 
         Text = "Reparado com sucesso!"; -- what the text says 
         Duration = 5; -- how long the notification should in secounds
         })
@@ -1562,7 +1562,7 @@ local Section = CarroTab:AddSection({
 	Name = "Puxador"
 })
 CarroTab:AddButton({
-	Name = "Puxar Fucas - Cidade Alta",
+	Name = "Puxar Fusca - Cidade Alta",
 	Callback = function()
         local args = {
             [1] = "spawner",
