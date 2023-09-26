@@ -1220,7 +1220,7 @@ local Section = ArmaTab:AddSection({
     ArmaTab:AddButton({
         Name = "Inf Ammo",
         Callback = function()
-            _G.Damage = 1003 -- might not work
+            _G.Damage = 1003
 _G.FireRate = 0
 _G.Clips = 999999
 _G.AmmoInClip = 999999
@@ -3991,6 +3991,19 @@ JogadorTab:AddButton({
         DR:FireServer(Char.Humanoid,Char.Humanoid.MaxHealth,0,0)
     end
   	end
+})
+ArmaTab:AddButton({
+	Name = "Remover Armas",
+	Callback = function()
+        local player = game:GetService("Players").LocalPlayer
+        local backpack = player.Backpack
+
+        for _, item in pairs(backpack:GetChildren()) do
+            if item:IsA("Tool") then
+                item:Destroy()
+            end
+        end
+		end
 })
 ArmaTab:AddButton({
 	Name = "RCM (ACS Modded)",
