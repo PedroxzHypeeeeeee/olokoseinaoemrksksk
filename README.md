@@ -10968,12 +10968,6 @@ JogadorTab:AddButton({
 local Section = JogadorTab:AddSection({
 	Name = "Geral"
 })
-    JogadorTab:AddButton({
-        Name = "Effect Mapa Sangue Troll",
-        Callback = function()
-            local UIS = game:GetService("UserInputService")
-            end
-        })
 JogadorTab:AddTextbox({
 	Name = "Banir Player",
 	Default = "Coloque o Nome Do Player Aqui",
