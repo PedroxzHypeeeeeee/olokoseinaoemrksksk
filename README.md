@@ -2730,6 +2730,36 @@ local Section = PlayersTab:AddSection({
 	Name = "Cheat"
 })
 PlayersTab:AddButton({
+	Name = "Tp Player Proximo",
+	Callback = function()
+		local p = game.Players.LocalPlayer
+
+local function teleportToClosestPlayer()
+    local c = nil
+    local d = math.huge
+    
+    for _, plr in pairs(game.Players:GetPlayers()) do
+        if plr ~= p then
+            local dist = (plr.Character and plr.Character:FindFirstChild("HumanoidRootPart")) and
+                             (p.Character and p.Character:FindFirstChild("HumanoidRootPart")) and
+                             (plr.Character.HumanoidRootPart.Position - p.Character.HumanoidRootPart.Position).Magnitude or math.huge
+            
+            if dist < d then
+                d = dist
+                c = plr
+            end
+        end
+    end
+    
+    if c then
+        p.Character:MoveTo(c.Character.HumanoidRootPart.Position)
+    end
+end
+
+teleportToClosestPlayer()
+	end
+})
+PlayersTab:AddButton({
 	Name = "Expulsar Geral - Risco (algums games)",
 	Callback = function()
 		gabbum = game:GetService'ReplicatedStorage'.DeleteCar
